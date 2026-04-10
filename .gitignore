@@ -1,0 +1,38 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Node / Nuxt
+node_modules/
+.nuxt/
+.output/
+.cache/
+dist/
+
+# Env files - never commit secrets
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Generated OpenAPI snapshot
+backend/openapi.generated.json

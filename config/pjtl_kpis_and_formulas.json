@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "description": "PJTL / Ride YourWay launch-readiness KPIs, gate rules, and shared formulas. Used by the viability engine and ML training labels.",
+  "readiness_metrics": [
+    {
+      "metric_number": 1,
+      "key": "vehicle_utilization",
+      "threshold_field": "vehicle_utilization_min",
+      "pass_rule": "gte",
+      "threshold": 0.95,
+      "display_name": "Vehicle utilization",
+      "target_phrase": "at least 95%",
+      "business_meaning": "Fleet time is productively used versus available capacity.",
+      "formula": "Utilization = productive vehicle time divided by available time (see operating workbook definitions)."
+    },
+    {
+      "metric_number": 2,
+      "key": "billed_utilization",
+      "threshold_field": "billed_utilization_min",
+      "pass_rule": "gte",
+      "threshold": 1.05,
+      "display_name": "Billed utilization",
+      "target_phrase": "at least 105%",
+      "business_meaning": "Billable activity exceeds a baseline (contract mix favors billable no-show protection).",
+      "formula": "Ratio of billed-to-available utilization versus internal baseline."
+    },
+    {
+      "metric_number": 3,
+      "key": "total_volume_pool",
+      "threshold_field": "total_volume_pool_min",
+      "pass_rule": "gte",
+      "threshold": 1.2,
+      "display_name": "Total volume pool",
+      "target_phrase": "at least 120%",
+      "business_meaning": "Demand and filler volume support healthy schedule density.",
+      "formula": "Volume pool index versus planned capacity (overbooking / broker mix)."
+    },
+    {
+      "metric_number": 4,
+      "key": "revenue_per_kent_leg",
+      "threshold_field": "revenue_per_kent_leg_min",
+      "pass_rule": "gte",
+      "threshold": 70.0,
+      "display_name": "Revenue per Kent-Leg",
+      "target_phrase": "at least $70 per Kent-Leg",
+      "business_meaning": "Pricing and mix support revenue per standardized trip unit.",
+      "formula": "Revenue divided by Kent-Leg count; Kent-Legs from trip miles using kent_leg constants in this file."
+    },
+    {
+      "metric_number": 5,
+      "key": "high_acuity_share",
+      "threshold_field": "high_acuity_mix_min",
+      "pass_rule": "gte",
+      "threshold": 0.05,
+      "display_name": "High-acuity trip mix (SA/SC)",
+      "target_phrase": "at least 5%",
+      "business_meaning": "Enough Stretcher Alternative and SecureCare share to support premium economics.",
+      "formula": "Share of trips that are high-acuity modes (stretcher, securecare)."
+    },
+    {
+      "metric_number": 6,
+      "key": "non_billable_noshow",
+      "threshold_field": "non_billable_noshow_max",
+      "pass_rule": "lt",
+      "threshold": 0.1,
+      "display_name": "Non-billable no-show rate",
+      "target_phrase": "strictly below 10%",
+      "business_meaning": "No-show exposure that cannot be billed stays under control.",
+      "formula": "Non-billable no-shows divided by applicable denominator (operating definition)."
+    },
+    {
+      "metric_number": 7,
+      "key": "road_hours_per_vehicle",
+      "threshold_field": "road_hours_per_vehicle_min",
+      "pass_rule": "gte",
+      "threshold": 9.0,
+      "display_name": "Road hours per vehicle per day",
+      "target_phrase": "at least 9 hours",
+      "business_meaning": "Vehicles are on the road long enough to cover demand.",
+      "formula": "Total road hours divided by vehicle-days."
+    },
+    {
+      "metric_number": 8,
+      "key": "contract_concentration",
+      "threshold_field": "contract_concentration_max",
+      "pass_rule": "lte",
+      "threshold": 0.2,
+      "display_name": "Contract concentration",
+      "target_phrase": "no single contract above 20% of volume or revenue",
+      "business_meaning": "Revenue and volume are not over-dependent on one payer.",
+      "formula": "Training row uses a single concentration index; live engine compares max(volume%, revenue%) per contract."
+    },
+    {
+      "metric_number": 9,
+      "key": "cost_per_road_hour",
+      "threshold_field": "cost_per_road_hour_max",
+      "pass_rule": "lte",
+      "threshold": 50.0,
+      "display_name": "Cost per road hour",
+      "target_phrase": "at most $50 per road hour",
+      "business_meaning": "Unit cost of operation stays within the margin model.",
+      "formula": "Fully loaded cost divided by road hours."
+    }
+  ],
+  "kent_leg": {
+    "base_miles": 8.0,
+    "incremental_miles": 23.0,
+    "min_kent_legs": 1.0,
+    "formula_text": "Kent-Legs = max(min_kent_legs, ((trip_miles - base_miles) / incremental_miles) + 1)"
+  },
+  "north_star": {
+    "target_operating_margin": 0.25,
+    "display_name": "Target operating margin",
+    "target_phrase": "25% operating margin",
+    "business_meaning": "North-star profitability beyond the nine binary gates."
+  }
+}

@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Ride YourWay Backend API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+  /api/v1/viability/evaluate:
+    post:
+      summary: Evaluate market viability
+      parameters:
+        - in: header
+          name: X-Role
+          schema:
+            type: string
+            enum: [analyst, ops, admin]
+      responses:
+        "200":
+          description: Viability report payload
+  /api/v1/inference/predict:
+    post:
+      summary: XGBoost readiness prediction (model from inference_engine export)
+      parameters:
+        - in: header
+          name: X-Role
+          schema:
+            type: string
+            enum: [analyst, ops, admin]
+      responses:
+        "200":
+          description: Prediction and feature drivers
+  /api/v1/bookings:
+    get:
+      summary: List bookings
+    post:
+      summary: Create booking
+  /api/v1/dispatches:
+    get:
+      summary: List dispatch assignments
+  /api/v1/dispatch:
+    post:
+      summary: Create dispatch assignment
+  /api/v1/payments:
+    get:
+      summary: List payments
+    post:
+      summary: Create payment
+  /api/v1/profiles:
+    get:
+      summary: List profiles
+    post:
+      summary: Create profile
+  /api/v1/admin/settings:
+    get:
+      summary: Get admin settings
+    put:
+      summary: Update admin settings
+  /api/v1/notifications:
+    get:
+      summary: List notifications
+    post:
+      summary: Send notification
