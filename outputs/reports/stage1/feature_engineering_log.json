@@ -1,0 +1,24 @@
+[
+  {
+    "feature_name": "stress_utilization_x_concentration",
+    "formula_authority": "code/config/pjtl_kpis_and_formulas.json (schema 1.0) \u2014 exploratory product: vehicle_utilization \u00d7 contract_concentration",
+    "inputs": [
+      "vehicle_utilization",
+      "contract_concentration"
+    ],
+    "null_handling": "product after coercing numeric; NaN preserved",
+    "in_backend_contract": false,
+    "purpose": "Exploratory stress proxy for operational concentration under load"
+  },
+  {
+    "feature_name": "stress_acuity_x_cost",
+    "formula_authority": "code/config/pjtl_kpis_and_formulas.json (schema 1.0) \u2014 exploratory product: high_acuity_share \u00d7 cost_per_road_hour",
+    "inputs": [
+      "high_acuity_share",
+      "cost_per_road_hour"
+    ],
+    "null_handling": "product after coercing numeric",
+    "in_backend_contract": false,
+    "purpose": "Exploratory cost intensity under acuity pressure"
+  }
+]

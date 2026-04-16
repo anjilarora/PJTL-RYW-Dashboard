@@ -1,0 +1,275 @@
+output_table,field_name,unit,grain,notes
+contract_volume_base,payer_id,categorical,order_row,
+contract_volume_base,pu_zone,categorical,order_row,
+contract_volume_base,do_zone,categorical,order_row,
+contract_volume_base,order_mileage,miles,order_row,
+contract_volume_base,order_mode,categorical,order_row,
+contract_volume_base,order_status,categorical,order_row,
+contract_volume_base,reason,categorical,order_row,
+contract_volume_base,order_price,usd,order_row,
+contract_volume_base,order_mode2,text_or_categorical,order_row,
+contract_volume_base,date_of_service,excel_serial_date,order_row,
+contract_volume_base,pick_up_time,excel_serial_datetime,order_row,
+contract_volume_base,day,categorical,order_row,
+contract_volume_base,week,categorical,order_row,
+contract_volume_base,offset,text_or_categorical,order_row,
+contract_volume_base,over_under,text_or_categorical,order_row,
+contract_volume_base,mileage_kent_legs,miles,order_row,
+contract_volume_base,kent_legs,count,order_row,
+contract_volume_base,date_of_service_iso,iso_date_or_datetime,order_row,Derived from Excel serial values in the source workbook.
+contract_volume_base,pick_up_time_iso,iso_date_or_datetime,order_row,Derived from Excel serial values in the source workbook.
+contract_volume_base,week_normalized,text_or_categorical,order_row,
+mode_breakdown_base,payer_id,categorical,order_row,
+mode_breakdown_base,pu_zone,categorical,order_row,
+mode_breakdown_base,do_zone,categorical,order_row,
+mode_breakdown_base,order_mileage,miles,order_row,
+mode_breakdown_base,order_mode,categorical,order_row,
+mode_breakdown_base,order_status,categorical,order_row,
+mode_breakdown_base,reason,categorical,order_row,
+mode_breakdown_base,order_price,usd,order_row,
+mode_breakdown_base,order_mode2,text_or_categorical,order_row,
+mode_breakdown_base,date_of_service,excel_serial_date,order_row,
+mode_breakdown_base,pick_up_time,excel_serial_datetime,order_row,
+mode_breakdown_base,day,categorical,order_row,
+mode_breakdown_base,week,categorical,order_row,
+mode_breakdown_base,offset,text_or_categorical,order_row,
+mode_breakdown_base,over_under,text_or_categorical,order_row,
+mode_breakdown_base,mileage_kent_legs,miles,order_row,
+mode_breakdown_base,kent_legs,count,order_row,
+mode_breakdown_base,trip_count,count,order_row,
+mode_breakdown_base,date_of_service_iso,iso_date_or_datetime,order_row,
+mode_breakdown_base,pick_up_time_iso,iso_date_or_datetime,order_row,
+mode_breakdown_base,week_normalized,text_or_categorical,order_row,
+payer_summary_base,payer_id,categorical,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,week_normalized,text_or_categorical,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,day,categorical,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,order_status,categorical,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,order_count,count,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,sum_order_price,usd,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,sum_order_mileage,miles,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,sum_kent_legs,count,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,completed_count,count,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,billed_no_show_count,count,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+payer_summary_base,non_billable_no_show_count,count,payer_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,order_mode,categorical,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,week_normalized,text_or_categorical,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,day,categorical,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,order_status,categorical,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,order_count,count,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,sum_order_price,usd,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,sum_order_mileage,miles,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,sum_kent_legs,count,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,completed_count,count,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,billed_no_show_count,count,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+mode_summary_base,non_billable_no_show_count,count,mode_week_day_status,Derived summary table created during Phase 1 to stabilize downstream joins.
+vehicle_day_base,date,excel_serial_date,vehicle_day,
+vehicle_day_base,week,categorical,vehicle_day,
+vehicle_day_base,day,categorical,vehicle_day,
+vehicle_day_base,vehicle,categorical,vehicle_day,
+vehicle_day_base,mileage,miles,vehicle_day,
+vehicle_day_base,road_time,hours,vehicle_day,
+vehicle_day_base,kent_legs,count,vehicle_day,
+vehicle_day_base,revenue,usd,vehicle_day,
+vehicle_day_base,mode,text_or_categorical,vehicle_day,Vehicle-day rows carry a dominant mode label but do not expose region directly.
+vehicle_day_base,date_iso,iso_date_or_datetime,vehicle_day,
+vehicle_day_base,week_normalized,text_or_categorical,vehicle_day,
+driver_active_time_base,date,excel_serial_date,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,week,categorical,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,day,categorical,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,name,categorical,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,road_time,hours,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,active_time,hours,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,date_iso,iso_date_or_datetime,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+driver_active_time_base,week_normalized,text_or_categorical,driver_day,Driver-day table does not share a direct vehicle key with vehicle_day_base.
+weekly_margin_base,scope_level,text_or_categorical,scope_day,
+weekly_margin_base,scope_label,text_or_categorical,scope_day,
+weekly_margin_base,week_normalized,text_or_categorical,scope_day,
+weekly_margin_base,day,categorical,scope_day,
+weekly_margin_base,total_revenue,usd,scope_day,
+weekly_margin_base,total_cost,usd,scope_day,
+weekly_margin_base,profit_margin,usd,scope_day,
+weekly_margin_base,dollar_profit,usd,scope_day,
+weekly_margin_base,fixed_overhead_cost,usd,scope_day,
+weekly_margin_base,fixed_operating_cost,usd,scope_day,
+weekly_margin_base,gas,text_or_categorical,scope_day,
+weekly_margin_base,driver_wage,text_or_categorical,scope_day,
+weekly_margin_base,total_cost_check,usd,scope_day,
+weekly_margin_base,capx,text_or_categorical,scope_day,
+weekly_margin_base,post_capx_margin,ratio_0_1,scope_day,
+weekly_margin_base,overhead_balance_total_revenue,usd,scope_day,
+weekly_margin_base,overhead_balance_total_cost,usd,scope_day,
+weekly_margin_base,overhead_balance_profit_margin,usd,scope_day,
+weekly_margin_base,office_wage_overhead,usd,scope_day,
+weekly_margin_base,max_allowance,usd,scope_day,
+weekly_margin_base,percent_revenue,usd,scope_day,
+weekly_margin_base,percent_cost,usd,scope_day,
+weekly_margin_base,source_sheet,text_or_categorical,scope_day,
+weekly_margin_base,source_row,text_or_categorical,scope_day,
+securecare_profit_base,scope_level,text_or_categorical,scope_day,
+securecare_profit_base,scope_label,text_or_categorical,scope_day,
+securecare_profit_base,week_normalized,text_or_categorical,scope_day,
+securecare_profit_base,day,categorical,scope_day,
+securecare_profit_base,total_revenue,usd,scope_day,
+securecare_profit_base,total_cost,usd,scope_day,
+securecare_profit_base,profit_margin,usd,scope_day,
+securecare_profit_base,dollar_profit,usd,scope_day,
+securecare_profit_base,fixed_overhead_cost,usd,scope_day,
+securecare_profit_base,fixed_operating_cost,usd,scope_day,
+securecare_profit_base,gas,text_or_categorical,scope_day,
+securecare_profit_base,driver_wage,text_or_categorical,scope_day,
+securecare_profit_base,total_cost_check,usd,scope_day,
+securecare_profit_base,source_sheet,text_or_categorical,scope_day,
+securecare_profit_base,source_row,text_or_categorical,scope_day,
+prospective_org_intake_template_long,workbook_variant,text_or_categorical,field_row,
+prospective_org_intake_template_long,source_sheet,text_or_categorical,field_row,
+prospective_org_intake_template_long,source_row,text_or_categorical,field_row,
+prospective_org_intake_template_long,section,text_or_categorical,field_row,
+prospective_org_intake_template_long,field_label,text_or_categorical,field_row,
+prospective_org_intake_template_long,field_name,text_or_categorical,field_row,
+prospective_org_intake_template_long,field_value,text_or_categorical,field_row,
+prospective_org_intake_example_long,workbook_variant,text_or_categorical,field_row,
+prospective_org_intake_example_long,source_sheet,text_or_categorical,field_row,
+prospective_org_intake_example_long,source_row,text_or_categorical,field_row,
+prospective_org_intake_example_long,section,text_or_categorical,field_row,
+prospective_org_intake_example_long,field_label,text_or_categorical,field_row,
+prospective_org_intake_example_long,field_name,text_or_categorical,field_row,
+prospective_org_intake_example_long,field_value,text_or_categorical,field_row,
+prospective_trip_demand_template,workbook_variant,text_or_categorical,service_line_row,
+prospective_trip_demand_template,source_sheet,text_or_categorical,service_line_row,
+prospective_trip_demand_template,source_row,text_or_categorical,service_line_row,
+prospective_trip_demand_template,row_id,text_or_categorical,service_line_row,
+prospective_trip_demand_template,facility_name,text_or_categorical,service_line_row,
+prospective_trip_demand_template,contract_program,text_or_categorical,service_line_row,
+prospective_trip_demand_template,source_type,text_or_categorical,service_line_row,
+prospective_trip_demand_template,volume_class,text_or_categorical,service_line_row,
+prospective_trip_demand_template,service_category,text_or_categorical,service_line_row,
+prospective_trip_demand_template,trip_mode,count,service_line_row,
+prospective_trip_demand_template,higher_acuity,text_or_categorical,service_line_row,
+prospective_trip_demand_template,pickup_zone_zip,text_or_categorical,service_line_row,
+prospective_trip_demand_template,dropoff_zone_zip,text_or_categorical,service_line_row,
+prospective_trip_demand_template,avg_one_way_miles,miles,service_line_row,
+prospective_trip_demand_template,completed_trips_week,count,service_line_row,
+prospective_trip_demand_template,billable_no_shows_week,text_or_categorical,service_line_row,
+prospective_trip_demand_template,non_billable_no_shows_week,text_or_categorical,service_line_row,
+prospective_trip_demand_template,mon,text_or_categorical,service_line_row,
+prospective_trip_demand_template,tue,text_or_categorical,service_line_row,
+prospective_trip_demand_template,wed,text_or_categorical,service_line_row,
+prospective_trip_demand_template,thu,text_or_categorical,service_line_row,
+prospective_trip_demand_template,fri,text_or_categorical,service_line_row,
+prospective_trip_demand_template,sat,text_or_categorical,service_line_row,
+prospective_trip_demand_template,sun,text_or_categorical,service_line_row,
+prospective_trip_demand_template,avg_revenue_completed_trip,usd,service_line_row,
+prospective_trip_demand_template,recurring,text_or_categorical,service_line_row,
+prospective_trip_demand_template,booking_notice_hrs,text_or_categorical,service_line_row,
+prospective_trip_demand_template,notes,text_or_categorical,service_line_row,
+prospective_trip_demand_template,weekly_total_days,text_or_categorical,service_line_row,
+prospective_trip_demand_template,billed_trips_week,count,service_line_row,
+prospective_trip_demand_template,non_billable_ns,text_or_categorical,service_line_row,
+prospective_trip_demand_template,billed_utilization_index,ratio_0_1,service_line_row,
+prospective_trip_demand_template,revenue_week,usd,service_line_row,
+prospective_trip_demand_template,ha_trips_week,count,service_line_row,
+prospective_trip_demand_template,row_status,text_or_categorical,service_line_row,
+prospective_trip_demand_example,workbook_variant,text_or_categorical,service_line_row,
+prospective_trip_demand_example,source_sheet,text_or_categorical,service_line_row,
+prospective_trip_demand_example,source_row,text_or_categorical,service_line_row,
+prospective_trip_demand_example,row_id,text_or_categorical,service_line_row,
+prospective_trip_demand_example,organization_name,text_or_categorical,service_line_row,
+prospective_trip_demand_example,contract_program,text_or_categorical,service_line_row,
+prospective_trip_demand_example,source_type,text_or_categorical,service_line_row,
+prospective_trip_demand_example,volume_class,text_or_categorical,service_line_row,
+prospective_trip_demand_example,service_category,text_or_categorical,service_line_row,
+prospective_trip_demand_example,trip_mode,count,service_line_row,
+prospective_trip_demand_example,higher_acuity,text_or_categorical,service_line_row,
+prospective_trip_demand_example,pickup_zone_zip,text_or_categorical,service_line_row,
+prospective_trip_demand_example,dropoff_zone_zip,text_or_categorical,service_line_row,
+prospective_trip_demand_example,avg_one_way_miles,miles,service_line_row,
+prospective_trip_demand_example,completed_trips_week,count,service_line_row,
+prospective_trip_demand_example,billable_no_shows_week,text_or_categorical,service_line_row,
+prospective_trip_demand_example,non_billable_no_shows_week,text_or_categorical,service_line_row,
+prospective_trip_demand_example,mon,text_or_categorical,service_line_row,
+prospective_trip_demand_example,tue,text_or_categorical,service_line_row,
+prospective_trip_demand_example,wed,text_or_categorical,service_line_row,
+prospective_trip_demand_example,thu,text_or_categorical,service_line_row,
+prospective_trip_demand_example,fri,text_or_categorical,service_line_row,
+prospective_trip_demand_example,sat,text_or_categorical,service_line_row,
+prospective_trip_demand_example,sun,text_or_categorical,service_line_row,
+prospective_trip_demand_example,avg_revenue_completed_trip,usd,service_line_row,
+prospective_trip_demand_example,avg_revenue_billable_no_show,usd,service_line_row,
+prospective_trip_demand_example,recurring,text_or_categorical,service_line_row,
+prospective_trip_demand_example,booking_notice_hrs,text_or_categorical,service_line_row,
+prospective_trip_demand_example,notes,text_or_categorical,service_line_row,
+prospective_trip_demand_example,weekly_total_days,text_or_categorical,service_line_row,
+prospective_trip_demand_example,billed_trips_week,count,service_line_row,
+prospective_trip_demand_example,non_billable_ns,text_or_categorical,service_line_row,
+prospective_trip_demand_example,billed_utilization_index,ratio_0_1,service_line_row,
+prospective_trip_demand_example,revenue_week,usd,service_line_row,
+prospective_trip_demand_example,ha_trips_week,count,service_line_row,
+prospective_trip_demand_example,row_status,text_or_categorical,service_line_row,
+prospective_intake_base,submission_id,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,organization_name,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,organization_type,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,facility_or_program_name,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,primary_service_area_market,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,primary_city_state,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,primary_contact_name,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,contact_title,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,contact_email,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,contact_phone,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,data_period_start,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,data_period_end,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,contract_payer_name,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,payer_type,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,expected_go_live_timing,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,primary_source_of_trips,count,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,default_billing_basis,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,average_payment_term,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,trip_scheduling_lead_time,excel_serial_datetime,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,billable_no_show_allowed,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,billable_late_cancel,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,ambulatory_avg_price_per_trip,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,wheelchair_avg_price_per_trip,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,stretcher_alt_avg_price_per_trip,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,securecare_avg_price_per_trip,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,other_mode_avg_price_per_trip,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,other_mode_description,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,typical_destinations_facilities_served,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,known_access_hours_handoff_constraints,hours,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,additional_comments,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,intake_completion_status,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,billable_protection_present,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,higher_acuity_pricing_entered,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,workbook_variant,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,source_sheet,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,source_row,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,row_id,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,contract_program,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,source_type,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,volume_class,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,service_category,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,trip_mode,count,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,higher_acuity,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,pickup_zone_zip,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,dropoff_zone_zip,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,avg_one_way_miles,miles,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,completed_trips_week,count,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,billable_no_shows_week,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,non_billable_no_shows_week,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,mon,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,tue,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,wed,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,thu,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,fri,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,sat,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,sun,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,avg_revenue_completed_trip,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,avg_revenue_billable_no_show,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,recurring,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,booking_notice_hrs,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,notes,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,weekly_total_days,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,billed_trips_week,count,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,non_billable_ns,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,billed_utilization_index,ratio_0_1,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,revenue_week,usd,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,ha_trips_week,count,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.
+prospective_intake_base,row_status,text_or_categorical,service_line_row,Built by repeating organization-level metadata onto service-line demand rows.

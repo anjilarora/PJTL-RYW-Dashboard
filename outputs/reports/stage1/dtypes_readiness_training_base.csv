@@ -1,0 +1,11 @@
+column,dtype
+vehicle_utilization,float64
+billed_utilization,float64
+total_volume_pool,float64
+revenue_per_kent_leg,float64
+high_acuity_share,float64
+non_billable_noshow,float64
+road_hours_per_vehicle,float64
+contract_concentration,float64
+cost_per_road_hour,float64
+label_ready,int64

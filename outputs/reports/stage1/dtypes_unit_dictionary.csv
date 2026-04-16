@@ -1,0 +1,6 @@
+column,dtype
+output_table,str
+field_name,str
+unit,str
+grain,str
+notes,str

@@ -1,0 +1,18 @@
+{
+  "stage": "stage1",
+  "rows_model_frame": 4000,
+  "backend_features": [
+    "vehicle_utilization",
+    "billed_utilization",
+    "total_volume_pool",
+    "revenue_per_kent_leg",
+    "high_acuity_share",
+    "non_billable_noshow",
+    "road_hours_per_vehicle",
+    "contract_concentration",
+    "cost_per_road_hour"
+  ],
+  "kpi_config": "code/config/pjtl_kpis_and_formulas.json",
+  "kpi_schema_version": "1.0",
+  "manifest_generated_at_utc": "2026-04-18T05:09:38.342222+00:00"
+}

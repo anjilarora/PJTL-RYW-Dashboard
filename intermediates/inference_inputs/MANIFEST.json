@@ -1,0 +1,134 @@
+{
+  "generated_at_utc": "2026-04-18T05:09:38.342222+00:00",
+  "phase1_source": "/Users/santoshdesai/Downloads/PJTLxRideYourWay/code/intermediates/phase1",
+  "upstream_workbooks_manifest": "MANIFEST.upstream.json",
+  "data_lineage_doc": "knowledge-base/data-lineage-and-run-order.md",
+  "files": [
+    {
+      "filename": "contract_volume_base.csv",
+      "source_relative": "code/intermediates/phase1/contract_volume_base.csv",
+      "sha256": "4100469e5fae90e796c852ab1da20ca2dfe5c4decf5c856a7282e49a9940b702",
+      "rows": 8087,
+      "bytes": 1725384
+    },
+    {
+      "filename": "driver_active_time_base.csv",
+      "source_relative": "code/intermediates/phase1/driver_active_time_base.csv",
+      "sha256": "95255a3f57a80db87ef479b7a3a4c23b673931c88c8b1005e09253ae4b076c15",
+      "rows": 773,
+      "bytes": 53882
+    },
+    {
+      "filename": "field_dictionary.csv",
+      "source_relative": "code/intermediates/phase1/field_dictionary.csv",
+      "sha256": "1e1109249edd570be6c0f9a0f6f9797d250c308a7053e98cb70d66eafff6078d",
+      "rows": 274,
+      "bytes": 65563
+    },
+    {
+      "filename": "join_key_inventory.csv",
+      "source_relative": "code/intermediates/phase1/join_key_inventory.csv",
+      "sha256": "c694ccaa07c0bc38824b1c769f6e742b09eac3da4f302bbde512d66ed82ece2f",
+      "rows": 7,
+      "bytes": 1539
+    },
+    {
+      "filename": "minimum_viable_subset.csv",
+      "source_relative": "code/intermediates/phase1/minimum_viable_subset.csv",
+      "sha256": "1cca315c5aae6a854aa0f2d261a7c081c610244c7bd9446aadbad8f52e46674b",
+      "rows": 8,
+      "bytes": 1061
+    },
+    {
+      "filename": "missingness_audit.csv",
+      "source_relative": "code/intermediates/phase1/missingness_audit.csv",
+      "sha256": "6593a7222c61b87b3ab0f0a813d15ba1774d6c925c43f6169f975d7888a3ee7a",
+      "rows": 274,
+      "bytes": 15399
+    },
+    {
+      "filename": "mode_breakdown_base.csv",
+      "source_relative": "code/intermediates/phase1/mode_breakdown_base.csv",
+      "sha256": "2dae9b4723da21f93e2063f3080c0c690c0b749f9ee67f0b8c995e3bc9a2f9d8",
+      "rows": 17927,
+      "bytes": 2142786
+    },
+    {
+      "filename": "mode_summary_base.csv",
+      "source_relative": "code/intermediates/phase1/mode_summary_base.csv",
+      "sha256": "a469229521ebe0f2aef2cb9ba4198dbbad94c0e72a52440d46e51aa3fe17fa35",
+      "rows": 215,
+      "bytes": 17398
+    },
+    {
+      "filename": "payer_summary_base.csv",
+      "source_relative": "code/intermediates/phase1/payer_summary_base.csv",
+      "sha256": "20253eba940e3f8f3296028eaf9d6a03fa45b49aa0ca15830615bfd0aa914f4c",
+      "rows": 1499,
+      "bytes": 119721
+    },
+    {
+      "filename": "prospective_intake_base.csv",
+      "source_relative": "code/intermediates/phase1/prospective_intake_base.csv",
+      "sha256": "542dd2dfc09840b239956fc1024d7a71e57d12190ea70aeff750bedd3fc260de",
+      "rows": 8,
+      "bytes": 9975
+    },
+    {
+      "filename": "quarantine_list.csv",
+      "source_relative": "code/intermediates/phase1/quarantine_list.csv",
+      "sha256": "e208605e0f015d25332168e63f23054b20e95288a8e5794e184ff4a01290292c",
+      "rows": 7,
+      "bytes": 1417
+    },
+    {
+      "filename": "readiness_training_base.csv",
+      "source_relative": "code/intermediates/phase1/readiness_training_base.csv",
+      "sha256": "9beaf61f4d8813072ec199c585168fd764c3a1850b2845a984313c04aff5c750",
+      "rows": 4000,
+      "bytes": 571506
+    },
+    {
+      "filename": "readiness_training_provenance.json",
+      "source_relative": "code/intermediates/phase1/readiness_training_provenance.json",
+      "sha256": "b91622289200f49d440d35a862a7b451c76d5a0245b339a1295a1ed85a3f12fa",
+      "rows": -1,
+      "bytes": 618
+    },
+    {
+      "filename": "securecare_profit_base.csv",
+      "source_relative": "code/intermediates/phase1/securecare_profit_base.csv",
+      "sha256": "a29c6f0b8dce265a05e55ad07275ff9c7ad8a5dd98d2926174b2e386d5d6c5c6",
+      "rows": 42,
+      "bytes": 5427
+    },
+    {
+      "filename": "sheet_lineage_map.csv",
+      "source_relative": "code/intermediates/phase1/sheet_lineage_map.csv",
+      "sha256": "6918df778667c19d3c907ddbe464470bbcb49ef6c88ce0a4d711d9a298b3c6ea",
+      "rows": 12,
+      "bytes": 2811
+    },
+    {
+      "filename": "unit_dictionary.csv",
+      "source_relative": "code/intermediates/phase1/unit_dictionary.csv",
+      "sha256": "7f9b28fe70e83e5a51f25d7cdb607007eeca04f82be78c4573a7a28f9b4a53e9",
+      "rows": 274,
+      "bytes": 27075
+    },
+    {
+      "filename": "vehicle_day_base.csv",
+      "source_relative": "code/intermediates/phase1/vehicle_day_base.csv",
+      "sha256": "9a35523e10dd75b84a307b096de885f9c5c0945e32373c18f6c6b3606cf75c0d",
+      "rows": 772,
+      "bytes": 70925
+    },
+    {
+      "filename": "weekly_margin_base.csv",
+      "source_relative": "code/intermediates/phase1/weekly_margin_base.csv",
+      "sha256": "cc9e384c60aab1e0b9885729d4fc03a99375ea0945bd9311152f854d31f4b950",
+      "rows": 42,
+      "bytes": 8575
+    }
+  ]
+}

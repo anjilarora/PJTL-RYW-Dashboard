@@ -1,0 +1,41 @@
+{
+  "stage": "stage3_export",
+  "model_version": "xgboost_readiness_stage3_v2",
+  "threshold": 0.2,
+  "holdout_metrics": {
+    "threshold": 0.2,
+    "accuracy": 0.9975,
+    "precision_ppv": 0.995085995085995,
+    "recall_sensitivity": 1.0,
+    "specificity": 0.9949367088607595,
+    "npv": 1.0,
+    "f1": 0.9975369458128078,
+    "roc_auc": 0.9999499921862791,
+    "false_ready_count": 2,
+    "missed_ready_count": 0
+  },
+  "top_features": [
+    {
+      "feature": "high_acuity_share",
+      "importance": 0.1452893167734146
+    },
+    {
+      "feature": "cost_per_road_hour",
+      "importance": 0.11974214017391205
+    },
+    {
+      "feature": "road_hours_per_vehicle",
+      "importance": 0.11944515258073807
+    },
+    {
+      "feature": "contract_concentration",
+      "importance": 0.11208172142505646
+    },
+    {
+      "feature": "revenue_per_kent_leg",
+      "importance": 0.10757617652416229
+    }
+  ],
+  "interpretation_artifact": "code/outputs/reports/stage3/error_tradeoff_interpretation.md",
+  "formula_authority": "code/config/pjtl_kpis_and_formulas.json (schema_version 1.0)"
+}

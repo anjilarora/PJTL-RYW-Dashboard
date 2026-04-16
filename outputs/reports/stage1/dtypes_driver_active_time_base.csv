@@ -1,0 +1,9 @@
+column,dtype
+date,int64
+week,str
+day,str
+name,str
+road_time,float64
+active_time,float64
+date_iso,str
+week_normalized,str

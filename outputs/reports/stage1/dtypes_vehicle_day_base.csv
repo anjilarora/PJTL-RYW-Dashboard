@@ -1,0 +1,12 @@
+column,dtype
+date,int64
+week,str
+day,str
+vehicle,int64
+mileage,int64
+road_time,float64
+kent_legs,float64
+revenue,float64
+mode,str
+date_iso,str
+week_normalized,str

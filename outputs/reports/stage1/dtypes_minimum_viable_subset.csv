@@ -1,0 +1,4 @@
+column,dtype
+artifact,str
+status,str
+why_needed,str

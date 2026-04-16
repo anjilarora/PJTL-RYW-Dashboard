@@ -1,0 +1,8 @@
+column,dtype
+table_name,str
+field_name,str
+row_count,int64
+missing_count,int64
+missing_pct,float64
+nonblank_count,int64
+unique_nonblank_count,int64

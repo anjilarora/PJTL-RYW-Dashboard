@@ -1,0 +1,8 @@
+left_table,right_table,candidate_keys,join_level,status,notes
+contract_volume_base,payer_summary_base,payer_id + week_normalized + day + order_status,derived_aggregate,recommended,payer_summary_base is derived directly from contract_volume_base and should not be treated as an independent external source.
+contract_volume_base,mode_summary_base,order_mode + week_normalized + day + order_status,derived_aggregate,recommended,Mode summary is generated from the canonical fact table.
+contract_volume_base,weekly_margin_base,week_normalized + day,aggregate_only,possible_with_caution,"Grains differ materially; use only for time-bucket comparison, not row-level joins."
+contract_volume_base,vehicle_day_base,date_of_service_iso + week_normalized + day,aggregate_only,possible_with_caution,No direct vehicle or route key exists in contract_volume_base.
+vehicle_day_base,driver_active_time_base,date_iso + week_normalized + day,day_level_only,not_recommended_at_row_grain,vehicle_day_base uses vehicle IDs while driver_active_time_base uses names; row-grain joins would be fabricated.
+prospective_intake_base,contract_volume_base,"none_directly; use analog dimensions such as mode, day, and service class",scenario_only,not_directly_joinable,"Prospective data is a future-state input contract, not a shared key extension of the historical fact table."
+prospective_intake_base,weekly_margin_base,none_directly; compare through scenario assumptions,scenario_only,not_directly_joinable,"Economic comparison is model-based, not key-based."

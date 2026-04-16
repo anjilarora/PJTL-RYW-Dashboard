@@ -1,0 +1,10 @@
+feature,importance
+high_acuity_share,0.14572537
+cost_per_road_hour,0.12018375
+road_hours_per_vehicle,0.11673056
+contract_concentration,0.11339891
+revenue_per_kent_leg,0.10769612
+total_volume_pool,0.1052133
+billed_utilization,0.10486155
+non_billable_noshow,0.09473111
+vehicle_utilization,0.09145929

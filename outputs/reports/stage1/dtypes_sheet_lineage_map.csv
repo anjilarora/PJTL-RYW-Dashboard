@@ -1,0 +1,9 @@
+column,dtype
+source_workbook,str
+source_sheet,str
+extraction_type,str
+source_reference,str
+output_artifact,str
+grain,str
+status,str
+notes,str

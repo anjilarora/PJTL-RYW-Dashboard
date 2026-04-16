@@ -1,0 +1,5 @@
+column,dtype
+source_sheet_or_field,str
+status,str
+reason,str
+fallback,str

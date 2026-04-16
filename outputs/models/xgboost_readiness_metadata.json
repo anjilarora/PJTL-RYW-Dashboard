@@ -1,0 +1,52 @@
+{
+  "model_name": "xgboost_readiness",
+  "model_version": "xgboost_readiness_stage3_v2",
+  "algorithm": "xgboost.XGBClassifier",
+  "feature_order": [
+    "vehicle_utilization",
+    "billed_utilization",
+    "total_volume_pool",
+    "revenue_per_kent_leg",
+    "high_acuity_share",
+    "non_billable_noshow",
+    "road_hours_per_vehicle",
+    "contract_concentration",
+    "cost_per_road_hour"
+  ],
+  "thresholds": {
+    "vehicle_utilization": 0.95,
+    "billed_utilization": 1.05,
+    "total_volume_pool": 1.2,
+    "revenue_per_kent_leg": 70.0,
+    "high_acuity_share": 0.05,
+    "non_billable_noshow": 0.1,
+    "road_hours_per_vehicle": 9.0,
+    "contract_concentration": 0.2,
+    "cost_per_road_hour": 50.0
+  },
+  "best_classification_threshold": 0.2,
+  "metrics": {
+    "threshold": 0.2,
+    "accuracy": 0.9975,
+    "precision_ppv": 0.995085995085995,
+    "recall_sensitivity": 1.0,
+    "specificity": 0.9949367088607595,
+    "npv": 1.0,
+    "f1": 0.9975369458128078,
+    "roc_auc": 0.9999499921862791,
+    "false_ready_count": 2,
+    "missed_ready_count": 0
+  },
+  "label_source": "audited_inputs_stage_pipeline",
+  "validation_status": "passed",
+  "kpi_config_path": "code/config/pjtl_kpis_and_formulas.json",
+  "kpi_schema_version": "1.0",
+  "training_data": {
+    "path": "code/intermediates/inference_inputs/readiness_training_base.csv",
+    "rows": 4000
+  },
+  "exported_at_utc": "2026-04-18T05:14:25.381109+00:00",
+  "train_rows": 3200,
+  "test_rows": 800,
+  "random_state": 42
+}

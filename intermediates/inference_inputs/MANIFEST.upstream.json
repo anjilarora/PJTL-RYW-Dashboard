@@ -1,0 +1,32 @@
+{
+  "generated_at_utc": "2026-04-18T05:09:38.342075+00:00",
+  "repo_root": "/Users/santoshdesai/Downloads/PJTLxRideYourWay",
+  "phase1_builder_script": "code/scripts/build_phase1_canonical_base.py",
+  "sync_script": "code/inference_engine/scripts/sync_inputs_from_phase1.py",
+  "workbooks": [
+    {
+      "role": "historical_daily_metrics",
+      "repo_relative_path": "code/inputs/Q1 Daily Metrics 2026.xlsx",
+      "present": true,
+      "sha256": "77b975fce76ae30816f1f0465e400112920675b816dd508215be08bb59091f15",
+      "bytes": 5093746,
+      "mtime_utc": "2026-02-03T02:08:44+00:00"
+    },
+    {
+      "role": "prospective_intake_template",
+      "repo_relative_path": "code/inputs/RideYourWay_Prospective_Market_Intake_Template.xlsx",
+      "present": true,
+      "sha256": "d956de07ce728b57b9d59eda23c623be44536e4dd3d65a1d94ba5c34c03c6c2f",
+      "bytes": 88033,
+      "mtime_utc": "2026-04-08T12:48:24+00:00"
+    },
+    {
+      "role": "prospective_intake_example",
+      "repo_relative_path": "code/inputs/RideYourWay_Prospective_Market_Intake_Example.xlsx",
+      "present": true,
+      "sha256": "86741267e3cf731d75524c9438649d38fa82c54df6aa657bbdef09abad7b3365",
+      "bytes": 87684,
+      "mtime_utc": "2026-04-01T11:37:54+00:00"
+    }
+  ]
+}

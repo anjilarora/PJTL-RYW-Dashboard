@@ -1,0 +1,9 @@
+artifact,status,why_needed
+contract_volume_base.csv,required,"Core historical fact table for demand, no-show, price, and Kent-Leg analysis."
+vehicle_day_base.csv,required,"Canonical operational capacity table for road time, mileage, and Kent-Leg output at vehicle-day grain."
+weekly_margin_base.csv,required,Historical cost and margin reference for economic calibration.
+securecare_profit_base.csv,required,Higher-acuity and SecureCare economics are part of the charter gates and design notes.
+prospective_intake_base.csv,required,Minimum viable prospective scenario input table for MVP demonstrations.
+payer_summary_base.csv,required,Stabilizes contract concentration and payer-level reimbursement analysis without relying on the duplicate raw sheet.
+driver_active_time_base.csv,supplementary,"Needed for later active-time diagnostics, but not required for the minimum viable subset if join issues remain."
+mode_breakdown_base.csv,supplementary,"Helpful for mode reconciliation and trip-count validation, but not required as the primary fact source."

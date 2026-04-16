@@ -1,0 +1,12 @@
+column,dtype
+output_table,str
+field_name,str
+source_workbook,str
+source_sheet,str
+source_reference,str
+grain,str
+unit,str
+join_strategy,str
+module_assignment,str
+disposition,str
+notes,str

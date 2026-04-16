@@ -1,0 +1,12 @@
+{
+  "threshold": 0.2,
+  "accuracy": 0.9975,
+  "precision_ppv": 0.995085995085995,
+  "recall_sensitivity": 1.0,
+  "specificity": 0.9949367088607595,
+  "npv": 1.0,
+  "f1": 0.9975369458128078,
+  "roc_auc": 0.9999499921862791,
+  "false_ready_count": 2,
+  "missed_ready_count": 0
+}
