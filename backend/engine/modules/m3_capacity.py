@@ -34,6 +34,7 @@ class CapacityModule(BaseModule):
         market_profile: MarketProfile,
         demand_forecast: DemandForecast,
         contract_profile: ContractProfile,
+        historical_baselines: Optional[Dict[str, Any]] = None,
     ) -> CapacityResult:
         """
         Capacity & scheduling pipeline:
@@ -74,6 +75,9 @@ class CapacityModule(BaseModule):
         scheduled_volume = demand_forecast.expected_kent_legs * (overbooking + quality_boost)
 
         # ── Step 4: Vehicle utilization ──────────────────────────────
+        # Productive (completed + scheduled) Kent-Legs over target capacity.
+        # Aligns with the Phase-2 "Tier 1" canonical formula
+        # (scheduled_kent_legs / total_capacity_kent_legs).
         vehicle_utilization = (
             demand_forecast.expected_kent_legs / total_capacity_kl
             if total_capacity_kl > 0
@@ -81,11 +85,14 @@ class CapacityModule(BaseModule):
         )
 
         # ── Step 5: Billed utilization ───────────────────────────────
-        billed_utilization = (
-            vehicle_utilization
-            * (1 - contract_profile.expected_non_billable_noshow_rate)
-            + contract_profile.expected_billable_noshow_rate
-        )
+        # RYW memo form: (billable_noshow_KL + completed_KL) / target_capacity
+        #   = vehicle_utilization * (1 + billable_rate - non_billable_rate)
+        # The previous implementation added billable_noshow_rate (a per-trip
+        # probability) directly to vehicle_utilization (a capacity ratio), which
+        # is dimensionally incoherent. Use the multiplicative correction.
+        billable_bump = max(0.0, contract_profile.expected_billable_noshow_rate)
+        non_billable_drag = max(0.0, contract_profile.expected_non_billable_noshow_rate)
+        billed_utilization = vehicle_utilization * (1.0 + billable_bump - non_billable_drag)
         mode_billability = contract_profile.mode_billable_rates or {}
         if mode_billability:
             weighted_billability = sum(
@@ -95,15 +102,18 @@ class CapacityModule(BaseModule):
             billed_utilization *= weighted_billability
 
         # ── Step 6: Road hours ───────────────────────────────────────
-        # road_hours = total operational hours / total vehicles
-        # TODO: implement from historical road-time data (Vehicle Breakdown sheet)
-        road_hours_per_vehicle = min(
-            12.0,
-            max(
-                0.0,
-                scheduled_volume / max(1, fleet.total_vehicles),
-            ),
-        )
+        # Prefer the observed mean road-time-per-vehicle-per-day from the
+        # Q1 Vehicle Breakdown sheet (surfaced via VariableMapper baselines).
+        # Fall back to the standard shift length from OPERATIONS when we have
+        # no history to read. The previous formula divided scheduled Kent-Legs
+        # by vehicle count, which produced a unitless number masquerading as
+        # hours (KL/vehicle, capped at 12).
+        baselines = historical_baselines or {}
+        observed_road_hours = float(baselines.get("road_hours_per_vehicle_per_day", 0.0) or 0.0)
+        if observed_road_hours > 0.0:
+            road_hours_per_vehicle = min(observed_road_hours, 12.0)
+        else:
+            road_hours_per_vehicle = min(OPERATIONS.standard_shift_hours, 12.0)
 
         # ── Step 7: Mileage and deadhead ─────────────────────────────
         # loaded_mileage = total_mileage * OPERATIONS.loaded_mileage_pct

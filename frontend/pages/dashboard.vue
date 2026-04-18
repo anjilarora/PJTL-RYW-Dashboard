@@ -1,19 +1,42 @@
 <script setup lang="ts">
-import { buildEvaluatePayloadFromSession } from "~/composables/useViabilitySession"
+/**
+ * Dashboard – Q1 2026 baseline view.
+ *
+ * The dashboard no longer accepts uploads. On mount it fetches the cached
+ * viability payload produced by `GET /api/v1/viability/baseline` (computed
+ * once from the bundled Q1 Daily Metrics workbook) and maps it onto the
+ * dashboard scaffold. The prospective-intake / XGBoost evaluation flow now
+ * lives on `/market`.
+ */
 import { gatesFromViability, marketFromViability, readinessFromViability } from "~/composables/viabilityDashboard"
 
 const { data } = await useFetch("/api/dashboard")
-const { role, lastError, apiPost } = useBackendApi()
+const { apiGet } = useBackendApi()
 
-const viability = ref<any>(null)
-const message = ref("")
-const uiError = ref("")
-const dataSource = ref<"baseline" | "evaluation" | "upload">("baseline")
-const lastUploadFile = ref<string>("")
-const lastEvaluatedAt = ref<string>("")
+const viability = ref<unknown>(null)
+const baselineError = ref("")
+const baselineLoading = ref(false)
+
+async function loadBaseline() {
+  baselineLoading.value = true
+  baselineError.value = ""
+  try {
+    const envelope = await apiGet<unknown>("/api/backend/api/v1/viability/baseline")
+    viability.value = (envelope as { data?: unknown })?.data ?? null
+  } catch (exc: unknown) {
+    const err = exc as { data?: { error?: { message?: string } }; message?: string }
+    baselineError.value = err?.data?.error?.message ?? err?.message ?? "Could not load the Q1 baseline."
+  } finally {
+    baselineLoading.value = false
+  }
+}
+
+onMounted(() => {
+  loadBaseline()
+})
 
 const displayMarket = computed(() => {
-  if (!data.value) return { name: "", summary: "", status: "", confidence: "" }
+  if (!data.value) return { name: "", summary: "", status: "", confidence: "", corridor: "", cityState: "" }
   const m = marketFromViability(viability.value, data.value.market)
   return {
     name: m.name,
@@ -33,145 +56,80 @@ const displayGates = computed(() => {
 const displayReadiness = computed(() => {
   const d = data.value
   if (!d?.readiness) return undefined
-  if (!viability.value?.report?.conditions?.length) return d.readiness
+  if (!(viability.value as any)?.report?.conditions?.length) return d.readiness
   return readinessFromViability(viability.value, d.readiness)
 })
 
-const liveEvaluationActive = computed(() => Boolean(viability.value?.report?.conditions?.length))
+type TabId = "snapshot" | "gates" | "intake" | "ops" | "execution"
+const activeDetailTab = ref<TabId>("snapshot")
+const detailTabs: Array<{ id: TabId; label: string }> = [
+  { id: "snapshot", label: "Operating snapshot" },
+  { id: "gates", label: "Gate readiness" },
+  { id: "intake", label: "Intake & programs" },
+  { id: "ops", label: "Operational deep dive" },
+  { id: "execution", label: "Execution queue" }
+]
 
-const dataSourceBanner = computed(() => {
-  if (dataSource.value === "upload") {
-    return {
-      label: "Uploaded workbook",
-      short: lastUploadFile.value ? `Uploaded · ${lastUploadFile.value}` : "Uploaded workbook",
-      detail: lastUploadFile.value
-        ? `Panels reflect the extracted base from ${lastUploadFile.value} combined with the bundled prospective intake example. Ran at ${lastEvaluatedAt.value}.`
-        : "Panels reflect your latest upload.",
-      tone: "upload" as const
-    }
-  }
-  if (dataSource.value === "evaluation") {
-    return {
-      label: "Latest readiness evaluation",
-      short: `Latest evaluation · ${lastEvaluatedAt.value}`,
-      detail: `Panels reflect the most recent evaluation (ran at ${lastEvaluatedAt.value}). Historical / prospective data came from Market & readiness if saved, otherwise the default payload.`,
-      tone: "evaluation" as const
-    }
-  }
-  return {
-    label: "Bundled January 2026 reference",
-    short: "Baseline · Jan 2026 reference (Dec 29 2025 – Jan 31 2026)",
-    detail: "Panels show the frozen five-week operating baseline (Dec 29 2025 – Jan 31 2026) that ships with the repo. Upload a workbook or click Run readiness evaluation to refresh.",
-    tone: "baseline" as const
+const fleetScorecard = useFleetScorecard()
+const weeklyTrend = useWeeklyTrend()
+const modeProfitability = useModeProfitability()
+const otpMatrix = useOtpMatrix()
+const payerConcentration = usePayerConcentration()
+const hourlyDemand = useHourlyDemand()
+const cancellations = useCancellations()
+const revPerKl = useRevPerKentleg()
+const secureCare = useSecureCareCompare()
+const regionalCost = useRegionalCost()
+
+const opsLoaders = [
+  fleetScorecard,
+  weeklyTrend,
+  modeProfitability,
+  otpMatrix,
+  payerConcentration,
+  hourlyDemand,
+  cancellations,
+  revPerKl,
+  secureCare,
+  regionalCost
+]
+
+type OpsId = "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "d9" | "d10"
+const opsSubTabs: Array<{ id: OpsId; num: string; label: string; info: string }> = [
+  { id: "d1", num: "D1", label: "Regional scorecard", info: "Nine gates × 3 regions with pass / fail verdict." },
+  { id: "d2", num: "D2", label: "Weekly trend", info: "Week-over-week movement for every gate." },
+  { id: "d3", num: "D3", label: "Mode mix", info: "Revenue, margin and no-show by transport mode." },
+  { id: "d4", num: "D4", label: "OTP matrix", info: "On-time performance heatmap by region × weekday." },
+  { id: "d5", num: "D5", label: "Payer concentration", info: "Distance from the 20% cap, per payer." },
+  { id: "d6", num: "D6", label: "Hourly demand", info: "24×7 demand / idle heatmap with biggest gaps." },
+  { id: "d7", num: "D7", label: "Cancellations", info: "Who / when / why trips drop off." },
+  { id: "d8", num: "D8", label: "Rev / Kent-Leg", info: "Which payers lift vs drag the $70 target." },
+  { id: "d9", num: "D9", label: "SecureCare vs base", info: "SecureCare P&L compared to the base fleet." },
+  { id: "d10", num: "D10", label: "Regional cost", info: "Apportioned cost-per-road-hour (estimate)." }
+]
+const activeOpsTab = ref<OpsId>("d1")
+
+watch(activeDetailTab, (tab) => {
+  if (tab === "ops") {
+    for (const loader of opsLoaders) loader.load()
   }
 })
 
-type TabId = "gate" | "intake" | "margin" | "execution" | "audit" | "upload"
-const activeDetailTab = ref<TabId>("gate")
-const detailTabs: Array<{ id: TabId; label: string; hint?: string }> = [
-  { id: "gate", label: "Gate detail" },
-  { id: "intake", label: "Intake & programs" },
-  { id: "margin", label: "Margin & sensitivity" },
-  { id: "execution", label: "Execution queue" },
-  { id: "audit", label: "Audit & lineage" },
-  { id: "upload", label: "Upload & run" }
-]
+onMounted(() => {
+  for (const loader of opsLoaders) loader.load()
+})
 
 const selectedGateIndex = ref(0)
 const selectedGate = computed(() => displayGates.value[selectedGateIndex.value])
 
 function onGateSelected(idx: number) {
   selectedGateIndex.value = idx
-  activeDetailTab.value = "gate"
-}
-
-const uploadBusy = ref(false)
-const uploadError = ref("")
-const uploadJobSteps = ref<Array<{ id: string; label: string; status: string; detail?: string; ts?: string }>>([])
-
-async function runUploadPipeline(ev: Event) {
-  const input = ev.target as HTMLInputElement
-  const file = input.files?.[0]
-  if (!file) return
-  uploadError.value = ""
-  uploadJobSteps.value = []
-  uploadBusy.value = true
-  try {
-    const fd = new FormData()
-    fd.append("file", file)
-    const start = await $fetch<{ data: { job_id: string } }>("/api/jobs/upload", {
-      method: "POST",
-      body: fd,
-      headers: { "X-Role": role.value },
-      timeout: 120_000
-    })
-    const jobId = start.data.job_id
-    const deadline = Date.now() + 300_000
-    let finished = false
-    while (Date.now() < deadline && !finished) {
-      const st = await $fetch<{
-        data: { status: string; steps: typeof uploadJobSteps.value; error?: string; result?: { viability: unknown } }
-      }>(`/api/backend/api/v1/jobs/${jobId}`, {
-        headers: { "X-Role": role.value },
-        timeout: 30_000
-      })
-      uploadJobSteps.value = [...st.data.steps]
-      if (st.data.status === "completed" && st.data.result?.viability) {
-        const v = st.data.result.viability as any
-        viability.value = v
-        dataSource.value = "upload"
-        lastUploadFile.value = file.name
-        lastEvaluatedAt.value = new Date().toLocaleTimeString()
-        const ml = v.ml_readiness
-        const mlBit =
-          ml && typeof ml.prediction === "string"
-            ? ` · ML: ${ml.prediction} (p_ready=${Number(ml.probability_ready).toFixed(3)})`
-            : ""
-        message.value = `Upload pipeline · ${v.readiness_state} · ${v.confidence_tier}${mlBit}`
-        finished = true
-      } else if (st.data.status === "failed") {
-        uploadError.value = st.data.error || "Pipeline failed."
-        finished = true
-      } else {
-        await new Promise((r) => setTimeout(r, 500))
-      }
-    }
-    if (!finished && Date.now() >= deadline) {
-      uploadError.value = "Pipeline timed out. Check server logs and workbook size."
-    }
-  } catch (e: unknown) {
-    const err = e as { data?: { detail?: { message?: string } }; message?: string }
-    uploadError.value = err?.data?.detail?.message ?? err?.message ?? "Upload failed."
-  } finally {
-    uploadBusy.value = false
-    input.value = ""
-  }
-}
-
-async function runViability() {
-  uiError.value = ""
-  try {
-    const body = buildEvaluatePayloadFromSession()
-    const res = await apiPost<any>("/api/backend/api/v1/viability/evaluate", body)
-    viability.value = res.data
-    dataSource.value = "evaluation"
-    lastEvaluatedAt.value = new Date().toLocaleTimeString()
-    const ml = res.data.ml_readiness
-    const mlBit =
-      ml && typeof ml.prediction === "string"
-        ? ` · ML: ${ml.prediction} (p_ready=${Number(ml.probability_ready).toFixed(3)})`
-        : ""
-    message.value = `${res.data.readiness_state} · ${res.data.confidence_tier}${mlBit}`
-  } catch {
-    uiError.value = "Readiness evaluation failed. Retry or switch role if unauthorized."
-  }
 }
 </script>
 
 <template>
-  <div v-if="data" id="main-content" tabindex="-1">
-      <p v-if="liveEvaluationActive" class="live-banner" role="status">Live gate metrics from the latest viability run</p>
-
+  <div id="main-content" tabindex="-1">
+    <div v-if="data">
       <MarketHero
         :name="displayMarket.name"
         :city-state="displayMarket.cityState"
@@ -182,35 +140,24 @@ async function runViability() {
         :readiness="displayReadiness"
       />
 
-      <div
-        class="source-strip"
-        :class="`source-strip--${dataSourceBanner.tone}`"
-        role="status"
-        aria-live="polite"
-      >
+      <div class="source-strip" role="status" aria-live="polite">
         <span class="source-strip__dot" aria-hidden="true" />
-        <span class="source-strip__label">{{ dataSourceBanner.label }}</span>
-        <span class="source-strip__short" :title="dataSourceBanner.detail">{{ dataSourceBanner.short }}</span>
-        <InfoTip label="Data source details" :content="dataSourceBanner.detail" placement="bottom" />
-        <button
-          type="button"
-          class="source-strip__cta"
-          @click="activeDetailTab = 'upload'"
-          title="Jump to upload & run controls"
-        >
-          Refresh data
-        </button>
+        <span class="source-strip__label">Q1 2026 reference data</span>
+        <span class="source-strip__short">
+          Every panel on this page reflects the January–March 2026 operating numbers for this corridor.
+        </span>
+        <InfoTip
+          label="Where these numbers come from"
+          content="The dashboard shows the Q1 2026 results for the Grand Rapids corridor. To score a different market, open Market Readiness and upload an intake workbook."
+          placement="bottom"
+        />
+        <NuxtLink to="/market" class="source-strip__cta">Score a new market</NuxtLink>
       </div>
 
-      <KpiSnapshotPanel
-        :readiness="displayReadiness"
-        :prospective="data.prospective"
-        :source="dataSource"
-      />
+      <p v-if="baselineLoading" class="muted-note" aria-live="polite">Loading Q1 baseline…</p>
+      <p v-if="baselineError" class="error-text" role="alert">{{ baselineError }}</p>
 
-      <GateScorecard :rows="displayGates" @gate-selected="onGateSelected" />
-
-      <section class="detail-tabs" aria-label="Additional decision detail">
+      <section class="detail-tabs" aria-label="Dashboard sections">
         <div class="detail-tabs__nav" role="tablist">
           <button
             v-for="tab in detailTabs"
@@ -230,11 +177,26 @@ async function runViability() {
         </div>
 
         <div
-          v-show="activeDetailTab === 'gate'"
-          id="detail-panel-gate"
+          v-show="activeDetailTab === 'snapshot'"
+          id="detail-panel-snapshot"
           role="tabpanel"
-          aria-labelledby="detail-tab-gate"
+          aria-labelledby="detail-tab-snapshot"
         >
+          <KpiSnapshotPanel
+            :readiness="displayReadiness"
+            :prospective="data.prospective"
+            source="upload"
+          />
+        </div>
+
+        <div
+          v-show="activeDetailTab === 'gates'"
+          id="detail-panel-gates"
+          role="tabpanel"
+          aria-labelledby="detail-tab-gates"
+          class="panel-stack"
+        >
+          <GateScorecard :rows="displayGates" @gate-selected="onGateSelected" />
           <GateDetailPanel
             :row="selectedGate"
             :index="selectedGateIndex"
@@ -252,14 +214,116 @@ async function runViability() {
         </div>
 
         <div
-          v-show="activeDetailTab === 'margin'"
-          id="detail-panel-margin"
+          v-show="activeDetailTab === 'ops'"
+          id="detail-panel-ops"
           role="tabpanel"
-          aria-labelledby="detail-tab-margin"
-          class="panel-grid"
+          aria-labelledby="detail-tab-ops"
         >
-          <MarginWaterfallPanel :revenue="data.prospective.weeklyRevenue" :cost="data.prospective.projectedCost" />
-          <SensitivityScenarioPanel :assumptions="data.assumptions" />
+          <div class="ops-header">
+            <div>
+              <div class="panel-eyebrow">
+                Operational deep dive
+                <InfoTip
+                  label="How to use this tab"
+                  content="Ten mini-dashboards built directly from the Q1 2026 operating workbooks. Pick any pill to jump to one deep dive; the title and info chip on each panel explains what you're looking at."
+                />
+              </div>
+              <h2 class="ops-title">Deep dives · D1 through D10</h2>
+              <p class="ops-subtitle">{{ opsSubTabs.find(o => o.id === activeOpsTab)?.info }}</p>
+            </div>
+          </div>
+
+          <nav class="ops-subtabs" role="tablist" aria-label="Operational deep-dive sections">
+            <button
+              v-for="s in opsSubTabs"
+              :key="s.id"
+              type="button"
+              role="tab"
+              :aria-selected="activeOpsTab === s.id"
+              class="ops-subtab"
+              :class="{ 'ops-subtab--active': activeOpsTab === s.id }"
+              @click="activeOpsTab = s.id"
+            >
+              <span class="ops-subtab__num">{{ s.num }}</span>
+              <span class="ops-subtab__label">{{ s.label }}</span>
+            </button>
+          </nav>
+
+          <div class="ops-stage">
+            <FleetScorecardPanel
+              v-show="activeOpsTab === 'd1'"
+              :regions="(fleetScorecard.data.value?.regions ?? []) as any"
+              :loading="fleetScorecard.loading.value"
+              :error="fleetScorecard.error.value"
+            />
+            <WeeklyTrendPanel
+              v-show="activeOpsTab === 'd2'"
+              :weeks="(weeklyTrend.data.value?.weeks ?? []) as any"
+              :loading="weeklyTrend.loading.value"
+              :error="weeklyTrend.error.value"
+            />
+            <ModeMixPanel
+              v-show="activeOpsTab === 'd3'"
+              :modes="(modeProfitability.data.value?.modes ?? []) as any"
+              :loading="modeProfitability.loading.value"
+              :error="modeProfitability.error.value"
+            />
+            <OtpMatrixPanel
+              v-show="activeOpsTab === 'd4'"
+              :rows="(otpMatrix.data.value?.rows ?? []) as any"
+              :loading="otpMatrix.loading.value"
+              :error="otpMatrix.error.value"
+            />
+            <PayerConcentrationPanel
+              v-show="activeOpsTab === 'd5'"
+              :payers="(payerConcentration.data.value?.payers ?? []) as any"
+              :warnings="(payerConcentration.data.value?.warnings ?? []) as any"
+              :cap-volume="payerConcentration.data.value?.cap_volume ?? 0.2"
+              :cap-revenue="payerConcentration.data.value?.cap_revenue ?? 0.2"
+              :loading="payerConcentration.loading.value"
+              :error="payerConcentration.error.value"
+            />
+            <HourlyDemandPanel
+              v-show="activeOpsTab === 'd6'"
+              :rows="(hourlyDemand.data.value?.rows ?? []) as any"
+              :idle-windows="(hourlyDemand.data.value?.idle_windows ?? []) as any"
+              :loading="hourlyDemand.loading.value"
+              :error="hourlyDemand.error.value"
+            />
+            <CancellationPanel
+              v-show="activeOpsTab === 'd7'"
+              :rows="(cancellations.data.value?.rows ?? []) as any"
+              :by-reason="cancellations.data.value?.by_reason ?? []"
+              :by-mode="cancellations.data.value?.by_mode ?? []"
+              :by-day="cancellations.data.value?.by_day ?? []"
+              :by-payer="cancellations.data.value?.by_payer ?? []"
+              :total="cancellations.data.value?.total ?? 0"
+              :loading="cancellations.loading.value"
+              :error="cancellations.error.value"
+            />
+            <RevPerKentlegPanel
+              v-show="activeOpsTab === 'd8'"
+              :payers="(revPerKl.data.value?.payers ?? []) as any"
+              :target="revPerKl.data.value?.target ?? 70"
+              :fleet-rev-per-kentleg="revPerKl.data.value?.fleet_rev_per_kentleg ?? null"
+              :loading="revPerKl.loading.value"
+              :error="revPerKl.error.value"
+            />
+            <SecureCareComparePanel
+              v-show="activeOpsTab === 'd9'"
+              :streams="(secureCare.data.value?.streams ?? {}) as any"
+              :loading="secureCare.loading.value"
+              :error="secureCare.error.value"
+            />
+            <RegionalCostPanel
+              v-show="activeOpsTab === 'd10'"
+              :regions="(regionalCost.data.value?.regions ?? []) as any"
+              :target-cost-per-road-hour="regionalCost.data.value?.target_cost_per_road_hour ?? 50"
+              :is-estimate="regionalCost.data.value?.is_estimate ?? true"
+              :loading="regionalCost.loading.value"
+              :error="regionalCost.error.value"
+            />
+          </div>
         </div>
 
         <div
@@ -270,100 +334,8 @@ async function runViability() {
         >
           <RiskMitigationPanel :actions="data.riskActions" />
         </div>
-
-        <div
-          v-show="activeDetailTab === 'audit'"
-          id="detail-panel-audit"
-          role="tabpanel"
-          aria-labelledby="detail-tab-audit"
-        >
-          <AuditTraceabilityPanel :governance="viability?.governance" :lineage-refs="viability?.lineage_refs" />
-        </div>
-
-        <div
-          v-show="activeDetailTab === 'upload'"
-          id="detail-panel-upload"
-          role="tabpanel"
-          aria-labelledby="detail-tab-upload"
-          class="panel-grid"
-        >
-          <section class="panel action-panel">
-            <div class="panel-eyebrow">
-              Workbook upload
-              <InfoTip
-                label="What happens on upload"
-                content="The server stages your .xlsx into code/inputs/, runs the Phase-1 extraction to write canonical CSVs into code/intermediates/phase1/, normalises inputs, evaluates all nine gates, and scores readiness with the exported XGBoost model in code/outputs/models/. Until you upload, panels show the bundled reference dataset."
-              />
-            </div>
-            <h2>Upload daily-metrics workbook</h2>
-            <p class="muted-note">
-              <strong>Excel workbook (.xlsx) only</strong> — same shape as the bundled January 2026 example (Dec 29 2025 – Jan 31 2026).
-              CSVs are not accepted here because the extractor reads named sheets directly from the workbook. Large files may take up to a minute.
-            </p>
-            <label class="upload-label">
-              <span class="sr-only">Choose Excel workbook (.xlsx)</span>
-              <input
-                type="file"
-                accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                :disabled="uploadBusy"
-                class="file-input"
-                @change="runUploadPipeline"
-              />
-            </label>
-            <p v-if="uploadBusy" class="muted-note" aria-live="polite">Processing…</p>
-            <p v-if="uploadError" class="error-text" role="alert">{{ uploadError }}</p>
-            <ol v-if="uploadJobSteps.length" class="job-steps" aria-label="Pipeline progress">
-              <li
-                v-for="(s, idx) in uploadJobSteps"
-                :key="`${s.id}-${idx}-${s.ts || ''}`"
-                :class="['job-step', `job-step--${s.status}`]"
-              >
-                <span class="job-step__label">{{ s.label }}</span>
-                <span v-if="s.detail" class="job-step__detail">{{ s.detail }}</span>
-              </li>
-            </ol>
-          </section>
-
-          <section class="panel action-panel">
-            <div class="panel-eyebrow">
-              Decision execution
-              <InfoTip
-                label="How readiness is computed"
-                content="Readiness blends deterministic gate logic with a held-out XGBoost classifier trained on audited operating inputs. Both judgments are combined before returning a recommendation, so small changes near a gate boundary can flip the final call."
-              />
-            </div>
-            <h2>Run readiness</h2>
-            <p v-if="message" class="decision-message">{{ message }}</p>
-            <p v-else class="muted-note">
-              Submits this market's profile and historical payload to the readiness engine and refreshes every panel above with the returned decision. Use the data-source chip at the top of the page to confirm what you're looking at.
-            </p>
-            <p v-if="uiError" class="error-text" role="alert">{{ uiError }}</p>
-            <p v-else-if="lastError" class="error-text" role="alert">{{ lastError.message }}</p>
-            <button type="button" class="primary-button action-panel__cta" @click="runViability">
-              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 5l11 7-11 7z" />
-              </svg>
-              Run readiness evaluation
-            </button>
-            <p class="muted-note">
-              Uses the market profile and historical payload saved via <NuxtLink to="/market">Market &amp; readiness</NuxtLink>
-              if present. Otherwise it submits the default market with an empty payload.
-            </p>
-            <div v-if="viability?.ml_readiness?.prediction" class="ml-readiness-panel">
-              <div class="ml-readiness-panel__head">
-                <strong>{{ viability.ml_readiness.prediction }}</strong>
-                <span>p(Ready)={{ Number(viability.ml_readiness.probability_ready).toFixed(3) }}</span>
-                <span class="ml-readiness-panel__version">model {{ viability.ml_readiness.model_version }}</span>
-              </div>
-              <ul v-if="viability.ml_readiness.top_drivers?.length" class="driver-list">
-                <li v-for="(d, i) in viability.ml_readiness.top_drivers" :key="i">
-                  {{ d.feature }}: impact={{ Number(d.impact).toFixed(4) }}
-                </li>
-              </ul>
-            </div>
-          </section>
-        </div>
       </section>
+    </div>
   </div>
 </template>
 
@@ -372,96 +344,8 @@ async function runViability() {
   margin-top: 0.6rem;
   font-size: 0.9rem;
   color: var(--muted);
-  max-width: 42rem;
+  max-width: 56rem;
   line-height: 1.55;
-}
-.muted-note code {
-  font-size: 0.85em;
-}
-.ml-readiness-panel {
-  margin-top: 0.9rem;
-  padding: 0.85rem 1rem;
-  border-radius: 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-}
-.ml-readiness-panel__head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-  align-items: baseline;
-  color: var(--ink);
-}
-.ml-readiness-panel__head strong {
-  color: var(--teal);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: 0.92rem;
-}
-.ml-readiness-panel__version {
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-.driver-list {
-  margin: 0.6rem 0 0;
-  padding-left: 1.25rem;
-  font-size: 0.88rem;
-  color: var(--muted);
-}
-
-.live-banner {
-  margin: 14px 0 0;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--teal);
-  background: var(--teal-soft);
-  border-radius: 999px;
-  display: inline-block;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-.upload-label {
-  display: block;
-  margin-top: 0.5rem;
-}
-.file-input {
-  font-size: 0.9rem;
-}
-.job-steps {
-  margin: 0.5rem 0 0;
-  padding-left: 1.25rem;
-  max-width: 48rem;
-}
-.job-step {
-  margin-bottom: 0.35rem;
-  font-size: 0.9rem;
-}
-.job-step--running {
-  color: var(--blue);
-  font-weight: 600;
-}
-.job-step--completed {
-  color: var(--teal);
-}
-.job-step--failed {
-  color: var(--red);
-}
-.job-step__detail {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-left: 0;
 }
 
 .source-strip {
@@ -480,24 +364,16 @@ async function runViability() {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: var(--line-strong);
+  background: var(--teal);
   flex-shrink: 0;
 }
-.source-strip--baseline .source-strip__dot { background: var(--maize); }
-.source-strip--evaluation .source-strip__dot { background: var(--blue); }
-.source-strip--upload .source-strip__dot { background: var(--teal); }
-
 .source-strip__label {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: 0.7rem;
-  color: var(--muted);
+  color: var(--teal);
 }
-.source-strip--baseline .source-strip__label { color: var(--maize-ink); }
-.source-strip--evaluation .source-strip__label { color: var(--blue); }
-.source-strip--upload .source-strip__label { color: var(--teal); }
-
 .source-strip__short {
   color: var(--ink);
   font-weight: 600;
@@ -506,6 +382,14 @@ async function runViability() {
   text-overflow: ellipsis;
   white-space: nowrap;
   flex: 1 1 220px;
+}
+.source-strip__short code {
+  font-size: 0.82em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-weight: 500;
 }
 .source-strip__cta {
   margin-left: auto;
@@ -518,11 +402,10 @@ async function runViability() {
   padding: 4px 10px;
   border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
   transition: background 140ms ease, color 140ms ease;
 }
-.source-strip__cta:hover {
-  background: var(--blue-soft);
-}
+.source-strip__cta:hover { background: var(--blue-soft); }
 
 .detail-tabs {
   margin-top: 14px;
@@ -551,9 +434,7 @@ async function runViability() {
   white-space: nowrap;
   transition: background 140ms ease, color 140ms ease;
 }
-.detail-tabs__tab:hover {
-  color: var(--ink);
-}
+.detail-tabs__tab:hover { color: var(--ink); }
 .detail-tabs__tab--active {
   background: var(--surface);
   color: var(--blue);
@@ -569,43 +450,84 @@ async function runViability() {
   background: linear-gradient(90deg, var(--blue), var(--maize));
 }
 
-.decision-message {
-  color: var(--ink);
-  line-height: 1.5;
-  margin: 0 0 0.5rem;
-  font-size: 0.92rem;
-}
-
-.panel-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.panel-stack {
+  display: flex;
+  flex-direction: column;
   gap: 14px;
-  margin-top: 14px;
-}
-@media (max-width: 1040px) {
-  .panel-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
-.action-panel {
-  padding: 20px 22px;
+.ops-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 4px;
+  flex-wrap: wrap;
 }
-.action-panel h2 {
+.ops-title {
   margin: 4px 0 0;
   font-size: clamp(1.1rem, 1.7vw, 1.4rem);
   letter-spacing: -0.03em;
 }
-.action-panel__cta {
+.ops-subtitle {
+  margin: 4px 0 0;
+  color: var(--muted);
+  max-width: 78ch;
+}
+
+.ops-subtabs {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  margin: 10px 0 12px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.ops-subtab {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 0.6rem;
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.ops-subtab:hover { color: var(--ink); background: var(--surface); }
+.ops-subtab--active {
+  background: var(--surface);
+  color: var(--blue);
+  border-color: var(--blue);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--blue) 18%, transparent);
+}
+.ops-subtab__num {
+  font-weight: 800;
+  font-size: 0.74rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  letter-spacing: 0.04em;
+}
+.ops-subtab--active .ops-subtab__num {
   background: var(--blue);
   color: var(--white);
-  border-color: transparent;
 }
-.action-panel__cta:hover {
-  filter: brightness(1.08);
+.ops-subtab__label {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.ops-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 </style>

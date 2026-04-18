@@ -216,13 +216,16 @@ const tone = computed(() => {
 .hero__ring-center {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   text-align: center;
+  padding: 0 8px;
 }
 .hero__ring-center strong {
-  display: inline-flex;
-  align-items: baseline;
+  display: block;
   font-size: 2.4rem;
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -230,14 +233,14 @@ const tone = computed(() => {
   line-height: 1;
 }
 .hero__ring-center strong span {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--muted);
   margin-left: 2px;
+  vertical-align: baseline;
 }
 .hero__ring-label {
   display: block;
-  margin-top: 4px;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;

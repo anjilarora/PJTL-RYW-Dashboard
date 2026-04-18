@@ -1,0 +1,34 @@
+region,gate,label,target,comparator,value,pass,detail
+Battle Creek,g1_vehicle_utilization,Vehicle utilization,0.95,ge,0.7959677419354839,False,
+Battle Creek,g2_billed_utilization,Billed utilization,1.05,ge,0.8788709677419354,False,
+Battle Creek,g3_volume_pool,Total volume pool,1.2,ge,1.260536398467433,True,
+Battle Creek,g4_rev_per_kentleg,Revenue / Kent-Leg,70.0,ge,71.85593706417333,True,
+Battle Creek,g5_higher_acuity_mix,Higher-acuity mix,0.05,ge,0.0012919896640826874,False,
+Battle Creek,g6_nonbillable_ns,Non-billable no-shows,0.1,le,0.14181614349775784,False,
+Battle Creek,g8_contract_concentration,Largest contract share,0.2,le,0.35087116226993265,False,
+Battle Creek,g8_largest_payer_vol,Largest payer share of volume,0.2,le,0.35087116226993265,False,Battle Creek VA
+Battle Creek,g8_largest_payer_rev,Largest payer share of revenue,0.2,le,0.3025473045002781,False,Battle Creek VA
+Grand Rapids,g1_vehicle_utilization,Vehicle utilization,0.95,ge,0.8480700179533214,False,
+Grand Rapids,g2_billed_utilization,Billed utilization,1.05,ge,0.9048698384201077,False,
+Grand Rapids,g3_volume_pool,Total volume pool,1.2,ge,1.2410509031198687,True,
+Grand Rapids,g4_rev_per_kentleg,Revenue / Kent-Leg,70.0,ge,71.52836501539186,True,
+Grand Rapids,g5_higher_acuity_mix,Higher-acuity mix,0.05,ge,0.036248752909876954,False,
+Grand Rapids,g6_nonbillable_ns,Non-billable no-shows,0.1,le,0.2165640738668159,False,
+Grand Rapids,g8_contract_concentration,Largest contract share,0.2,le,0.29964598081452715,False,
+Grand Rapids,g8_largest_payer_vol,Largest payer share of volume,0.2,le,0.29964598081452715,False,SafeRide Health - Priority Medicaid
+Grand Rapids,g8_largest_payer_rev,Largest payer share of revenue,0.2,le,0.1874903291344199,True,SafeRide Health - Priority Medicaid
+Lansing,g1_vehicle_utilization,Vehicle utilization,0.95,ge,0.7734375,False,
+Lansing,g2_billed_utilization,Billed utilization,1.05,ge,0.8643229166666666,False,
+Lansing,g3_volume_pool,Total volume pool,1.2,ge,1.2611464968152866,True,
+Lansing,g4_rev_per_kentleg,Revenue / Kent-Leg,70.0,ge,81.639961268458,True,
+Lansing,g5_higher_acuity_mix,Higher-acuity mix,0.05,ge,0.015151515151515152,False,
+Lansing,g6_nonbillable_ns,Non-billable no-shows,0.1,le,0.21267454350161116,False,
+Lansing,g8_contract_concentration,Largest contract share,0.2,le,0.1568627450980392,True,
+Lansing,g8_largest_payer_vol,Largest payer share of volume,0.2,le,0.1568627450980392,True,Battle Creek VA
+Lansing,g8_largest_payer_rev,Largest payer share of revenue,0.2,le,0.1348454230494296,True,Holt Senior Care & Rehab Center
+Grand Rapids,g7_road_time,Road time / vehicle / day,9.0,ge,8.663175374208405,False,fleet-level (per-region vehicle mapping not available)
+Lansing,g7_road_time,Road time / vehicle / day,9.0,ge,8.663175374208405,False,fleet-level (per-region vehicle mapping not available)
+Battle Creek,g7_road_time,Road time / vehicle / day,9.0,ge,8.663175374208405,False,fleet-level (per-region vehicle mapping not available)
+Grand Rapids,g9_cost_per_road_hour,Cost per road hour,50.0,le,110.16257205047685,False,fleet-level estimate (per-region cost not reported)
+Lansing,g9_cost_per_road_hour,Cost per road hour,50.0,le,110.16257205047685,False,fleet-level estimate (per-region cost not reported)
+Battle Creek,g9_cost_per_road_hour,Cost per road hour,50.0,le,110.16257205047685,False,fleet-level estimate (per-region cost not reported)

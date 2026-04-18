@@ -63,12 +63,19 @@ class CostModule(BaseModule):
         daily_fixed_operating = per_vehicle_fixed * fleet.total_vehicles
 
         # ── Step 3: Driver wages ─────────────────────────────────────
-        # drivers * shift_hours * hourly_rate
-        # Historical: AMB = $45.50/hr, WC = $50.50/hr
-        # TODO: compute blended wage rate from fleet vehicle mix
+        # The physically meaningful quantity is "hours a vehicle is rolling ×
+        # wage rate" because each on-road hour needs one driver in the seat.
+        # The previous formula used ``fleet.drivers`` as the multiplier which
+        # double-counted bench/relief drivers (a fleet with drivers > vehicles
+        # does not pay every driver a full road-hours shift simultaneously).
+        # We clamp active drivers to the number of vehicles actually on the
+        # road; remaining driver capacity is absorbed into fixed overhead.
         avg_hourly_rate = float(defaults.get("avg_hourly_rate", 47.5))
         road_hours = max(1.0, capacity_result.road_hours_per_vehicle_per_day)
-        daily_driver_wage = fleet.drivers * road_hours * avg_hourly_rate
+        active_drivers = max(0, min(fleet.drivers, fleet.total_vehicles))
+        if active_drivers == 0:
+            active_drivers = fleet.total_vehicles
+        daily_driver_wage = active_drivers * road_hours * avg_hourly_rate
 
         # ── Step 4: Fuel ─────────────────────────────────────────────
         # expected_mileage * fuel_cost_per_mile

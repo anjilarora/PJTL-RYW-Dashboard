@@ -68,19 +68,31 @@ def phase1_csv_dir_to_raw_ingest(phase1_dir: Path) -> dict[str, Any]:
     margin_rows = _read_csv(margin_path)
 
     # --- total_performance (one aggregate row feeds VariableMapper averages) ---
+    # IMPORTANT: the downstream consumer (VariableMapper._build_baselines) treats
+    # "total_rides" and "kent_legs" on this row as *daily* averages. Q1 contract
+    # rows cover ~34 service days, so we MUST divide the quarterly totals by the
+    # number of distinct service dates; otherwise demand is inflated by ~34x
+    # and utilization blows up to 10,000%+ downstream.
     n = len(contract)
     completed = sum(1 for r in contract if (r.get("order_status") or "").strip() == "Completed")
     noshow = sum(1 for r in contract if (r.get("order_status") or "").strip() == "No show")
     canceled = sum(1 for r in contract if (r.get("order_status") or "").strip() == "Canceled")
     total_kl = sum(_float(r.get("kent_legs")) for r in contract)
     total_trips = max(n, 1)
+    service_days = {
+        (r.get("date_of_service_iso") or r.get("date_of_service") or "").strip()
+        for r in contract
+    }
+    service_days.discard("")
+    unique_days = max(1, len(service_days))
     total_performance: list[dict[str, Any]] = [
         {
-            "total_rides": float(n),
-            "kent_legs": total_kl,
+            "total_rides": float(n) / unique_days,
+            "kent_legs": total_kl / unique_days,
             "completion_rate": completed / total_trips,
             "noshow_rate": noshow / total_trips,
             "cancellation_rate": canceled / total_trips,
+            "service_days": unique_days,
         }
     ]
 

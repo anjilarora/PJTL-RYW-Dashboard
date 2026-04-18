@@ -68,6 +68,23 @@ class VariableMapper:
         completion_rate = sum(float(r.get("completion_rate", 0.87) or 0.87) for r in total_performance) / max(1, len(total_performance))
         noshow_rate = sum(float(r.get("noshow_rate", 0.06) or 0.06) for r in total_performance) / max(1, len(total_performance))
         cancellation_rate = sum(float(r.get("cancellation_rate", 0.08) or 0.08) for r in total_performance) / max(1, len(total_performance))
+
+        vehicle_rows = data.get("vehicle_breakdown", [])
+        road_hours_values: list[float] = []
+        for row in vehicle_rows:
+            hrs = row.get("road_time_hrs", row.get("road_time"))
+            try:
+                hrs_f = float(hrs) if hrs not in (None, "") else 0.0
+            except (TypeError, ValueError):
+                hrs_f = 0.0
+            if hrs_f > 0:
+                road_hours_values.append(hrs_f)
+        avg_road_hours = (
+            sum(road_hours_values) / len(road_hours_values)
+            if road_hours_values
+            else 0.0
+        )
+
         return {
             "daily_rides": avg_daily_rides or 40.0,
             "daily_kent_legs": avg_daily_kl or 56.0,
@@ -85,6 +102,10 @@ class VariableMapper:
                 "saturday": 0.14,
             },
             "avg_facilities": 12.0,
+            # Observed mean of vehicle-day road hours from the Vehicle Breakdown
+            # sheet. Used by M3 as the empirical road-hours baseline rather than
+            # the previous ad-hoc formula (scheduled_volume / vehicles).
+            "road_hours_per_vehicle_per_day": avg_road_hours,
         }
 
     def _build_contract_data(self, data: Dict[str, Any]) -> Dict[str, Any]:

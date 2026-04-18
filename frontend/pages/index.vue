@@ -1,6 +1,8 @@
 <script setup lang="ts">
 /**
- * Landing: PJTL/RYW gate definitions + interactive nine-feature what-if (XGBoost).
+ * Landing page: nine launch-readiness gates in a single combined card-grid.
+ * Each card shows the gate definition (formula + threshold) plus its slider
+ * so users can see the threshold move the model output in one glance.
  */
 const { role, apiPost } = useBackendApi()
 
@@ -67,7 +69,7 @@ async function loadKpis() {
     })
     kpis.value = res.data
   } catch {
-    kpiError.value = "Could not load KPI definitions. Check backend and role."
+    kpiError.value = "Could not load KPI definitions. Check that the backend is reachable."
   }
 }
 
@@ -90,7 +92,7 @@ async function runPredict() {
       classification_threshold: res.data.classification_threshold
     }
   } catch {
-    predictError.value = "Inference failed. Ensure the model is loaded and you are authorized as analyst."
+    predictError.value = "Inference failed. Ensure the model is loaded and the backend is reachable."
     mlResult.value = null
   } finally {
     predictBusy.value = false
@@ -109,15 +111,15 @@ function updateFeature(key: string, v: number) {
   schedulePredict()
 }
 
-/** Same decimal rules for slider readout and gate threshold hints. */
+function resetAll() {
+  features.value = { ...defaults }
+  schedulePredict()
+}
+
 function formatMetricNumber(key: string, v: number) {
   if (key === "revenue_per_kent_leg" || key === "cost_per_road_hour") return v.toFixed(2)
   if (key === "road_hours_per_vehicle") return v.toFixed(2)
   return v.toFixed(4)
-}
-
-function formatSliderValue(key: string, v: number) {
-  return formatMetricNumber(key, v)
 }
 
 const PASS_RULE_SYMBOL: Record<string, string> = {
@@ -133,8 +135,6 @@ function passRuleSymbol(rule: string): string {
   return PASS_RULE_SYMBOL[rule] ?? rule
 }
 
-/** Deterministic 9-gate AND rule mirrored client-side so users see which
- *  gate(s) they are near independent of the ML banner above. */
 function valuePassesGate(value: number, threshold: number, rule: string): boolean {
   switch (rule) {
     case "gte":
@@ -172,8 +172,6 @@ const gateFailCount = computed(() => {
   }).length
 })
 
-/** One-click probe: nudge the focused slider by +/- 1% of its threshold and
- *  read back p(Ready) at each side so the user can verify the flip. */
 const probeBusy = ref(false)
 const probeResult = ref<
   | null
@@ -246,34 +244,6 @@ async function probeSensitivity(metric: {
   }
 }
 
-function gateThresholdTitle(metric: {
-  pass_rule?: string
-  threshold?: number
-  display_name?: string
-  key: string
-}): string {
-  const { pass_rule: rule, threshold: t } = metric
-  if (rule == null || t == null) return ""
-  const label = metric.display_name || metric.key
-  const n = formatMetricNumber(metric.key, t)
-  switch (rule) {
-    case "gte":
-      return `Pass when ${label} is greater than or equal to ${n} (${n} or higher).`
-    case "lte":
-      return `Pass when ${label} is less than or equal to ${n} (${n} or lower).`
-    case "lt":
-      return `Pass when ${label} is strictly less than ${n}.`
-    case "gt":
-      return `Pass when ${label} is strictly greater than ${n}.`
-    case "eq":
-      return `Pass when ${label} equals ${n}.`
-    case "ne":
-      return `Pass when ${label} is not equal to ${n}.`
-    default:
-      return `Pass rule ${rule} at ${n}.`
-  }
-}
-
 onMounted(async () => {
   await loadKpis()
   await runPredict()
@@ -283,57 +253,80 @@ onMounted(async () => {
 <template>
   <div id="main-content" class="landing-page" tabindex="-1">
     <PageHero
-      eyebrow="Model sandbox"
-      subtitle="Home · PJTL × Ride YourWay"
-      title="Launch readiness what-if"
-      description="PJTL gate rules define Go / No-Go thresholds. The exported XGBoost model estimates readiness from the same nine operational features. Adjust sliders below to see how combinations move the model toward Ready vs Not Ready."
+      eyebrow="Home · model sandbox"
+      subtitle="PJTL × Ride YourWay"
+      title="Launch-readiness what-if"
+      description="These nine knobs drive the readiness model. Move any slider to see how combinations push the overall call toward Ready vs Not Ready. Each card also shows the gate rule that the underlying data has to clear."
     />
-
 
     <section v-if="kpiError" class="landing-panel landing-panel--error" role="alert">
       {{ kpiError }}
     </section>
 
-    <section v-else-if="kpis" class="landing-panel">
-      <h2>PJTL / RYW gate metrics and formulae</h2>
-      <p class="muted">
-        Thresholds and pass rules below match <code>pjtl_kpis_and_formulas.json</code> (shared with the viability engine and ML
-        label derivation).
-      </p>
-      <ul class="formula-list">
-        <li v-for="m in orderedMetrics" :key="m.key" class="formula-item">
-          <strong>{{ m.display_name || m.key }}</strong>
-          <span class="tag">#{{ m.metric_number }}</span>
-          <span v-if="m.target_phrase" class="target">{{ m.target_phrase }}</span>
-          <p v-if="m.formula" class="formula-text">{{ m.formula }}</p>
-        </li>
-      </ul>
-    </section>
-
-    <section v-if="orderedMetrics.length" class="landing-panel">
-      <h2>What-if: nine XGBoost inputs</h2>
-        <p class="muted">
-        p(Ready) uses the backend model’s probability for the positive class; the decision uses the tuned classification
-        threshold (shown below when inference succeeds).
-      </p>
-      <p v-if="predictError" class="error-text" role="alert">{{ predictError }}</p>
-      <div v-if="mlResult" class="ml-banner" aria-live="polite">
-        <p>
-          <strong>{{ mlResult.prediction }}</strong>
-          · p(Ready)={{ mlResult.probability_ready.toFixed(3) }} · threshold={{ mlResult.classification_threshold.toFixed(3) }}
-        </p>
-        <p class="muted gate-summary">
-          <span v-if="gateFailCount === 0">All nine gates passing.</span>
-          <span v-else>{{ gateFailCount }} of 9 gates failing.</span>
-        </p>
+    <section v-else-if="kpis && orderedMetrics.length" class="landing-panel">
+      <div class="landing-head">
+        <div>
+          <div class="panel-eyebrow">
+            Gate metrics &amp; what-if sliders
+            <InfoTip
+              label="What am I looking at?"
+              content="Each card below is one of the nine launch gates. The formula and threshold match pjtl_kpis_and_formulas.json, the single source of truth shared with the readiness engine. Hover the info chip on a card to see its formula; drag the slider to see the ML decision change in real time."
+            />
+          </div>
+          <h2>Nine gates, one sandbox</h2>
+          <p class="muted">
+            Every card combines the gate rule on top with its slider below. Pass / fail badges update
+            instantly; p(Ready) at the top of the page comes from the live XGBoost model.
+          </p>
+        </div>
+        <div class="landing-head__actions">
+          <button type="button" class="secondary-button" @click="resetAll">Reset to defaults</button>
+        </div>
       </div>
-      <p v-if="predictBusy" class="muted">Updating…</p>
+
+      <p v-if="predictError" class="error-text" role="alert">{{ predictError }}</p>
+
+      <div v-if="mlResult" class="ml-banner" aria-live="polite">
+        <div class="ml-banner__left">
+          <span :class="['ml-banner__badge', mlResult.prediction.toLowerCase().includes('ready') && !mlResult.prediction.toLowerCase().includes('not') ? 'ml-banner__badge--pass' : 'ml-banner__badge--fail']">
+            {{ mlResult.prediction }}
+          </span>
+          <span class="ml-banner__stat">
+            <span class="ml-banner__stat-label">p(Ready)</span>
+            <strong>{{ mlResult.probability_ready.toFixed(3) }}</strong>
+          </span>
+          <span class="ml-banner__stat">
+            <span class="ml-banner__stat-label">Threshold</span>
+            <strong>{{ mlResult.classification_threshold.toFixed(3) }}</strong>
+          </span>
+        </div>
+        <div class="ml-banner__right">
+          <span class="ml-banner__chip" :class="gateFailCount === 0 ? 'ml-banner__chip--ok' : 'ml-banner__chip--warn'">
+            <span class="dot" aria-hidden="true" />
+            {{ gateFailCount === 0 ? "All nine gates passing" : `${gateFailCount} of 9 gates failing` }}
+          </span>
+          <span v-if="predictBusy" class="ml-banner__updating">Updating…</span>
+        </div>
+      </div>
 
       <div v-if="probeResult" class="probe-panel" aria-live="polite">
-        <p>
-          <strong>Sensitivity probe: {{ probeResult.key }}</strong>
-          (&#177;1% of threshold {{ formatMetricNumber(probeResult.key, probeResult.threshold) }})
-        </p>
+        <div class="probe-panel__head">
+          <p class="probe-panel__title">
+            <strong>Probe · {{ probeResult.key }}</strong>
+            <span class="probe-panel__sub">
+              (&#177;1% of threshold {{ formatMetricNumber(probeResult.key, probeResult.threshold) }})
+            </span>
+          </p>
+          <button
+            type="button"
+            class="probe-panel__dismiss"
+            aria-label="Dismiss probe result"
+            title="Dismiss"
+            @click="probeResult = null"
+          >
+            ×
+          </button>
+        </div>
         <ul class="probe-rows">
           <li>
             Barely pass ({{ formatMetricNumber(probeResult.key, probeResult.plus) }}):
@@ -346,159 +339,185 @@ onMounted(async () => {
         </ul>
       </div>
 
-      <div class="sliders-grid">
-        <div v-for="m in orderedMetrics" :key="m.key" class="slider-row">
-          <label :for="`f-${m.key}`" class="slider-label">
-            {{ m.display_name || m.key }}
-            <span v-if="m.pass_rule && m.threshold != null" class="threshold-hint" :title="gateThresholdTitle(m)">
-              <span class="sr-only">{{ gateThresholdTitle(m) }}</span>
-              <span aria-hidden="true" class="threshold-hint__visible">
-                ({{ passRuleSymbol(m.pass_rule) }} {{ formatMetricNumber(m.key, m.threshold) }})
-              </span>
-            </span>
+      <div class="gate-grid">
+        <article
+          v-for="m in orderedMetrics"
+          :key="m.key"
+          class="gate-grid__card"
+          :class="[
+            gateStatusFor(m)?.passing === true ? 'gate-grid__card--pass' : '',
+            gateStatusFor(m)?.passing === false ? 'gate-grid__card--fail' : ''
+          ]"
+        >
+          <header class="gate-grid__head">
+            <div class="gate-grid__title">
+              <span class="gate-grid__num">#{{ m.metric_number }}</span>
+              <h3>{{ m.display_name || m.key }}</h3>
+            </div>
             <span
               v-if="gateStatusFor(m)"
               class="gate-chip"
               :class="gateStatusFor(m)!.passing ? 'gate-chip--pass' : 'gate-chip--fail'"
-              :aria-label="gateStatusFor(m)!.passing ? 'Gate passing' : 'Gate failing'"
             >
               {{ gateStatusFor(m)!.passing ? "pass" : "fail" }}
             </span>
-          </label>
-          <input
-            :id="`f-${m.key}`"
-            type="range"
-            :min="ranges[m.key]?.min ?? 0"
-            :max="ranges[m.key]?.max ?? 1"
-            :step="ranges[m.key]?.step ?? 0.01"
-            :value="features[m.key] ?? defaults[m.key]"
-            class="slider"
-            @input="updateFeature(m.key, Number(($event.target as HTMLInputElement).value))"
-          />
-          <span class="slider-value">{{ formatSliderValue(m.key, features[m.key] ?? defaults[m.key]) }}</span>
-          <button
-            type="button"
-            class="probe-button"
-            :disabled="probeBusy || m.pass_rule == null || m.threshold == null"
-            :title="`Probe flip at +/- 1% of ${m.display_name || m.key} threshold`"
-            @click="probeSensitivity(m)"
-          >
-            Probe
-          </button>
-        </div>
+          </header>
+          <div v-if="m.target_phrase || m.formula" class="gate-grid__meta">
+            <span v-if="m.pass_rule && m.threshold != null" class="gate-grid__rule">
+              {{ passRuleSymbol(m.pass_rule) }} {{ formatMetricNumber(m.key, m.threshold) }}
+            </span>
+            <span v-if="m.target_phrase" class="gate-grid__target">{{ m.target_phrase }}</span>
+            <InfoTip
+              v-if="m.formula"
+              label="Formula"
+              :content="m.formula"
+              placement="bottom"
+            />
+          </div>
+          <div class="gate-grid__slider-row">
+            <input
+              :id="`f-${m.key}`"
+              type="range"
+              :min="ranges[m.key]?.min ?? 0"
+              :max="ranges[m.key]?.max ?? 1"
+              :step="ranges[m.key]?.step ?? 0.01"
+              :value="features[m.key] ?? defaults[m.key]"
+              class="slider"
+              @input="updateFeature(m.key, Number(($event.target as HTMLInputElement).value))"
+            />
+            <span class="gate-grid__value">{{ formatMetricNumber(m.key, features[m.key] ?? defaults[m.key]) }}</span>
+          </div>
+          <div class="gate-grid__footer">
+            <button
+              type="button"
+              class="probe-button"
+              :disabled="probeBusy || m.pass_rule == null || m.threshold == null"
+              :title="`Probe p(Ready) at +/- 1% of the ${m.display_name || m.key} threshold`"
+              @click="probeSensitivity(m)"
+            >
+              Probe
+            </button>
+          </div>
+        </article>
       </div>
     </section>
   </div>
 </template>
 
 <style scoped>
-/* Layout + typography: see assets/css/main.css (.landing-*) */
-.landing-logo {
-  margin-bottom: 0.4rem;
+.landing-panel {
+  padding: 22px 26px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 14px;
 }
-.landing-header__intro h1 {
-  margin-top: 0;
+.landing-panel--error { color: var(--red); }
+.landing-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
 }
-.role-inline {
+.landing-head h2 {
+  margin: 4px 0 0;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  letter-spacing: -0.03em;
+}
+.muted { color: var(--muted); margin: 6px 0 0; max-width: 78ch; line-height: 1.55; }
+
+.ml-banner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  margin: 10px 0 14px;
+}
+.ml-banner__left,
+.ml-banner__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.ml-banner__badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 800;
   font-size: 0.9rem;
-}
-.formula-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.formula-item {
-  padding: 0.65rem 0;
-  border-bottom: 1px solid var(--line);
-}
-.formula-item:last-child {
-  border-bottom: none;
-}
-.tag {
-  display: inline-block;
-  margin-left: 0.35rem;
-  font-size: 0.75rem;
-  color: var(--muted-2);
-}
-.target {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--blue);
-  margin-top: 0.2rem;
-}
-.formula-text {
-  margin: 0.35rem 0 0;
-  font-size: 0.88rem;
-  color: var(--muted);
-}
-.sliders-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.slider-row {
-  display: grid;
-  grid-template-columns: 1fr minmax(0, 12rem) 4.5rem auto;
-  gap: 0.5rem 0.75rem;
-  align-items: center;
-}
-@media (max-width: 640px) {
-  .slider-row {
-    grid-template-columns: 1fr;
-  }
-}
-.gate-chip {
-  display: inline-block;
-  margin-left: 0.5rem;
-  padding: 0.05rem 0.45rem;
-  border-radius: 9999px;
-  font-size: 0.68rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  font-weight: 600;
-  border: 1px solid var(--line);
-  vertical-align: middle;
 }
-.gate-chip--pass {
-  color: var(--green, #0a7f46);
-  border-color: var(--green, #0a7f46);
-  background-color: color-mix(in srgb, var(--green, #0a7f46) 12%, transparent);
+.ml-banner__badge--pass { background: var(--teal-soft); color: var(--teal); }
+.ml-banner__badge--fail { background: var(--red-soft); color: var(--red); }
+.ml-banner__stat { display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
+.ml-banner__stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
-.gate-chip--fail {
-  color: var(--red, #b3261e);
-  border-color: var(--red, #b3261e);
-  background-color: color-mix(in srgb, var(--red, #b3261e) 12%, transparent);
-}
-.gate-summary {
-  margin: 0.25rem 0 0;
-  font-size: 0.82rem;
-}
-.probe-button {
-  appearance: none;
-  border: 1px solid var(--line);
-  background: transparent;
+.ml-banner__stat strong {
   color: var(--ink);
-  padding: 0.2rem 0.55rem;
-  border-radius: 6px;
-  font-size: 0.78rem;
-  cursor: pointer;
+  font-size: 1.1rem;
 }
-.probe-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.ml-banner__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
-.probe-button:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--blue) 10%, transparent);
-}
+.ml-banner__chip--ok { background: var(--teal-soft); color: var(--teal); }
+.ml-banner__chip--warn { background: var(--red-soft); color: var(--red); }
+.ml-banner__chip .dot { width: 8px; height: 8px; border-radius: 999px; background: currentColor; }
+.ml-banner__updating { font-size: 0.82rem; color: var(--muted); }
+
 .probe-panel {
-  margin: 0.5rem 0 1rem;
+  position: relative;
+  margin: 0 0 1rem;
   padding: 0.6rem 0.85rem;
   border: 1px dashed var(--line);
   border-radius: 8px;
   background: color-mix(in srgb, var(--blue) 4%, transparent);
+}
+.probe-panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.probe-panel__title { margin: 0; }
+.probe-panel__sub { color: var(--muted); font-weight: 400; margin-left: 4px; }
+.probe-panel__dismiss {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.probe-panel__dismiss:hover {
+  background: var(--red-soft);
+  color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 45%, transparent);
 }
 .probe-rows {
   list-style: none;
@@ -507,42 +526,140 @@ onMounted(async () => {
   font-size: 0.88rem;
   font-variant-numeric: tabular-nums;
 }
-.probe-rows li + li {
-  margin-top: 0.15rem;
+.probe-rows li + li { margin-top: 0.15rem; }
+
+.gate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
 }
-.slider-label {
-  font-size: 0.88rem;
+.gate-grid__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  border-top: 3px solid var(--muted);
+}
+.gate-grid__card--pass { border-top-color: var(--teal); }
+.gate-grid__card--fail { border-top-color: var(--red); }
+.gate-grid__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.gate-grid__title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+.gate-grid__title h3 {
+  margin: 0;
+  font-size: 0.98rem;
   color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  flex: 1 1 auto;
 }
-.threshold-hint {
-  display: block;
-  font-size: 0.78rem;
-  color: var(--muted-2);
-  font-weight: 500;
-  margin-top: 0.15rem;
+.gate-grid__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 800;
 }
-.threshold-hint__visible {
+.gate-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 800;
+  border: 1px solid var(--line);
+}
+.gate-chip--pass {
+  color: var(--teal);
+  border-color: color-mix(in srgb, var(--teal) 45%, transparent);
+  background: var(--teal-soft);
+}
+.gate-chip--fail {
+  color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 45%, transparent);
+  background: var(--red-soft);
+}
+.gate-grid__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  align-items: center;
+}
+.gate-grid__rule {
   font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 2px 8px;
+  border-radius: 999px;
 }
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.gate-grid__target {
+  color: var(--blue);
+  font-weight: 500;
+}
+.gate-grid__slider-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  margin-top: 2px;
+}
+.gate-grid__value {
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  font-weight: 700;
+  min-width: 5.5ch;
+  text-align: right;
 }
 .slider {
   width: 100%;
   accent-color: var(--blue);
 }
-.slider-value {
-  font-size: 0.85rem;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-  color: var(--muted);
+.gate-grid__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.probe-button {
+  appearance: none;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.probe-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.probe-button:hover:not(:disabled) {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue);
 }
 </style>

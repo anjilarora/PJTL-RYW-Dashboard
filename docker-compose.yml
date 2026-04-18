@@ -1,0 +1,36 @@
+# Run from the `code/` directory:
+#   docker compose build
+#   docker compose up -d
+# If host port 3000 is already in use, either set RYW_FRONTEND_PORT (e.g. 3001)
+# or rely on the default host mapping below (not 3000).
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: ryw-backend
+    ports:
+      - "8000:8000"
+    environment:
+      RYW_INTERNAL_API_SECRET: ${RYW_INTERNAL_API_SECRET:-}
+      RYW_ENV: ${RYW_ENV:-development}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: ryw-frontend
+    ports:
+      - "${RYW_FRONTEND_PORT:-3010}:3000"
+    environment:
+      # Nuxt only applies runtime overrides for keys prefixed with NUXT_ (see nuxt.config runtimeConfig).
+      NUXT_BACKEND_BASE_URL: http://backend:8000
+      NUXT_INTERNAL_API_SECRET: ${RYW_INTERNAL_API_SECRET:-}
+    depends_on:
+      backend:
+        condition: service_healthy

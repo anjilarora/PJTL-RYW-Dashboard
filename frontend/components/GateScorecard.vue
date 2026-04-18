@@ -44,9 +44,9 @@ const confidenceTierShort = (confidence: string) => {
 
 const confidenceExplain = (confidence: string) => {
   const n = confidence.match(/Tier\s*(\d+)/i)?.[1]
-  if (n === "1") return "Tier 1 Audited — validated against historical behavior and a stable formula."
-  if (n === "2") return "Tier 2 Assumption-Backed — partially validated; formula still has unresolved definitions."
-  if (n === "3") return "Tier 3 Manual Override — value entered by an analyst; must be validated before launch."
+  if (n === "1") return "Tier 1 Audited: validated against historical behavior and a stable formula."
+  if (n === "2") return "Tier 2 Assumption-Backed: partially validated; formula still has unresolved definitions."
+  if (n === "3") return "Tier 3 Manual Override: manually entered value that must be validated before launch."
   return confidence
 }
 

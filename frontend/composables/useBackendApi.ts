@@ -7,7 +7,7 @@ export interface ApiClientError {
 }
 
 export function useBackendApi() {
-  const role = useState<Role>("role", () => "analyst")
+  const role = useState<Role>("role", () => "admin")
   const lastError = useState<ApiClientError | null>("backend-api-last-error", () => null)
 
   async function requestWithResilience<T>(

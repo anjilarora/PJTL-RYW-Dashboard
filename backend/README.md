@@ -32,9 +32,10 @@ Run the server and use **`GET /openapi.json`** (or `/docs`). The static `openapi
 
 ### Docker
 
-Run from project root:
+Run from the `code/` directory (where `docker-compose.yml` lives):
 
 ```bash
+cd code
 docker compose up -d --build
 ```
 

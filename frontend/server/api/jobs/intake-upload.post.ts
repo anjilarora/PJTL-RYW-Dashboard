@@ -12,15 +12,15 @@ export default defineEventHandler(async (event) => {
     type: file.type || "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   })
   const fd = new FormData()
-  fd.append("file", blob, file.filename || "upload.xlsx")
+  fd.append("file", blob, file.filename || "intake.xlsx")
 
-  const role = getHeader(event, "x-role") || "analyst"
+  const role = getHeader(event, "x-role") || "admin"
   const headers: Record<string, string> = { "X-Role": role }
   const secret = config.internalApiSecret as string | undefined
   if (secret) headers["X-Internal-Secret"] = secret
 
   const base = config.backendBaseUrl.replace(/\/+$/u, "")
-  return await $fetch(`${base}/api/v1/jobs/upload`, {
+  return await $fetch(`${base}/api/v1/jobs/intake-upload`, {
     method: "POST",
     body: fd,
     headers,

@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
   const method = getMethod(event)
   const url = `${config.backendBaseUrl.replace(/\/+$/u, "")}/${endpoint}`
-  const role = getHeader(event, "x-role") || "analyst"
+  const role = getHeader(event, "x-role") || "admin"
   const body = method === "GET" ? undefined : await readBody(event)
 
   const headers: Record<string, string> = { "X-Role": role }
@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
       messageLower.includes("fetch failed")
 
     const hint = unreachable
-      ? `Cannot reach API at ${url.split("/").slice(0, 3).join("/")}. Start the backend (docker compose from repo root). In Docker the Nuxt server needs NUXT_BACKEND_BASE_URL=http://backend:8000 (set in compose); local "nuxt dev" uses http://127.0.0.1:8000 by default.`
+      ? `Cannot reach API at ${url.split("/").slice(0, 3).join("/")}. Start the backend (docker compose from the code/ directory). In Docker the Nuxt server needs NUXT_BACKEND_BASE_URL=http://backend:8000 (set in compose); local "nuxt dev" uses http://127.0.0.1:8000 by default.`
       : undefined
 
     throw createError({

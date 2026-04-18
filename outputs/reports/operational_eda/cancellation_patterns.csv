@@ -1,0 +1,704 @@
+order_status,reason,payer_id,order_mode,day,count
+Canceled,Turned Down,Battle Creek VA,Ambulatory,Tuesday,151
+Canceled,Turned Down,Battle Creek VA,Ambulatory,Wednesday,140
+Canceled,Turned Down,Battle Creek VA,Ambulatory,Thursday,125
+Canceled,Turned Down,Battle Creek VA,Ambulatory,Friday,118
+Canceled,Unable to Accommodate,Battle Creek VA,Ambulatory,Wednesday,78
+Canceled,Turned Down,Battle Creek VA,Ambulatory,Monday,76
+Canceled,Turned Down,Battle Creek VA,Wheelchair,Friday,74
+Canceled,Turned Down,Battle Creek VA,Wheelchair,Wednesday,67
+Canceled,Unable to Accommodate,Battle Creek VA,Ambulatory,Friday,67
+Canceled,Turned Down,Battle Creek VA,Wheelchair,Thursday,65
+Canceled,Unable to Accommodate,Battle Creek VA,Ambulatory,Tuesday,63
+Canceled,Turned Down,Battle Creek VA,Wheelchair,Tuesday,62
+Canceled,Unable to Accommodate,Battle Creek VA,Ambulatory,Thursday,53
+Canceled,Turned Down,Battle Creek VA,Wheelchair,Monday,52
+Canceled,Unable to Accommodate,Battle Creek VA,Ambulatory,Monday,50
+Canceled,Unable to Accommodate,Battle Creek VA,Wheelchair,Tuesday,46
+Canceled,Unable to Accommodate,Battle Creek VA,Wheelchair,Thursday,41
+Canceled,Unable to Accommodate,Battle Creek VA,Wheelchair,Wednesday,31
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Monday,28
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Tuesday,27
+Canceled,Unable to Accommodate,Battle Creek VA,Wheelchair,Friday,27
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Wednesday,26
+Canceled,Unable to Accommodate,Battle Creek VA,Wheelchair,Monday,23
+Canceled,Same Day Cancel,MTM,Ambulatory,Wednesday,22
+Canceled,Confirmation Cancel,PP,Wheelchair,Tuesday,22
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Thursday,21
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Wednesday,21
+Canceled,Unable to Accommodate,MTM,Ambulatory,Friday,21
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Thursday,18
+Canceled,Unable to Accommodate,MTM,Ambulatory,Wednesday,18
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Friday,17
+Canceled,Confirmation Cancel,Valley View Care Center,Wheelchair,Tuesday,17
+Canceled,Unable to Accommodate,MTM,Ambulatory,Thursday,17
+Canceled,Confirmation Cancel,Battle Creek VA,Ambulatory,Wednesday,16
+Canceled,Confirmation Cancel,PP,Wheelchair,Monday,16
+Canceled,Confirmation Cancel,Villa at Borgess Place,Wheelchair,Tuesday,15
+Canceled,Confirmation Cancel,Battle Creek VA,Wheelchair,Thursday,15
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Friday,14
+Canceled,Completed,MTM,Ambulatory,Tuesday,13
+Canceled,Confirmation Cancel,PP,Wheelchair,Thursday,13
+Canceled,Confirmation Cancel,Marshall Nursing & Rehab,Wheelchair,Tuesday,13
+No show,No Show,MTM,Ambulatory,Friday,13
+No show,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Tuesday,13
+Canceled,Same Day Cancel,Battle Creek VA,Ambulatory,Tuesday,13
+Canceled,Unable to Accommodate,MTM,Ambulatory,Tuesday,12
+No show,No Show,MTM,Ambulatory,Monday,12
+No show,Billed no show,Battle Creek VA,Ambulatory,Monday,12
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Tuesday,12
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Monday,12
+Canceled,Confirmation Cancel,Villa at Borgess Place,Wheelchair,Thursday,12
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Friday,12
+Canceled,Confirmation Cancel,Valley View Care Center,Wheelchair,Thursday,12
+No show,No Show,MTM,Ambulatory,Wednesday,11
+Canceled,Unable to Accommodate,PP,Wheelchair,Wednesday,11
+Canceled,Same Day Cancel,MTM,Ambulatory,Thursday,11
+Canceled,Completed,MTM,Ambulatory,Monday,11
+No show,Billed no show,Battle Creek VA,Ambulatory,Wednesday,11
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Monday,11
+Canceled,Confirmation Cancel,PP,Ambulatory,Wednesday,11
+Canceled,Unable to Accommodate,MTM,Ambulatory,Monday,11
+No show,No Show,MTM,Ambulatory,Thursday,10
+Canceled,Confirmation Cancel,Battle Creek VA,Ambulatory,Tuesday,10
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Wednesday,10
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Wheelchair,Thursday,10
+Canceled,No Show,MTM,Ambulatory,Wednesday,10
+Canceled,Confirmation Cancel,Villa at Borgess Place,Wheelchair,Monday,10
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Monday,10
+Canceled,Confirmation Cancel,Optalis Wyoming,Wheelchair,Tuesday,10
+Canceled,Confirmation Cancel,Optalis Wyoming,Wheelchair,Friday,10
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Tuesday,10
+Canceled,Confirmation Cancel,Saginaw Nursing and Rehab,Wheelchair,Friday,10
+Canceled,No Show,MTM,Ambulatory,Friday,9
+Canceled,Completed,MTM,Ambulatory,Friday,9
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Wednesday,9
+Canceled,Same Day Cancel,PP,Wheelchair,Tuesday,9
+Canceled,Unable to Accommodate,SafeRide Health - Priority Medicaid,Wheelchair,Thursday,9
+No show,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Friday,9
+Canceled,Confirmation Cancel,PP,Wheelchair,Wednesday,9
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Thursday,9
+No show,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Wednesday,9
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Wednesday,9
+No show,Billed no show,Battle Creek VA,Wheelchair,Tuesday,8
+Canceled,Confirmation Cancel,PP,Ambulatory,Friday,8
+Canceled,Confirmation Cancel,Optalis Wyoming,Wheelchair,Monday,8
+Canceled,Confirmation Cancel,Optalis Healthcare of Grand Rapids,Wheelchair,Tuesday,8
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Thursday,8
+Canceled,Confirmation Cancel,PP,Ambulatory,Monday,8
+Canceled,No Show,MTM,Ambulatory,Monday,8
+Canceled,Same Day Cancel,PP,Wheelchair,Thursday,8
+Canceled,Confirmation Cancel,Ambrose Care Management,Wheelchair,Wednesday,8
+Canceled,Unable to Accommodate,Ingham County Medical Care Facility,Wheelchair,Wednesday,8
+Canceled,Confirmation Cancel,U of M Health - West,Wheelchair,Friday,8
+No show,Billed no show,Battle Creek VA,Ambulatory,Thursday,8
+Canceled,Confirmation Cancel,U of M Health - West,Wheelchair,Monday,8
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Wheelchair,Friday,8
+No show,Billed no show,Battle Creek VA,Ambulatory,Tuesday,8
+No show,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Monday,8
+No show,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Thursday,8
+Canceled,Same Day Cancel,MTM,Wheelchair,Wednesday,8
+No show,Billed no show,Battle Creek VA,Ambulatory,Friday,8
+Canceled,Confirmation Cancel,Battle Creek VA,Ambulatory,Thursday,7
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Tuesday,7
+Canceled,Confirmation Cancel,Battle Creek VA,Wheelchair,Friday,7
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Monday,7
+No show,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Wednesday,7
+Canceled,Confirmation Cancel,Ingham County Medical Care Facility,Wheelchair,Wednesday,7
+Canceled,Confirmation Cancel,Battle Creek VA,Ambulatory,Monday,7
+Canceled,Billed no show,Optalis at Kent-Crossing,Wheelchair,Tuesday,7
+Canceled,Unable to Accommodate,SafeRide Health - Priority Medicaid,Ambulatory,Friday,7
+Canceled,Confirmation Cancel,MTM,Ambulatory,Tuesday,7
+No show,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Tuesday,7
+Canceled,No Show,Battle Creek VA,Ambulatory,Monday,7
+Canceled,Confirmation Cancel,Villa at Borgess Place,Wheelchair,Wednesday,7
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Friday,7
+No show,Billed no show,Battle Creek VA,Wheelchair,Wednesday,7
+Canceled,Unable to Accommodate,MTM,Wheelchair,Monday,7
+No show,Billed no show,Battle Creek VA,Wheelchair,Monday,7
+Canceled,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Friday,7
+Canceled,Same Day Cancel,Battle Creek VA,Wheelchair,Tuesday,7
+Canceled,Confirmation Cancel,Harold and Grace Upjohn Community Care Center,Wheelchair,Friday,6
+Canceled,Same Day Cancel,Battle Creek VA,Ambulatory,Thursday,6
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Wheelchair,Monday,6
+Canceled,Confirmation Cancel,Harold and Grace Upjohn Community Care Center,Wheelchair,Monday,6
+Canceled,Same Day Cancel,Battle Creek VA,Wheelchair,Wednesday,6
+Canceled,Confirmation Cancel,Corewell Heath Nursing and Rehab Cedar,Wheelchair,Friday,6
+Canceled,Same Day Cancel,MTM,Ambulatory,Tuesday,6
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Friday,6
+Canceled,Confirmation Cancel,PP,Wheelchair,Saturday,6
+Canceled,Same Day Cancel,Kent County MDHHS,Wheelchair,Wednesday,6
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Monday,6
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Wednesday,6
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Wheelchair,Tuesday,6
+Canceled,Confirmation Cancel,Optalis Healthcare of Grand Rapids,Wheelchair,Thursday,6
+Canceled,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Tuesday,6
+Canceled,Billed no show,Optalis at Kent-Crossing,Wheelchair,Monday,6
+Canceled,Confirmation Cancel,Valley View Care Center,Wheelchair,Saturday,6
+Canceled,Confirmation Cancel,U of M Health - West,Wheelchair,Wednesday,6
+No show,No Show,MTM,Ambulatory,Tuesday,6
+Canceled,Confirmation Cancel,Saginaw Nursing and Rehab,Ambulatory,Tuesday,6
+Canceled,Confirmation Cancel,MTM,Ambulatory,Friday,6
+Canceled,Confirmation Cancel,Saginaw Nursing and Rehab,Ambulatory,Thursday,6
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Wheelchair,Wednesday,6
+Canceled,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Wednesday,6
+Canceled,Unable to Accommodate,SafeRide Health - Priority Medicaid,Ambulatory,Tuesday,6
+Canceled,Confirmation Cancel,Optalis at Kent-Crossing,Wheelchair,Thursday,6
+Canceled,No Show,MTM,Ambulatory,Thursday,6
+Canceled,Confirmation Cancel,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Tuesday,6
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Thursday,6
+Canceled,Confirmation Cancel,PP,Wheelchair,Friday,6
+Canceled,Same Day Cancel,Rehabilitation Management and Consulting,Wheelchair,Tuesday,6
+Canceled,No Show,Battle Creek VA,Wheelchair,Monday,5
+Canceled,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Thursday,5
+Canceled,Confirmation Cancel,Marshall Nursing & Rehab,Wheelchair,Monday,5
+Canceled,No Show,MTM,Wheelchair,Thursday,5
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Monday,5
+Canceled,Confirmation Cancel,U of M Health - West,Ambulatory,Monday,5
+Canceled,Confirmation Cancel,Battle Creek VA,Wheelchair,Wednesday,5
+Canceled,Same Day Cancel,Battle Creek VA,Wheelchair,Monday,5
+Canceled,Unable to Accommodate,PP,Wheelchair,Friday,5
+Canceled,Confirmation Cancel,Auto Case,Wheelchair,Thursday,5
+Canceled,Confirmation Cancel,Battle Creek VA,Ambulatory,Friday,5
+Canceled,Billed no show,Optalis Whitehall,Wheelchair,Tuesday,5
+Canceled,Turned Down,SafeRide Health - Priority Medicaid,Ambulatory,Thursday,5
+Canceled,Unable to Accommodate,MTM,Wheelchair,Thursday,5
+Canceled,Unable to Accommodate,SafeRide Health - Priority Medicaid,Ambulatory,Wednesday,5
+No show,No Show,MTM,Wheelchair,Friday,5
+Canceled,Same Day Cancel,PP,Wheelchair,Friday,5
+No show,No Show,MTM,Wheelchair,Monday,5
+Canceled,Billed no show,Ingham County Medical Care Facility,Wheelchair,Thursday,5
+No show,Billed no show,Battle Creek VA,Wheelchair,Friday,5
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Wednesday,5
+Canceled,Same Day Cancel,Battle Creek VA,Ambulatory,Wednesday,5
+Canceled,Unable to Accommodate,Battle Creek VA,Ambulatory,Saturday,5
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Thursday,5
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Friday,5
+Canceled,Billed no show,Optalis at Kent-Crossing,Wheelchair,Thursday,5
+No show,No Show,MTM,Wheelchair,Thursday,5
+No show,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Thursday,5
+Canceled,Confirmation Cancel,OBC,Wheelchair,Tuesday,4
+Canceled,Unable to Accommodate,PP,Ambulatory,Friday,4
+Canceled,Unable to Accommodate,Covenant Living of the Great Lakes,Wheelchair,Monday,4
+Canceled,Unable to Accommodate,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Tuesday,4
+Canceled,Unable to Accommodate,Holt Senior Care & Rehab Center,Wheelchair,Wednesday,4
+Canceled,Confirmation Cancel,Optalis Healthcare of Grand Rapids,Ambulatory,Tuesday,4
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Tuesday,4
+Canceled,Unable to Accommodate,Rehabilitation Management and Consulting,Wheelchair,Friday,4
+Canceled,Unable to Accommodate,MTM,Wheelchair,Friday,4
+Canceled,Same Day Cancel,Auto Case,Ambulatory,Tuesday,4
+Canceled,Confirmation Cancel,Optalis Wyoming,Wheelchair,Saturday,4
+Canceled,Confirmation Cancel,Optalis at Leonard,Wheelchair,Monday,4
+No show,Billed no show,Battle Creek VA,Wheelchair,Thursday,4
+Canceled,Unable to Accommodate,Villa at Borgess Place,Wheelchair,Wednesday,4
+Canceled,Confirmation Cancel,RYW,Ambulatory,Tuesday,4
+Canceled,Confirmation Cancel,PP,Ambulatory,Tuesday,4
+Canceled,Confirmation Cancel,PP,Ambulatory,Thursday,4
+Canceled,Unable to Accommodate,Villa at Borgess Place,Wheelchair,Tuesday,4
+Canceled,Confirmation Cancel,Rehabilitation Management and Consulting,Ambulatory,Friday,4
+Canceled,Confirmation Cancel,Rehabilitation Management and Consulting,Ambulatory,Monday,4
+Canceled,Confirmation Cancel,Optalis Wyoming,Wheelchair,Thursday,4
+Canceled,Unable to Accommodate,Saginaw Nursing and Rehab,Wheelchair,Friday,4
+Canceled,Confirmation Cancel,Optalis at Kent-Crossing,Wheelchair,Tuesday,4
+Canceled,Confirmation Cancel,Optalis at Kent-Crossing,Wheelchair,Monday,4
+Canceled,Unable to Accommodate,SafeRide Health - Priority Medicaid,Ambulatory,Saturday,4
+Canceled,Unable to Accommodate,Rehabilitation Management and Consulting,Wheelchair,Monday,4
+Canceled,Confirmation Cancel,Optalis Wyoming,Wheelchair,Wednesday,4
+Canceled,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Monday,4
+Canceled,Confirmation Cancel,Saginaw Nursing and Rehab,Wheelchair,Monday,4
+Canceled,Confirmation Cancel,Marshall Nursing & Rehab,Wheelchair,Thursday,4
+Canceled,Confirmation Cancel,Battle Creek VA,Wheelchair,Monday,4
+Canceled,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Tuesday,4
+Canceled,Confirmation Cancel,Ingham County Medical Care Facility,Wheelchair,Monday,4
+Canceled,Confirmation Cancel,Ingham County Medical Care Facility,Wheelchair,Tuesday,4
+Canceled,Same Day Cancel,PP,Wheelchair,Wednesday,4
+Canceled,Confirmation Cancel,Auto Case,Ambulatory,Wednesday,4
+Canceled,Confirmation Cancel,Ambrose Care Management,Wheelchair,Tuesday,4
+Canceled,Confirmation Cancel,Longevity Health Plan - Dobie Road,Wheelchair,Monday,4
+Canceled,Confirmation Cancel,Covenant Living of the Great Lakes,Wheelchair,Friday,4
+Canceled,No Show,Battle Creek VA,Ambulatory,Friday,4
+Canceled,Confirmation Cancel,Harold and Grace Upjohn Community Care Center,Wheelchair,Wednesday,4
+Canceled,Confirmation Cancel,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Monday,4
+Canceled,Billed no show,Villa at Borgess Place,Wheelchair,Monday,4
+Canceled,Confirmation Cancel,Ambrose Care Management,Wheelchair,Thursday,4
+Canceled,Confirmation Cancel,MTM,Ambulatory,Monday,4
+Canceled,Confirmation Cancel,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Thursday,4
+Canceled,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Wednesday,4
+Canceled,Same Day Cancel,Auto Case,Wheelchair,Thursday,4
+Canceled,Confirmation Cancel,MTM,Ambulatory,Wednesday,4
+Canceled,Billed no show,PP,Wheelchair,Tuesday,4
+Canceled,Same Day Cancel,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Tuesday,4
+Canceled,Confirmation Cancel,Valley View Care Center,Wheelchair,Wednesday,4
+Canceled,Confirmation Cancel,Villa at Borgess Place,Wheelchair,Friday,4
+Canceled,Confirmation Cancel,Dimondale NCC,Wheelchair,Friday,4
+Canceled,Confirmation Cancel,MTM,Wheelchair,Monday,4
+Canceled,Same Day Cancel,Battle Creek VA,Ambulatory,Monday,3
+No show,Billed no show,Valley View Care Center,Wheelchair,Thursday,3
+Canceled,Same Day Cancel,MTM,Wheelchair,Monday,3
+No show,Billed no show,Ingham County Medical Care Facility,Wheelchair,Tuesday,3
+Canceled,Same Day Cancel,Auto Case,Ambulatory,Wednesday,3
+Canceled,No Show,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Thursday,3
+Canceled,No Show,SafeRide Health - Priority Medicaid,Ambulatory,Monday,3
+No show,Billed no show,Optalis Healthcare of Grand Rapids,Wheelchair,Monday,3
+Canceled,Confirmation Cancel,Rehabilitation Management and Consulting,Wheelchair,Wednesday,3
+Canceled,No Show,MTM,Wheelchair,Tuesday,3
+No show,Billed no show,PP,Wheelchair,Friday,3
+Canceled,No Show,MTM,Wheelchair,Friday,3
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital - Social Work,Ambulatory,Friday,3
+Canceled,No Show,Battle Creek VA,Wheelchair,Tuesday,3
+Canceled,Unable to Accommodate,PP,Wheelchair,Saturday,3
+Canceled,Unable to Accommodate,PP,Wheelchair,Monday,3
+Canceled,Unable to Accommodate,Optalis - Muskegon,Wheelchair,Wednesday,3
+Canceled,Unable to Accommodate,Auto Case,Ambulatory,Thursday,3
+Canceled,Unable to Accommodate,Laurels of Hudsonville,Wheelchair,Friday,3
+No show,Billed no show,Valley View Care Center,Wheelchair,Saturday,3
+Canceled,Unable to Accommodate,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Thursday,3
+Canceled,Unable to Accommodate,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Friday,3
+No show,No Show,Battle Creek VA,Wheelchair,Thursday,3
+Canceled,Same Day Cancel,Ambrose Care Management,Wheelchair,Thursday,3
+Canceled,Confirmation Cancel,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Friday,3
+Canceled,Completed,MTM,Wheelchair,Thursday,3
+Canceled,Billed no show,Valley View Care Center,Wheelchair,Monday,3
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Tuesday,3
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Saturday,3
+Canceled,Billed no show,Valley View Care Center,Wheelchair,Thursday,3
+Canceled,Billed no show,Valley View Care Center,Wheelchair,Tuesday,3
+Canceled,Billed no show,Harold and Grace Upjohn Community Care Center,Wheelchair,Tuesday,3
+Canceled,Billed no show,Valley View Care Center,Wheelchair,Saturday,3
+Canceled,Confirmation Cancel,Longevity Health Plan - Dobie Road,Wheelchair,Tuesday,3
+No show,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Monday,3
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Tuesday,3
+Canceled,Billed no show,Battle Creek VA,Wheelchair,Wednesday,3
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Wheelchair,Saturday,3
+Canceled,Billed no show,Ingham County Medical Care Facility,Wheelchair,Tuesday,3
+Canceled,Confirmation Cancel,Auto Case,Wheelchair,Tuesday,3
+Canceled,Billed no show,Ingham County Medical Care Facility,Wheelchair,Monday,3
+Canceled,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Tuesday,3
+No show,No Show,MTM,Wheelchair,Tuesday,3
+Canceled,Confirmation Cancel,MTM,Wheelchair,Wednesday,3
+Canceled,Billed no show,Optalis at Kent-Crossing,Wheelchair,Friday,3
+Canceled,Billed no show,Optalis Healthcare of Grand Rapids,Wheelchair,Monday,3
+No show,Billed no show,Optalis Wyoming,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital - ED,Ambulatory,Saturday,2
+No show,Billed no show,Optalis Healthcare of Grand Rapids,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Burcham Hills,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,Burcham Hills,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Freedom Village,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,Dimondale NCC,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Harbor Post-Acute Center,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Ingham County Medical Care Facility,Wheelchair,Monday,2
+Canceled,Billed no show,Optalis Healthcare of Grand Rapids,Ambulatory,Monday,2
+Canceled,Unable to Accommodate,Holt Senior Care & Rehab Center,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Holt Senior Care & Rehab Center,Wheelchair,Saturday,2
+Canceled,Unable to Accommodate,Holt Senior Care & Rehab Center,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,Harold and Grace Upjohn Community Care Center,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,Harbor Post-Acute Center,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Feonix-Mobility Rising,Wheelchair,Tuesday,2
+No show,Billed no show,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Freedom Village,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Freedom Village,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Freedom Village,Wheelchair,Thursday,2
+No show,Billed no show,Optalis at Kent-Crossing,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,Feonix-Mobility Rising,Wheelchair,Wednesday,2
+Canceled,Billed no show,Optalis at Leonard,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Friday,2
+Canceled,Billed no show,Optalis at Leonard,Wheelchair,Wednesday,2
+Canceled,Turned Down,PP,Ambulatory,Thursday,2
+No show,No Show,Kent County MDHHS,Ambulatory,Thursday,2
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Thursday,2
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Friday,2
+Canceled,Confirmation Cancel,Auto Case,Wheelchair,Wednesday,2
+Canceled,Same Day Cancel,The Courtyard at Delta's,Ambulatory,Thursday,2
+Canceled,Confirmation Cancel,Auto Case,Wheelchair,Friday,2
+Canceled,Completed,MTM,Wheelchair,Tuesday,2
+Canceled,Completed,MTM,Wheelchair,Monday,2
+Canceled,Completed,MTM,Ambulatory,Thursday,2
+Canceled,Completed,MTM,Ambulatory,Saturday,2
+Canceled,Confirmation Cancel,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Tuesday,2
+Canceled,Turned Down,MTM,Ambulatory,Tuesday,2
+Canceled,Turned Down,RYW,Ambulatory,Wednesday,2
+Canceled,Billed no show,PP,Wheelchair,Thursday,2
+Canceled,Turned Down,SafeRide Health - Priority Medicaid,Ambulatory,Friday,2
+Canceled,Turned Down,SafeRide Health - Priority Medicaid,Ambulatory,Monday,2
+Canceled,Turned Down,SafeRide Health - Priority Medicaid,Ambulatory,Saturday,2
+Canceled,Turned Down,SafeRide Health - Priority Medicaid,Ambulatory,Wednesday,2
+Canceled,Unable to Accommodate,Allendale Nursing and Rehabilitation Community,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Ambrose Care Management,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Auto Case,Ambulatory,Monday,2
+Canceled,Unable to Accommodate,Auto Case,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,Auto Case,Wheelchair,Thursday,2
+Canceled,Billed no show,Valley View Care Center,Stretcher,Tuesday,2
+Canceled,Billed no show,Resthaven Care Center,Wheelchair,Monday,2
+Canceled,Billed no show,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Ingham County Medical Care Facility,Wheelchair,Saturday,2
+Canceled,Billed no show,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Tuesday,2
+Canceled,Billed no show,Optalis - Muskegon,Stretcher,Tuesday,2
+Canceled,Unable to Accommodate,Willows At East Lansing,Wheelchair,Monday,2
+Canceled,Billed no show,Harold and Grace Upjohn Community Care Center,Wheelchair,Monday,2
+Canceled,Billed no show,Dimondale NCC,Wheelchair,Wednesday,2
+Canceled,Billed no show,Dimondale NCC,Wheelchair,Friday,2
+Canceled,Billed no show,Covenant Living of the Great Lakes,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,SafeRide Health - Priority Medicaid,Wheelchair,Tuesday,2
+Canceled,Billed no show,Covenant Living of the Great Lakes,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Saginaw Nursing and Rehab,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,Saginaw Nursing and Rehab,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,The Courtyard at Delta's,Ambulatory,Friday,2
+Canceled,Unable to Accommodate,The Courtyard at Delta's,Wheelchair,Wednesday,2
+Canceled,Billed no show,Covenant Living of the Great Lakes,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,Villa at Borgess Place,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,Villa at Borgess Place,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,Willows At East Lansing,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,ReviewWorks,Ambulatory,Thursday,2
+Canceled,Unable to Accommodate,Willows At East Lansing,Wheelchair,Wednesday,2
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Friday,2
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Ambulatory,Monday,2
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Thursday,2
+Canceled,Billed no show,Bronson Behavioral Health Hospital,Ambulatory,Thursday,2
+No show,No show,MTM,Wheelchair,Tuesday,2
+Canceled,Billed no show,Battle Creek VA,Wheelchair,Thursday,2
+No show,Billed no show,Ingham County Medical Care Facility,Wheelchair,Monday,2
+No show,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Wednesday,2
+No show,Billed no show,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Thursday,2
+No show,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Monday,2
+No show,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Friday,2
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,SafeRide Health - Humana,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Rehabilitation Management and Consulting,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Intersect Health of Forest Hills,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Mary Free Bed-Discharge,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Laurels of Hudsonville,Wheelchair,Wednesday,2
+No show,Billed no show,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Friday,2
+Canceled,Billed no show,OBC,Wheelchair,Tuesday,2
+Canceled,Same Day Cancel,SafeRide Health - Meridian Medicaid,Ambulatory,Monday,2
+Canceled,Billed no show,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Monday,2
+Canceled,Billed no show,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Friday,2
+Canceled,Billed no show,Marshall Nursing & Rehab,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,MTM,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,MTM,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Marshall Nursing & Rehab,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Marshall Nursing & Rehab,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Marshall Nursing & Rehab,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Monday,2
+Canceled,Unable to Accommodate,OBC,Wheelchair,Friday,2
+Canceled,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,OBC,Wheelchair,Saturday,2
+Canceled,Unable to Accommodate,OBC,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,Optalis Healthcare of Grand Rapids,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Optalis Whitehall,Wheelchair,Tuesday,2
+Canceled,Unable to Accommodate,Optalis at Kent-Crossing,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,PP,Ambulatory,Monday,2
+Canceled,Billed no show,Ingham County Medical Care Facility,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,PP,Wheelchair,Thursday,2
+Canceled,Unable to Accommodate,PP,Wheelchair,Tuesday,2
+Canceled,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Wednesday,2
+Canceled,Unable to Accommodate,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Tuesday,2
+No show,Billed no show,Intersect Health of Forest Hills,Wheelchair,Friday,2
+Canceled,Unable to Accommodate,Rehabilitation Management and Consulting,Ambulatory,Saturday,2
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital - Social Work,Ambulatory,Monday,2
+Canceled,Billed no show,Villa at Borgess Place,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Ingham County Medical Care Facility,Wheelchair,Friday,2
+Canceled,No Show,MTM,Ambulatory,Tuesday,2
+Canceled,Confirmation Cancel,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Friday,2
+Canceled,Confirmation Cancel,MTM,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Willows At East Lansing,Wheelchair,Monday,2
+Canceled,Confirmation Cancel,Longevity Health - General,Stretcher,Friday,2
+Canceled,No Show,Battle Creek VA,Ambulatory,Tuesday,2
+Canceled,No Show,Battle Creek VA,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Longevity Health - General,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Laurels of Hudsonville,Wheelchair,Wednesday,2
+Canceled,No Show,Battle Creek VA,Wheelchair,Wednesday,2
+Canceled,No Show,Calhoun County MDHHS,Ambulatory,Wednesday,2
+Canceled,No Show,Kent County MDHHS,Ambulatory,Thursday,2
+Canceled,Confirmation Cancel,Laurels of Hudsonville,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Lake Woods Nursing & Rehabilitation Center,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Kent County MDHHS,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Jackson County MDHHS,Ambulatory,Friday,2
+Canceled,Confirmation Cancel,Friendship Village of Kalamazoo,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Intersect Health of Forest Hills,Wheelchair,Friday,2
+Canceled,No Show,MTM,Wheelchair,Monday,2
+Canceled,Confirmation Cancel,Intersect Health of Forest Hills,Ambulatory,Monday,2
+No show,Billed no show,Villa at Borgess Place,Wheelchair,Monday,2
+No show,Billed no show,Villa at Borgess Place,Wheelchair,Friday,2
+Canceled,No Show,PP,Wheelchair,Saturday,2
+Canceled,No Show,PP,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Holt Senior Care & Rehab Center,Ambulatory,Friday,2
+Canceled,Confirmation Cancel,Hillcrest Nursing and Rehab Center,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Hillcrest Nursing and Rehab Center,Wheelchair,Monday,2
+Canceled,Confirmation Cancel,Hillcrest Nursing and Rehab Center,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Harold and Grace Upjohn Community Care Center,Wheelchair,Tuesday,2
+Canceled,Confirmation Cancel,Harbor Terrace,Stretcher,Monday,2
+Canceled,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Monday,2
+Canceled,Confirmation Cancel,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Monday,2
+No show,No Show,Calhoun County MDHHS,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Marshall Nursing & Rehab,Ambulatory,Monday,2
+Canceled,Confirmation Cancel,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Pinnacle Care of Battle Creek,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Optalis at Leonard,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Optalis at Leonard,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Rehabilitation Management and Consulting,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Rehabilitation Management and Consulting,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Optalis at Leonard,Stretcher,Thursday,2
+Canceled,Confirmation Cancel,Reliance Community Care Partners,Ambulatory,Friday,2
+Canceled,Confirmation Cancel,SafeRide Health - Meridian Medicaid,Ambulatory,Tuesday,2
+Canceled,Confirmation Cancel,Optalis at Kent-Crossing,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Optalis at Kent-Crossing,Stretcher,Wednesday,2
+Canceled,Confirmation Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Saturday,2
+Canceled,Confirmation Cancel,Optalis at Kent-Crossing,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Optalis Wyoming,Stretcher,Monday,2
+Canceled,Confirmation Cancel,Optalis Wyoming,Stretcher,Friday,2
+Canceled,Confirmation Cancel,Optalis Wyoming,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Optalis Healthcare of Grand Rapids,Wheelchair,Saturday,2
+Canceled,Confirmation Cancel,Optalis Healthcare of Grand Rapids,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Optalis - Muskegon,Stretcher,Wednesday,2
+Canceled,Confirmation Cancel,Optalis - Muskegon,Stretcher,Tuesday,2
+Canceled,Confirmation Cancel,Optalis - Muskegon,Stretcher,Thursday,2
+Canceled,Confirmation Cancel,Optalis - Muskegon,Stretcher,Monday,2
+Canceled,Confirmation Cancel,OBC,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Saginaw Nursing and Rehab,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,The Willows at East Lansing,Stretcher,Wednesday,2
+Canceled,Confirmation Cancel,U of M Health - West,Ambulatory,Friday,2
+No show,Billed no show,Dimondale NCC,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Mary Free Bed-Discharge,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,U of M Health - West,Wheelchair,Tuesday,2
+Canceled,No Show,SafeRide Health - Priority Medicaid,Wheelchair,Thursday,2
+No show,Billed no show,Covenant Living of the Great Lakes,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Burcham Hills,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Tuesday,2
+Canceled,Confirmation Cancel,Bronson Cancer Center,Wheelchair,Monday,2
+Canceled,Confirmation Cancel,Bronson Cancer Center,Wheelchair,Wednesday,2
+Canceled,Same Day Cancel,Auto Case,Wheelchair,Tuesday,2
+Canceled,Confirmation Cancel,Bronson Methodist,Ambulatory,Thursday,2
+No show,Billed no show,PP,Wheelchair,Saturday,2
+Canceled,Confirmation Cancel,Burcham Hills,Wheelchair,Thursday,2
+Canceled,Same Day Cancel,PP,Ambulatory,Wednesday,2
+Canceled,Confirmation Cancel,Corewell Heath Nursing and Rehab Cedar,Wheelchair,Wednesday,2
+No show,Billed no show,PP,Wheelchair,Tuesday,2
+Canceled,Same Day Cancel,MTM,Ambulatory,Monday,2
+Canceled,Confirmation Cancel,Dimondale NCC,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Dimondale NCC,Wheelchair,Monday,2
+Canceled,Confirmation Cancel,Corewell Health - Auto,Wheelchair,Friday,2
+No show,No Show,Kent County MDHHS,Ambulatory,Friday,2
+Canceled,Confirmation Cancel,Corewell Health Reed City Rehab & Nursing Center,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center - Kentridge,Ambulatory,Monday,2
+Canceled,Confirmation Cancel,Covenant Living of the Great Lakes,Wheelchair,Wednesday,2
+Canceled,Same Day Cancel,Battle Creek VA,Wheelchair,Friday,2
+No show,Billed no show,PP,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Dimondale NCC,Wheelchair,Wednesday,2
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Ambulatory,Wednesday,2
+Canceled,Same Day Cancel,Case Managment - Lisa Beard,Ambulatory,Monday,2
+Canceled,Same Day Cancel,Rehabilitation Management and Consulting,Wheelchair,Monday,2
+No show,Billed no show,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Tuesday,2
+Canceled,Same Day Cancel,Kent County MDHHS,Ambulatory,Thursday,2
+Canceled,Same Day Cancel,Kent County MDHHS,Ambulatory,Tuesday,2
+Canceled,Same Day Cancel,Auto Case,Ambulatory,Friday,2
+Canceled,Confirmation Cancel,Bronson Cancer Center,Wheelchair,Friday,2
+Canceled,Confirmation Cancel,Friendship Village of Kalamazoo,Wheelchair,Tuesday,2
+Canceled,Confirmation Cancel,Corewell Heath Nursing and Rehab Cedar,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Corewell Health Rehab & Nursing Center-Leffingwell,Ambulatory,Tuesday,2
+Canceled,Confirmation Cancel,Friendship Village of Kalamazoo,Wheelchair,Thursday,2
+Canceled,Same Day Cancel,Battle Creek VA,Wheelchair,Thursday,2
+Canceled,Confirmation Cancel,Corewell Heath Nursing and Rehab Cedar,Wheelchair,Tuesday,2
+Canceled,Same Day Cancel,MTM,Ambulatory,Saturday,2
+No show,No Show,Calhoun County MDHHS,Ambulatory,Tuesday,1
+No show,Billed no show,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Thursday,1
+No show,No Show,Auto Case,Ambulatory,Tuesday,1
+No show,No Show,Auto Case,Ambulatory,Wednesday,1
+No show,Billed no show,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Wednesday,1
+No show,No Show,PP,Ambulatory,Monday,1
+No show,No Show,Calhoun County MDHHS,Ambulatory,Monday,1
+No show,Billed no show,Optalis at Leonard,Wheelchair,Friday,1
+Unassigned,Completed,Bronson Battle Creek Hospital - Social Work,Ambulatory,Saturday,1
+No show,Billed no show,Harold and Grace Upjohn Community Care Center,Wheelchair,Tuesday,1
+No show,Billed no show,PP,Ambulatory,Friday,1
+Unassigned,Completed,Bronson Battle Creek Hospital - ED,Ambulatory,Saturday,1
+No show,Same Day Cancel,SafeRide Health - Priority Medicaid,Wheelchair,Thursday,1
+No show,No Show,Bronson Battle Creek Hospital - Social Work,Ambulatory,Tuesday,1
+No show,Billed no show,Holt Senior Care & Rehab Center,Wheelchair,Tuesday,1
+No show,No Show,Auto Case,Wheelchair,Thursday,1
+No show,No Show,Kent County MDHHS,Ambulatory,Tuesday,1
+No show,Billed no show,Optalis at Kent-Crossing,Wheelchair,Saturday,1
+No show,Billed no show,Ingham County Medical Care Facility,Wheelchair,Thursday,1
+No show,Same Day Cancel,MTM,Ambulatory,Thursday,1
+No show,No Show,Kent County MDHHS,Ambulatory,Wednesday,1
+No show,No Show,Kent County MDHHS,Wheelchair,Monday,1
+No show,No Show,Longevity Health Plan - Lake Woods,Wheelchair,Tuesday,1
+No show,Billed no show,PP,Wheelchair,Thursday,1
+No show,No Show,Harbor Post-Acute Center,Wheelchair,Monday,1
+No show,Billed no show,Optalis at Kent-Crossing,Wheelchair,Thursday,1
+No show,Billed no show,Intersect Health of Forest Hills,Ambulatory,Thursday,1
+No show,Confirmation Cancel,Bronson Battle Creek Hospital - ED,Ambulatory,Monday,1
+No show,Billed no show,The Oaks at Battle Creek,Wheelchair,Wednesday,1
+No show,No Show,PP,Wheelchair,Thursday,1
+No show,Billed no show,Optalis at Kent-Crossing,Ambulatory,Friday,1
+No show,Billed no show,Mary Free Bed Rehabilitation Sub-Acute,Wheelchair,Monday,1
+No show,No Show,PP,Wheelchair,Monday,1
+No show,Billed no show,Optalis at Leonard,Wheelchair,Monday,1
+No show,Billed no show,Villa at Borgess Place,Wheelchair,Wednesday,1
+No show,Billed no show,Villa at Borgess Place,Wheelchair,Tuesday,1
+No show,No Show,"Managed Rehabilitation Consultants, Inc.",Wheelchair,Wednesday,1
+No show,Billed no show,Optalis Wyoming,Wheelchair,Friday,1
+No show,Billed no show,Valley View Care Center,Wheelchair,Tuesday,1
+No show,Billed no show,Optalis Whitehall,Wheelchair,Tuesday,1
+No show,No Show,PP,Ambulatory,Friday,1
+No show,Billed no show,Optalis Healthcare of Grand Rapids,Wheelchair,Friday,1
+No show,Billed no show,OpenBed,Wheelchair,Tuesday,1
+No show,Billed no show,OBC,Wheelchair,Monday,1
+No show,Billed no show,OpenBed,Wheelchair,Monday,1
+No show,Billed no show,OpenBed,Ambulatory,Wednesday,1
+No show,Billed no show,OpenBed,Wheelchair,Friday,1
+No show,No Show,Jackson County MDHHS,Ambulatory,Tuesday,1
+No show,No Show,Jackson County MDHHS,Wheelchair,Monday,1
+No show,Billed no show,Valley View Care Center,Wheelchair,Friday,1
+No show,No Show,PP,Ambulatory,Thursday,1
+No show,Billed no show,Optalis at Kent-Crossing,Wheelchair,Friday,1
+No show,No Show,PP,Wheelchair,Tuesday,1
+No show,Billed no show,Intersect Health of Forest Hills,Wheelchair,Monday,1
+No show,Billed no show,Valley View Care Center,Ambulatory,Thursday,1
+No show,No Show,Jackson County MDHHS,Ambulatory,Friday,1
+No show,Billed no show,U of M Health - West,Wheelchair,Wednesday,1
+No show,No Show,Ambrose Care Management,Wheelchair,Tuesday,1
+No show,No Show,Ambrose Care Management,Wheelchair,Thursday,1
+No show,Billed no show,Valley View Care Center,Wheelchair,Monday,1
+No show,Billed no show,Intersect Health of Forest Hills,Wheelchair,Tuesday,1
+No show,No Show,SafeRide Health - Humana,Wheelchair,Tuesday,1
+No show,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Wednesday,1
+No show,No Show,SafeRide Health - Humana,Ambulatory,Tuesday,1
+No show,No Show,MTM,Wheelchair,Wednesday,1
+No show,Billed no show,Marshall Nursing & Rehab,Ambulatory,Monday,1
+No show,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Thursday,1
+No show,No Show,Rehabilitation Management and Consulting,Wheelchair,Thursday,1
+No show,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Friday,1
+No show,Confirmation Cancel,Battle Creek VA,Ambulatory,Thursday,1
+No show,Completed,MTM,Ambulatory,Friday,1
+No show,Billed no show,Marshall Nursing & Rehab,Ambulatory,Wednesday,1
+No show,Billed no show,Willows At East Lansing,Wheelchair,Monday,1
+No show,No Show,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Thursday,1
+No show,No Show,RYW,Ambulatory,Friday,1
+No show,No Show,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Tuesday,1
+No show,No Show,Kent County MDHHS,Ambulatory,Monday,1
+Canceled,Billed no show,Battle Creek VA,Ambulatory,Friday,1
+No show,Billed no show,Dimondale NCC,Wheelchair,Thursday,1
+Canceled,Billed no show,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Thursday,1
+Canceled,Billed no show,The Oaks at Battle Creek,Wheelchair,Wednesday,1
+Canceled,Billed no show,U of M Health - West,Wheelchair,Wednesday,1
+Canceled,Billed no show,Valley View Care Center,Wheelchair,Friday,1
+Canceled,Billed no show,Villa at Borgess Place,Wheelchair,Wednesday,1
+Canceled,Billed no show,Willows At East Lansing,Wheelchair,Monday,1
+Canceled,Confirmation Cancel,Auto Case,Ambulatory,Friday,1
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Monday,1
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Saturday,1
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Tuesday,1
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital,Ambulatory,Wednesday,1
+Canceled,Confirmation Cancel,Bronson Battle Creek Hospital - ED,Ambulatory,Thursday,1
+Canceled,Confirmation Cancel,Bronson Behavioral Health Hospital,Ambulatory,Thursday,1
+Canceled,Confirmation Cancel,Corewell Health - Mission Control,Ambulatory,Friday,1
+Canceled,Confirmation Cancel,Gentiva Hospice,Wheelchair,Friday,1
+Canceled,Confirmation Cancel,Harbor Post-Acute Center,Wheelchair,Thursday,1
+Canceled,Confirmation Cancel,MFB - Discharge - Private Pay,Ambulatory,Tuesday,1
+Canceled,Confirmation Cancel,MTM,Wheelchair,Tuesday,1
+Canceled,Confirmation Cancel,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Wednesday,1
+Canceled,Confirmation Cancel,Mary Free Bed-Discharge,Wheelchair,Tuesday,1
+Canceled,Confirmation Cancel,ModivCare,Ambulatory,Tuesday,1
+Canceled,Confirmation Cancel,PP,Stretcher,Friday,1
+Canceled,Confirmation Cancel,RYW,Ambulatory,Thursday,1
+Canceled,Confirmation Cancel,RYW,Stretcher,Wednesday,1
+Canceled,Confirmation Cancel,The Willows at East Lansing Private Pay,Wheelchair,Monday,1
+Canceled,Confirmation Cancel,U of M Health - West,Ambulatory,Tuesday,1
+Canceled,No Show,Auto Case,Ambulatory,Tuesday,1
+Canceled,No Show,Auto Case,Ambulatory,Wednesday,1
+Canceled,Billed no show,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Wednesday,1
+Canceled,Billed no show,PP,Wheelchair,Wednesday,1
+Canceled,No Show,Battle Creek VA,Wheelchair,Friday,1
+Canceled,Billed no show,PP,Wheelchair,Monday,1
+Canceled,Billed no show,Battle Creek VA,Ambulatory,Thursday,1
+Canceled,Billed no show,Battle Creek VA,Ambulatory,Tuesday,1
+Canceled,Billed no show,Battle Creek VA,Wheelchair,Friday,1
+Canceled,Billed no show,Battle Creek VA,Wheelchair,Monday,1
+Canceled,Billed no show,Battle Creek VA,Wheelchair,Tuesday,1
+Canceled,Billed no show,Bronson Behavioral Health Hospital,Ambulatory,Tuesday,1
+Canceled,Billed no show,Bronson Methodist,Ambulatory,Monday,1
+Canceled,Billed no show,Burcham Hills,Wheelchair,Monday,1
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center - Kentridge,Ambulatory,Monday,1
+Canceled,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Ambulatory,Tuesday,1
+Canceled,Billed no show,Dimondale NCC,Wheelchair,Thursday,1
+Canceled,Billed no show,Harbor Post-Acute Center,Wheelchair,Wednesday,1
+Canceled,Billed no show,Harold and Grace Upjohn Community Care Center,Wheelchair,Thursday,1
+Canceled,Billed no show,Intersect Health of Forest Hills,Ambulatory,Thursday,1
+Canceled,Billed no show,Intersect Health of Forest Hills,Wheelchair,Monday,1
+Canceled,Billed no show,Intersect Health of Forest Hills,Wheelchair,Tuesday,1
+Canceled,Billed no show,Marshall Nursing & Rehab,Ambulatory,Monday,1
+Canceled,Billed no show,Marshall Nursing & Rehab,Ambulatory,Wednesday,1
+Canceled,Billed no show,OBC,Wheelchair,Monday,1
+Canceled,Billed no show,OBC,Wheelchair,Thursday,1
+Canceled,Billed no show,OpenBed,Wheelchair,Monday,1
+Canceled,Billed no show,Optalis Healthcare of Grand Rapids,Wheelchair,Friday,1
+Canceled,Billed no show,Optalis Healthcare of Grand Rapids,Wheelchair,Wednesday,1
+Canceled,Billed no show,Optalis Wyoming,Wheelchair,Friday,1
+Canceled,Billed no show,Optalis at Kent-Crossing,Ambulatory,Friday,1
+Canceled,Billed no show,Optalis at Kent-Crossing,Wheelchair,Saturday,1
+Canceled,Billed no show,Optalis at Leonard,Wheelchair,Monday,1
+Canceled,No Show,Auto Case,Wheelchair,Thursday,1
+Canceled,No Show,Jackson County MDHHS,Ambulatory,Friday,1
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Tuesday,1
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital,Ambulatory,Monday,1
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital,Ambulatory,Thursday,1
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital - Social Work,Ambulatory,Thursday,1
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital - Social Work,Ambulatory,Tuesday,1
+Canceled,Unable to Accommodate,Bronson Behavioral Health Hospital,Ambulatory,Monday,1
+Canceled,Unable to Accommodate,Bronson Methodist - Private Pay,Stretcher,Wednesday,1
+Canceled,Unable to Accommodate,Bronson Methodist - Private Pay,Wheelchair,Friday,1
+Canceled,Unable to Accommodate,Bronson Methodist - Private Pay,Wheelchair,Tuesday,1
+Canceled,Unable to Accommodate,Corewell Health - Mission Control,Wheelchair,Thursday,1
+Canceled,Unable to Accommodate,Corewell Health - Mission Control,Wheelchair,Wednesday,1
+Canceled,Unable to Accommodate,Freedom Village,Wheelchair,Monday,1
+Canceled,Unable to Accommodate,Friendship Village of Kalamazoo,Wheelchair,Thursday,1
+Canceled,Unable to Accommodate,Harbor Post-Acute Center,Wheelchair,Friday,1
+Canceled,Unable to Accommodate,MFB - Discharge - Private Pay,Wheelchair,Friday,1
+Canceled,Unable to Accommodate,MFB - Discharge - Private Pay,Wheelchair,Wednesday,1
+Canceled,Unable to Accommodate,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Tuesday,1
+Canceled,Unable to Accommodate,Mary Free Bed-Discharge,Wheelchair,Wednesday,1
+Canceled,Unable to Accommodate,PP,Ambulatory,Thursday,1
+Canceled,Unable to Accommodate,Plainwell Pines Nursing & Rehabilitation Center,Wheelchair,Friday,1
+Canceled,Unable to Accommodate,RYW,Ambulatory,Tuesday,1
+Canceled,Unable to Accommodate,RYW,Ambulatory,Wednesday,1
+Canceled,Unable to Accommodate,U of M Health - West,Ambulatory,Saturday,1
+No show,Billed no show,Bronson Battle Creek Hospital,Ambulatory,Wednesday,1
+No show,Billed no show,Burcham Hills,Wheelchair,Monday,1
+No show,Billed no show,Corewell Health Rehab & Nursing Center - Kentridge,Ambulatory,Monday,1
+No show,Billed no show,Corewell Health Rehab & Nursing Center - Kentridge,Wheelchair,Tuesday,1
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Ambulatory,Tuesday,1
+No show,Billed no show,Corewell Health Rehab & Nursing Center-Leffingwell,Wheelchair,Saturday,1
+Canceled,Unable to Accommodate,Bronson Battle Creek Hospital,Ambulatory,Saturday,1
+Canceled,Unable to Accommodate,Battle Creek VA,Wheelchair,Saturday,1
+Canceled,No Show,Jackson County MDHHS,Ambulatory,Tuesday,1
+Canceled,Turned Down,MTM,Ambulatory,Friday,1
+Canceled,No Show,Jackson County MDHHS,Wheelchair,Monday,1
+Canceled,No Show,Kent County MDHHS,Ambulatory,Tuesday,1
+Canceled,No Show,Kent County MDHHS,Ambulatory,Wednesday,1
+Canceled,No Show,MTM,Wheelchair,Wednesday,1
+Canceled,No Show,"Managed Rehabilitation Consultants, Inc.",Ambulatory,Tuesday,1
+Canceled,No Show,PP,Ambulatory,Friday,1
+Canceled,No Show,PP,Wheelchair,Monday,1
+Canceled,No Show,PP,Wheelchair,Tuesday,1
+Canceled,No Show,SafeRide Health - Humana,Ambulatory,Tuesday,1
+Canceled,Same Day Cancel,Ambrose Care Management,Wheelchair,Friday,1
+Canceled,Billed no show,Battle Creek VA,Ambulatory,Monday,1
+Canceled,Same Day Cancel,Ambrose Care Management,Wheelchair,Tuesday,1
+Canceled,Same Day Cancel,Auto Case,Wheelchair,Wednesday,1
+Canceled,Same Day Cancel,Bronson Battle Creek Hospital - ED,Ambulatory,Tuesday,1
+Canceled,Same Day Cancel,Bronson Behavioral Health Hospital,Ambulatory,Wednesday,1
+Canceled,Same Day Cancel,Calhoun County MDHHS,Ambulatory,Monday,1
+Canceled,Same Day Cancel,Discharge Patient Pay,Wheelchair,Friday,1
+Canceled,Same Day Cancel,Kent County MDHHS,Ambulatory,Monday,1
+Canceled,Same Day Cancel,Longevity Health Plan - Lake Woods,Wheelchair,Tuesday,1
+Canceled,Same Day Cancel,"Managed Rehabilitation Consultants, Inc.",Wheelchair,Wednesday,1
+Canceled,Same Day Cancel,PP,Ambulatory,Thursday,1
+Canceled,Same Day Cancel,PP,Wheelchair,Monday,1
+Canceled,Same Day Cancel,RYW,Ambulatory,Friday,1
+Canceled,Same Day Cancel,Rehabilitation Management and Consulting,Wheelchair,Friday,1
+Canceled,Same Day Cancel,Rehabilitation Management and Consulting,Wheelchair,Thursday,1
+Canceled,Same Day Cancel,SafeRide Health - Priority Medicaid,Ambulatory,Saturday,1
+Canceled,Turned Down,Discharge Patient Pay,Wheelchair,Friday,1
+Unassigned,Turned Down,Bronson Battle Creek Hospital - ED,Ambulatory,Thursday,1

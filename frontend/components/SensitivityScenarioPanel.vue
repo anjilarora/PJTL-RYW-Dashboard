@@ -15,7 +15,7 @@ defineProps<{
     </div>
     <h2>Assumption Branches</h2>
     <p class="branches-lead">
-      Every branch is a temporary input that can shift the readiness call. Open each one to see what is currently assumed and what you (or the analyst owner) need to confirm or replace with audited data.
+      Every branch is a temporary input that can shift the readiness call. Open each one to see what is currently assumed and what still needs to be confirmed or replaced with audited data.
     </p>
     <div class="branches-list">
       <CollapsibleCard

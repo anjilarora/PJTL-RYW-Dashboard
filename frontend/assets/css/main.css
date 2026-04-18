@@ -1446,9 +1446,11 @@ html[data-theme="light"] .table-badge.is-broker {
   filter: brightness(1.07);
 }
 
-/* Market / simple forms (used outside dashboard shell) */
+/* Market / simple forms (used outside dashboard shell). The inner panels cap
+ * their own width for readability; the shell fills the viewport so that hero
+ * descriptions are never pinched into a narrow column. */
 .market-page .main-shell {
-  max-width: min(960px, 100% - 2rem);
+  max-width: 100%;
   margin: 0 auto;
   padding: 1.25rem clamp(1rem, 3vw, 1.5rem) 2.5rem;
   box-sizing: border-box;

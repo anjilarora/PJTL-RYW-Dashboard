@@ -1,0 +1,47 @@
+{
+  "csv_artifacts": [
+    "code/outputs/reports/operational_eda/sheet_coverage.csv",
+    "code/outputs/reports/operational_eda/fleet_gate_scorecard.csv",
+    "code/outputs/reports/operational_eda/weekly_gate_trend.csv",
+    "code/outputs/reports/operational_eda/mode_profitability.csv",
+    "code/outputs/reports/operational_eda/otp_matrix.csv",
+    "code/outputs/reports/operational_eda/payer_concentration.csv",
+    "code/outputs/reports/operational_eda/cancellation_patterns.csv",
+    "code/outputs/reports/operational_eda/hourly_demand_idle.csv",
+    "code/outputs/reports/operational_eda/payer_rev_per_kentleg_by_mode.csv",
+    "code/outputs/reports/operational_eda/payer_rev_per_kentleg.csv",
+    "code/outputs/reports/operational_eda/cost_margin_trend.csv",
+    "code/outputs/reports/operational_eda/regional_cost_estimate.csv",
+    "code/outputs/reports/operational_eda/gate_fleet_week_crossview.csv"
+  ],
+  "plot_artifacts": [
+    "code/outputs/plots/operational_eda/fleet_gate_bars.png",
+    "code/outputs/plots/operational_eda/weekly_trend_small_multiples.png",
+    "code/outputs/plots/operational_eda/mode_mix.png",
+    "code/outputs/plots/operational_eda/otp_heatmap.png",
+    "code/outputs/plots/operational_eda/payer_pareto.png",
+    "code/outputs/plots/operational_eda/cancellation_by_reason.png",
+    "code/outputs/plots/operational_eda/hourly_heatmap.png",
+    "code/outputs/plots/operational_eda/payer_rev_waterfall.png",
+    "code/outputs/plots/operational_eda/margin_trend.png",
+    "code/outputs/plots/operational_eda/gate_fleet_week_heatmap.png"
+  ],
+  "summary": {
+    "sheets_total": 22,
+    "sheets_visible": 20,
+    "sheets_hidden": 2,
+    "fleet_q1_vehicle_utilization": 0.8058250866296017,
+    "fleet_q1_billed_utilization": 0.8826879076095699,
+    "fleet_q1_volume_pool_ratio": 1.2542445994675295,
+    "weeks_covered": 5,
+    "modes_analyzed": 4,
+    "otp_rows": 756,
+    "payers_total": 72,
+    "payers_over_20pct_vol": 1,
+    "payers_over_20pct_rev": 0,
+    "idle_windows_business": 1,
+    "fleet_rev_per_kentleg_q1": 72.5622438275968,
+    "total_cost_q1": 736764.13,
+    "total_road_hours_q1": 6687.971388888889
+  }
+}

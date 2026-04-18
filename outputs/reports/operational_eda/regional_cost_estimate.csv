@@ -1,0 +1,4 @@
+region,vehicle_count,cost_share_assumed,estimated_cost,estimated_road_hours,estimated_cost_per_road_hour,note
+Grand Rapids,21,0.7,515734.89099999995,4681.579972222222,110.16257205047685,Estimate; RYW has not broken cost down per region yet
+Lansing,4,0.13333333333333333,98235.21733333333,891.7295185185185,110.16257205047687,Estimate; RYW has not broken cost down per region yet
+Battle Creek,5,0.16666666666666666,122794.02166666667,1114.661898148148,110.16257205047687,Estimate; RYW has not broken cost down per region yet

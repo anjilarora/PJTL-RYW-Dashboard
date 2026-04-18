@@ -19,6 +19,27 @@ from engine.models.metrics import DemandForecast
 from engine.config import ORDER_MODES, DAYS_OF_WEEK
 
 
+_MODE_ALIASES = {
+    "amb": "ambulatory",
+    "ambulatory": "ambulatory",
+    "wc": "wheelchair",
+    "wheelchair": "wheelchair",
+    "stretcher": "stretcher",
+    "stretcher_alt": "stretcher",
+    "stretcher alternative": "stretcher",
+    "sa": "stretcher",
+    "securecare": "securecare",
+    "secure_care": "securecare",
+    "secure care": "securecare",
+    "sc": "securecare",
+}
+
+
+def _canonical_mode(raw: str) -> str:
+    key = (raw or "").strip().lower()
+    return _MODE_ALIASES.get(key, key)
+
+
 class DemandModule(BaseModule):
     name = "M1_Demand"
 
@@ -47,61 +68,99 @@ class DemandModule(BaseModule):
         """
 
         region = market_profile.region
-
-        # ── Step 1: Historical baseline lookup ───────────────────────
-        # TODO: Pull per-region daily averages from ingested Q1 data
-        # Variables needed:
-        #   - total_rides_per_day by region
-        #   - kent_legs_per_day by region
-        #   - mode_breakdown_pct by region
-        #   - completion_rate by region
-        #   - cancellation_rate by region
         baseline = historical_baselines or {}
+        prospective_contracts = market_profile.prospective_contracts or []
 
-        # ── Step 2: Facility density scaling ─────────────────────────
+        # ── Step 1 (intake fast-path): prospective contracts dominate ──
+        # If the caller supplied prospective contracts (intake workbook), they
+        # ARE the demand signal for the target market. Don't re-scale the Q1
+        # historical total by a facility ratio -- that double-counts demand and
+        # ignores the operator's own volume projection.
+        intake_daily_rides = sum(
+            max(0.0, float(c.estimated_daily_rides)) for c in prospective_contracts
+        )
+
+        # ── Step 2: Facility density scaling (historical fallback) ────
         # ratio = new_region_facilities / comparable_region_facilities
-        # TODO: implement facility_density_ratio()
+        # Floor is intentionally low: a region with zero entered facilities
+        # should NOT inherit 60% of the Q1 analog's volume.
         comparable_facilities = float(baseline.get("avg_facilities", 12.0))
         region_facilities = float(region.hospital_count + region.snf_count + region.clinic_count)
-        density_ratio = region_facilities / comparable_facilities if comparable_facilities > 0 else 1.0
-        density_ratio = max(0.6, min(1.8, density_ratio))
+        if comparable_facilities > 0 and region_facilities > 0:
+            density_ratio = region_facilities / comparable_facilities
+        elif prospective_contracts:
+            # Intake already supplied explicit demand; density_ratio is unused.
+            density_ratio = 1.0
+        else:
+            # No intake AND no facilities entered: we really don't know the
+            # market. Use a neutral 1.0 against the historical analog rather
+            # than silently inflating with 0.6.
+            density_ratio = 1.0
+        density_ratio = max(0.1, min(1.8, density_ratio))
 
         # ── Step 3: Population adjustment ────────────────────────────
-        # Higher elderly % and Medicaid eligibility -> higher NEMT demand
-        # TODO: implement population_adjustment_factor()
         elderly_factor = max(0.0, region.elderly_population_pct) / 100.0
         medicaid_factor = max(0.0, region.medicaid_eligible_pct) / 100.0
         pop_adjustment = 0.85 + (elderly_factor * 0.6) + (medicaid_factor * 0.4)
 
         # ── Step 4: Competitor adjustment ────────────────────────────
-        # More competitors -> lower expected market capture
-        # TODO: implement competitor_adjustment_factor()
         competitor_penalty = min(0.35, region.competitor_count * 0.04)
         competitor_adjustment = 1.0 - competitor_penalty
 
         # ── Step 5: Composite demand estimate ────────────────────────
-        # scaled_demand = baseline * density_ratio * pop_adj * competitor_adj
-        # TODO: implement composite calculation
         baseline_daily = float(baseline.get("daily_rides", 40.0))
-        expected_daily_rides = max(5.0, baseline_daily * density_ratio * pop_adjustment * competitor_adjustment)
-        expected_contracts = max(1, int(round(expected_daily_rides / 10)))
+        if intake_daily_rides > 0:
+            # Intake is source-of-truth; skip demographic scaling which would
+            # distort the operator's own contract-level plan.
+            expected_daily_rides = intake_daily_rides
+        else:
+            expected_daily_rides = max(
+                5.0,
+                baseline_daily * density_ratio * pop_adjustment * competitor_adjustment,
+            )
+        expected_contracts = max(
+            len(prospective_contracts) or 1,
+            int(round(expected_daily_rides / 10)),
+        )
 
         # ── Step 6: Mode mix application ─────────────────────────────
-        # Apply historical mode percentages from Q1 data
-        # TODO: pull from Mode Breakdown sheet
         provided_mix = baseline.get("mode_pct", {})
-        mode_mix = {
-            "ambulatory": float(provided_mix.get("ambulatory", 0.52)),
-            "wheelchair": float(provided_mix.get("wheelchair", 0.36)),
-            "stretcher": float(provided_mix.get("stretcher", 0.07)),
-            "securecare": float(provided_mix.get("securecare", 0.05)),
-        }
+        if prospective_contracts:
+            # Aggregate intake volume by the mode each contract serves. If a
+            # contract lists multiple modes, split evenly; unknown modes fall
+            # through to the historical mix so we never produce a zero vector.
+            intake_mix: Dict[str, float] = {m: 0.0 for m in ORDER_MODES}
+            for c in prospective_contracts:
+                modes = [
+                    _canonical_mode(m) for m in (c.order_modes or []) if m
+                ]
+                modes = [m for m in modes if m in intake_mix]
+                if not modes:
+                    continue
+                share = c.estimated_daily_rides / max(len(modes), 1)
+                for m in modes:
+                    intake_mix[m] += share
+            total_intake_mix = sum(intake_mix.values())
+            if total_intake_mix > 0:
+                mode_mix = {k: v / total_intake_mix for k, v in intake_mix.items()}
+            else:
+                mode_mix = {
+                    "ambulatory": float(provided_mix.get("ambulatory", 0.52)),
+                    "wheelchair": float(provided_mix.get("wheelchair", 0.36)),
+                    "stretcher": float(provided_mix.get("stretcher", 0.07)),
+                    "securecare": float(provided_mix.get("securecare", 0.05)),
+                }
+        else:
+            mode_mix = {
+                "ambulatory": float(provided_mix.get("ambulatory", 0.52)),
+                "wheelchair": float(provided_mix.get("wheelchair", 0.36)),
+                "stretcher": float(provided_mix.get("stretcher", 0.07)),
+                "securecare": float(provided_mix.get("securecare", 0.05)),
+            }
         total_mix = sum(mode_mix.values()) or 1.0
         mode_mix = {k: v / total_mix for k, v in mode_mix.items()}
 
         # ── Step 7: Kent-Leg conversion ──────────────────────────────
-        # Use historical KL multipliers per mode from Q1 data
-        # TODO: implement kent_leg_projection()
         multipliers = baseline.get("kl_multiplier_by_mode", {})
         expected_kent_legs = expected_daily_rides * sum(
             mode_mix[mode] * float(multipliers.get(mode, 1.2))

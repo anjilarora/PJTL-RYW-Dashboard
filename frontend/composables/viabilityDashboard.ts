@@ -68,9 +68,15 @@ export function marketFromViability(
 ) {
   if (!v?.report?.region) return fallback
   const go = v.report.go_decision
+  const passing = v.report.passing ?? 0
+  const failing = v.report.failing ?? 0
+  const total = passing + failing || 9
+  const summary = go
+    ? `This market meets every launch readiness check based on the Q1 2026 reference data. All ${total} gates are passing.`
+    : `This market isn't ready to launch yet. Based on the Q1 2026 reference data, ${passing} of ${total} readiness gates pass and ${failing} fall short of their target.`
   return {
     name: v.report.region,
-    summary: `${go ? "Go" : "No-Go"} under current engine evaluation (${v.report.passing ?? 0} pass / ${v.report.failing ?? 0} fail on gates). Intake and program cards below still reflect the static demo dataset until the API returns prospective rows from Phase-1.`,
+    summary,
     status: go ? "Go" : "No-Go",
     confidence: undefined,
   }

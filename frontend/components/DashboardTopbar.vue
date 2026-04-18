@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import type { Role } from "~/types/api"
-
-const props = defineProps<{ modelValue: Role }>()
-const emit = defineEmits<{ (e: "update:modelValue", v: Role): void }>()
-
-const roleModel = computed({
-  get: () => props.modelValue,
-  set: (v: Role) => emit("update:modelValue", v)
-})
+/**
+ * Global top navigation. Role selection was removed from the UI – every API
+ * call is issued with the admin role (see `useBackendApi`) so no page is ever
+ * blocked by permissions in this demo.
+ */
 </script>
 
 <template>
@@ -15,7 +11,7 @@ const roleModel = computed({
     <NuxtLink to="/" class="nav-brand" aria-label="Ride YourWay home">
       <RywLogo :height="32" />
       <span class="nav-brand__text">
-        <small>Market viability dashboard</small>
+        <span class="nav-brand__title">Market Viability Dashboard</span>
       </span>
     </NuxtLink>
 
@@ -38,6 +34,16 @@ const roleModel = computed({
         <span>Dashboard</span>
       </NuxtLink>
 
+      <NuxtLink to="/margin" class="nav-link" active-class="nav-link--active">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <path d="M8 16l8-8" />
+          <circle cx="9" cy="9" r="1.3" />
+          <circle cx="15" cy="15" r="1.3" />
+        </svg>
+        <span>Margin calculator</span>
+      </NuxtLink>
+
       <div class="nav-link-wrap">
         <NuxtLink to="/market" class="nav-link" active-class="nav-link--active">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -46,45 +52,17 @@ const roleModel = computed({
             <path d="M12 3c3 3.5 3 14 0 18" />
             <path d="M12 3c-3 3.5-3 14 0 18" />
           </svg>
-          <span>Market &amp; readiness</span>
+          <span>Market Readiness</span>
         </NuxtLink>
         <InfoTip
-          label="What is Market & readiness?"
-          content="Captures the inputs that drive a go / no-go call on a new market: the prospective intake (payers, programs, trip mix) and the historical operating payload. Save them here so readiness evaluations reuse the same market profile across sessions. Nothing is published to a real market until you explicitly launch."
-          placement="bottom"
-        />
-      </div>
-
-      <div class="nav-link-wrap">
-        <NuxtLink to="/audit" class="nav-link" active-class="nav-link--active">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h12l4 4v12a0 0 0 0 1 0 0H4z" />
-            <path d="M16 4v4h4" />
-            <path d="M8 13h8" />
-            <path d="M8 17h5" />
-          </svg>
-          <span>Audit Mode</span>
-        </NuxtLink>
-        <InfoTip
-          label="What is Audit Mode?"
-          content="A read-only inspector for reviewers and auditors. It shows the exact inputs, formula versions, confidence tiers, and lineage references that produced the last readiness decision, so you can reproduce a call without running the engine. No state is mutated while audit mode is open."
+          label="What is Market Readiness?"
+          content="Upload an intake workbook for a prospective market to get a Go / No-Go decision, a readiness score, and a gate-by-gate breakdown. The dashboard stays on the Q1 2026 reference view."
           placement="bottom"
         />
       </div>
     </nav>
 
     <div class="nav-actions">
-      <label class="nav-role" title="API role for this session">
-        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 21c1.6-4 4.8-6 8-6s6.4 2 8 6" />
-        </svg>
-        <select v-model="roleModel" aria-label="Select API role">
-          <option value="analyst">analyst</option>
-          <option value="ops">ops</option>
-          <option value="admin">admin</option>
-        </select>
-      </label>
       <NuxtLink to="/settings" class="nav-icon-btn" aria-label="Settings">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3.2" />
@@ -121,14 +99,18 @@ const roleModel = computed({
 }
 .nav-brand__text {
   display: grid;
-  line-height: 1.1;
+  align-items: center;
+  line-height: 1.15;
   border-left: 1px solid var(--line);
   padding-left: 12px;
 }
-.nav-brand__text small {
-  font-size: 0.78rem;
-  color: var(--muted);
-  letter-spacing: 0.02em;
+.nav-brand__title {
+  font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
 }
 .nav-links {
   display: inline-flex;
@@ -181,25 +163,6 @@ const roleModel = computed({
   display: inline-flex;
   align-items: center;
   gap: 10px;
-}
-.nav-role {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: 10px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-.nav-role select {
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  font-weight: 600;
-  outline: none;
-  padding: 2px 4px;
 }
 .nav-icon-btn {
   display: inline-grid;

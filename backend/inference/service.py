@@ -27,8 +27,9 @@ def _resolve_model_dir() -> Path:
     if env:
         return Path(env)
     # Repo layout: code/backend/inference/service.py -> parents[2] == code/
+    # Canonical location (post folder-contract reorg) is ``code/outputs/models/``.
     code_dir = Path(__file__).resolve().parents[2]
-    return code_dir / "inference_engine" / "results" / "models"
+    return code_dir / "outputs" / "models"
 
 
 class ExplainableInferenceEngine:

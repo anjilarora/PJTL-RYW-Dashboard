@@ -15,7 +15,16 @@ from api.config import get_settings
 from api.limiter import limiter
 from api.middleware.internal_secret import InternalSecretMiddleware
 from api.middleware.request_context import RequestContextMiddleware
-from api.routes import health, inference_routes, kpis, metrics_admin, operations_demo, upload_jobs, viability
+from api.routes import (
+    health,
+    inference_routes,
+    kpis,
+    metrics_admin,
+    operational,
+    operations_demo,
+    upload_jobs,
+    viability,
+)
 
 logger = logging.getLogger("ryw")
 
@@ -111,6 +120,7 @@ def create_app() -> FastAPI:
     app.include_router(kpis.router)
     app.include_router(upload_jobs.router)
     app.include_router(metrics_admin.router)
+    app.include_router(operational.router)
     if settings.enable_operations_demo:
         app.include_router(operations_demo.router)
 

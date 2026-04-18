@@ -96,7 +96,6 @@ defineProps<{
   color: var(--muted);
   line-height: 1.55;
   font-size: 0.95rem;
-  max-width: 62ch;
 }
 .page-hero__chips {
   display: flex;

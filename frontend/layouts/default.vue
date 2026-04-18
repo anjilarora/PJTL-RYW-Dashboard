@@ -1,12 +1,9 @@
 <script setup lang="ts">
 /**
  * Default SPA shell: every route renders inside the same topbar +
- * main-shell container so the dashboard, home, market, audit, and settings
- * pages all share one nav and one layout rhythm. The role dropdown in the
- * nav is bound to the shared useBackendApi role so switching roles on any
- * page applies everywhere without a reload.
+ * main-shell container so the dashboard, home, market, margin, and settings
+ * pages all share one nav and one layout rhythm.
  */
-const { role } = useBackendApi()
 </script>
 
 <template>
@@ -14,7 +11,7 @@ const { role } = useBackendApi()
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <main class="app-shell__main dashboard-app">
       <section class="main-shell">
-        <DashboardTopbar v-model="role" />
+        <DashboardTopbar />
         <slot />
       </section>
     </main>

@@ -88,6 +88,7 @@ class Pipeline:
             market_profile=market_profile,
             demand_forecast=demand,
             contract_profile=contracts,
+            historical_baselines=historical_data.get("baselines", {}),
         )
 
         # ── Module 4: Cost ───────────────────────────────────────────
