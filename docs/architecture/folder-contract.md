@@ -36,13 +36,13 @@ flowchart LR
    explicit provenance fields.
 3. **`code/outputs/` is the canonical write target for everything consumers
    look at.** Trained models (`outputs/models/`), stage reports
-   (`outputs/reports/stage{1,2,3}/`), plots (`outputs/plots/stage{1,2,3}/`),
+   (`outputs/reports/ (pruned stage artifacts)/`), plots (`outputs/plots/ (pruned stage artifacts)/`),
    and the phase-3 EDA (`outputs/reports/phase3_eda/`).
 4. **Scripts always take `code_root_from_anchor()`** as their root and
    resolve inputs/intermediates/outputs relative to that. See
    [code/lib/repo_paths.py](../../lib/repo_paths.py) `code_root_from_anchor`.
 5. **Paths written into metadata (JSON, CSV) are always repo-relative**, e.g.
-   `code/intermediates/phase1/...`, never absolute. This is why the stage-3
+   `code/intermediates (regenerable phase artifacts pruned)/...`, never absolute. This is why the stage-3
    notebook explicitly writes the relative path for
    `metadata.training_data.path` and `model_card.interpretation_artifact`.
 6. **The Docker image mirrors the same contract under `/workspace/code/`**
@@ -89,9 +89,9 @@ python inference_engine/scripts/train_readiness_model_from_inputs.py
 
 # 6. Optional: run stage notebooks for reports/plots
 jupyter nbconvert --to notebook --execute \
-    inference_engine/notebooks/stages/stage1_eda_inference.ipynb \
-    inference_engine/notebooks/stages/stage2_modeling_diagnostics.ipynb \
-    inference_engine/notebooks/stages/stage3_export_backend_model.ipynb
+    inference_engine scripts \
+    inference_engine scripts \
+    inference_engine scripts
 ```
 
 After a successful run `git status` should only report diffs under

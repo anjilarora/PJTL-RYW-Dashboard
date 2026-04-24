@@ -1,7 +1,0 @@
-column,dtype
-left_table,str
-right_table,str
-candidate_keys,str
-join_level,str
-status,str
-notes,str

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate code/intermediates/training/readiness_training_rows.csv with three row populations.
+"""Regenerate training rows CSV with three row populations.
 
 The XGBoost classifier on the sliders page must satisfy a tight sensitivity
 contract: a 1%-of-threshold change at any single gate, holding the other

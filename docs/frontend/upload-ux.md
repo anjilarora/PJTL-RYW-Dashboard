@@ -39,7 +39,7 @@ Drop your daily-metrics workbook (.xlsx) here.
 
 What we do with it:
   - code/inputs/ - source workbook (not written to; never modified).
-  - code/intermediates/phase1/ - canonical CSVs extracted on the fly
+  - code/intermediates (regenerable phase artifacts pruned)/ - canonical CSVs extracted on the fly
     for this upload only.
   - code/outputs/models/ - the XGBoost model that scores your
     readiness (not regenerated per upload).

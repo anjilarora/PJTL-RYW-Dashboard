@@ -14,18 +14,7 @@
     "code/outputs/reports/operational_eda/regional_cost_estimate.csv",
     "code/outputs/reports/operational_eda/gate_fleet_week_crossview.csv"
   ],
-  "plot_artifacts": [
-    "code/outputs/plots/operational_eda/fleet_gate_bars.png",
-    "code/outputs/plots/operational_eda/weekly_trend_small_multiples.png",
-    "code/outputs/plots/operational_eda/mode_mix.png",
-    "code/outputs/plots/operational_eda/otp_heatmap.png",
-    "code/outputs/plots/operational_eda/payer_pareto.png",
-    "code/outputs/plots/operational_eda/cancellation_by_reason.png",
-    "code/outputs/plots/operational_eda/hourly_heatmap.png",
-    "code/outputs/plots/operational_eda/payer_rev_waterfall.png",
-    "code/outputs/plots/operational_eda/margin_trend.png",
-    "code/outputs/plots/operational_eda/gate_fleet_week_heatmap.png"
-  ],
+  "plot_artifacts": [],
   "summary": {
     "sheets_total": 22,
     "sheets_visible": 20,

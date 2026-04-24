@@ -13,13 +13,13 @@ harness all look at the same snapshot.
 
 ## Files produced
 
-- Copies of every CSV from `code/intermediates/phase1/`.
+- Copies of every CSV from `code/intermediates (regenerable phase artifacts pruned)/`.
 - `readiness_training_base.csv` (copied or symlinked from the training
   base builder's output).
 - `MANIFEST.json` - one entry per file in the snapshot with filename,
   size, and SHA-256.
 - `MANIFEST.upstream.json` - same format but for the *source* files under
-  `code/inputs/` and `code/intermediates/phase1/`. This is the
+  `code/inputs/` and `code/intermediates (regenerable phase artifacts pruned)/`. This is the
   fingerprint of "what was phase-1 when we snapped".
 
 ## Why two manifests
@@ -35,7 +35,7 @@ harness all look at the same snapshot.
 
 Any time:
 
-- `code/intermediates/phase1/` changes (after a phase-1 rebuild).
+- `code/intermediates (regenerable phase artifacts pruned)/` changes (after a phase-1 rebuild).
 - `readiness_training_base.csv` is rebuilt.
 - The xlsx under `code/inputs/` changes.
 
@@ -47,9 +47,9 @@ which input.
 
 - [train_readiness_model_from_inputs.py](../../inference_engine/scripts/train_readiness_model_from_inputs.py)
   reads `readiness_training_base.csv` here, not from the training folder.
-- [stage1_eda_inference.ipynb](../../inference_engine/notebooks/stages/stage1_eda_inference.ipynb),
-  [stage2_modeling_diagnostics.ipynb](../../inference_engine/notebooks/stages/stage2_modeling_diagnostics.ipynb),
-  and [stage3_export_backend_model.ipynb](../../inference_engine/notebooks/stages/stage3_export_backend_model.ipynb)
+- [stage1_eda_inference.ipynb](../../inference_engine scripts),
+  [stage2_modeling_diagnostics.ipynb](../../inference_engine scripts),
+  and [stage3_export_backend_model.ipynb](../../inference_engine scripts)
   read every CSV here.
 - [test_readiness_edge_cases.py](../../inference_engine/scripts/test_readiness_edge_cases.py)
   reads the metadata written by the training script whose feature order

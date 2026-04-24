@@ -99,7 +99,7 @@ order most relevant to their role.
 - [ops/docker.md](ops/docker.md) - compose, `RYW_REPO_ROOT`, `/workspace`.
 - [ops/environment-variables.md](ops/environment-variables.md) - `RYW_*` and
   `NUXT_*`.
-- [ops/running-locally.md](ops/running-locally.md) - venv, deps, notebooks.
+- [ops/running-locally.md](ops/running-locally.md) - venv, deps, and local run flow.
 - [ops/security-todos.md](ops/security-todos.md) - JWT, CORS, secret, errors.
 
 ### Frontend

@@ -66,19 +66,15 @@ See [data-pipeline/overview.md](../data-pipeline/overview.md). Briefly:
 1. Analyst places the three `.xlsx` workbooks under
    [code/inputs/](../../inputs/).
 2. `build_phase1_canonical_base.py` writes audited CSVs to
-   [code/intermediates/phase1/](../../intermediates/phase1/).
+   `code/intermediates/` (phase artifacts are regenerable and may be pruned).
 3. `generate_readiness_training_rows.py` writes training rows to
-   [code/intermediates/training/](../../intermediates/training/).
+   `code/intermediates/` (training artifacts are regenerable and may be pruned).
 4. `build_readiness_training_base.py` joins them and labels each row to
    [code/intermediates/inference_inputs/readiness_training_base.csv](../../intermediates/inference_inputs/).
 5. `sync_inputs_from_phase1.py` snapshots the inputs with manifests.
 6. `train_readiness_model_from_inputs.py` exports the model to
    [code/outputs/models/](../../outputs/models/).
-7. Notebooks under
-   [code/inference_engine/notebooks/stages/](../../inference_engine/notebooks/stages/)
-   produce human-readable reports and plots under
-   [code/outputs/reports/](../../outputs/reports/) and
-   [code/outputs/plots/](../../outputs/plots/).
+7. Inference scripts can regenerate analytics reports/plots when needed.
 
 ## Request flow (browser -> verdict)
 

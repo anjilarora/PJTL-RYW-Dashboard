@@ -8,11 +8,8 @@ panels and widgets are grouped by role at the end.
 ## Chrome and navigation
 
 ### `DashboardTopbar.vue`
-Global topbar mounted by `layouts/default.vue`. Renders the `RywLogo`,
-the primary tab row (Home / Market / Dashboard / Audit / Settings), the
-role switcher (analyst / ops / admin), and the theme toggle. Role
-changes write through `useBackendApi().role` so every subsequent API
-call uses the new header.
+Global topbar mounted by `layouts/default.vue`. Renders the `RywLogo`
+and primary tab row (Home / Dashboard / Market / Settings).
 
 ### `PageHero.vue`
 Simple hero used by every non-dashboard page. Props: `title`,
@@ -50,11 +47,6 @@ Secondary tab that opens when a gate card is selected. Deep-dive view
 for a single gate: value, threshold, pass rule, formula, source, and
 a bar visualization of the distance from threshold.
 
-### `MarginWaterfallPanel.vue`
-Redesigned cost-vs-revenue waterfall. Tiles plus horizontal bars show
-revenue, cost ceiling, projected cost, and net margin. Uses the
-`BarStat` microchart for each line.
-
 ### `IntakeSummaryPanel.vue`
 Plain-English summary of the uploaded intake: how many programs, what
 modes are covered, how many weekly Kent-Legs, and the one-line takeaway
@@ -83,11 +75,6 @@ never hard-coded in the template.
 ### `RiskMitigationPanel.vue`
 Accordion container of risk/action items. Each row has an owner, a
 title, a detail paragraph, a due date, and a status badge.
-
-### `AuditTraceabilityPanel.vue`
-Accordion container that links each computed feature back to its source
-CSV under `code/intermediates/phase1/`. Renders `lineage_refs` from the
-viability report.
 
 ## Microcharts
 
@@ -135,11 +122,9 @@ graph TD
   kpi[KpiSnapshotPanel]
   scorecard[GateScorecard]
   detail[GateDetailPanel]
-  margin[MarginWaterfallPanel]
   intake[IntakeSummaryPanel]
   risk[RiskMitigationPanel]
   sens[SensitivityScenarioPanel]
-  audit[AuditTraceabilityPanel]
 
   default --> top --> logo
   default --> dash
@@ -147,9 +132,7 @@ graph TD
   dash --> kpi
   dash --> scorecard
   dash -- tab switch --> detail
-  dash --> margin
   dash --> intake
   dash --> risk
   dash --> sens
-  dash --> audit
 ```

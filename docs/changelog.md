@@ -44,7 +44,6 @@ changelog. No code changes.
 ## 2026-04-11 18:14:56 EDT - Dashboard UX polish
 - Redesigned `IntakeSummaryPanel.vue` with a plain-English takeaway and class
   breakdown.
-- Rebuilt `MarginWaterfallPanel.vue` as tiles + bars.
 - Introduced `CollapsibleCard.vue`.
 - Converted `RiskMitigationPanel.vue`, `AuditTraceabilityPanel.vue`, and
   `SensitivityScenarioPanel.vue` to accordion containers.

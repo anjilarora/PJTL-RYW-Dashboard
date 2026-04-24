@@ -63,9 +63,9 @@ python inference_engine/scripts/sync_inputs_from_phase1.py
 python inference_engine/scripts/train_readiness_model_from_inputs.py
 python inference_engine/scripts/test_readiness_edge_cases.py --strict
 jupyter nbconvert --to notebook --execute \
-    inference_engine/notebooks/stages/stage1_eda_inference.ipynb \
-    inference_engine/notebooks/stages/stage2_modeling_diagnostics.ipynb \
-    inference_engine/notebooks/stages/stage3_export_backend_model.ipynb
+    inference_engine scripts \
+    inference_engine scripts \
+    inference_engine scripts
 ```
 
 After stage-3 re-exports the model, rebuild the backend image:

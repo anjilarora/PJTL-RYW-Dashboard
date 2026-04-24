@@ -71,7 +71,7 @@ layers:
   after the export to catch drift.
 - Every generated JSON under `code/outputs/` is checked into git, so a
   PR that changes the model without meaning to shows a diff.
-- `code/outputs/reports/stage3/provenance*` JSONs carry input SHAs so a
+- `code/outputs/reports (regenerable artifacts pruned)/provenance*` JSONs carry input SHAs so a
   surprise input change surfaces as a provenance diff in the PR.
 
 ## What is not tested (yet)

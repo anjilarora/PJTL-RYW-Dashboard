@@ -1,7 +1,6 @@
 # Ride YourWay — Inference Engine
 
-ML diagnostics, staged notebooks, and the training script that exports the
-production XGBoost model. The FastAPI backend loads that model from
+ML scripts that export the production XGBoost model. The FastAPI backend loads that model from
 `code/outputs/models/`; no training happens inside the backend image.
 
 ## Layout
@@ -10,8 +9,7 @@ production XGBoost model. The FastAPI backend loads that model from
 |------|---------|
 | `../config/pjtl_kpis_and_formulas.json` | Single source for the nine feature names, gate pass rules, thresholds, and Kent-Leg constants (shared with the FastAPI backend). |
 | `src/` | `features.py`, loaders, plot helpers. |
-| `notebooks/stages/` | Stage 1 (EDA) → Stage 2 (diagnostics) → Stage 3 (export). |
-| `scripts/sync_inputs_from_phase1.py` | Snapshots `code/intermediates/phase1/` into `code/intermediates/inference_inputs/`. |
+| `scripts/sync_inputs_from_phase1.py` | Snapshots `code/intermediates/ (regenerable phase artifacts)` into `code/intermediates/inference_inputs/`. |
 | `scripts/train_readiness_model_from_inputs.py` | Reads `code/intermediates/inference_inputs/readiness_training_base.csv`, writes the model to `code/outputs/models/`. |
 | `scripts/test_readiness_edge_cases.py` | Slider-sensitivity contract, gates the export. |
 
@@ -23,17 +21,15 @@ the folder contract (`code/inputs/` = `.xlsx`, `code/intermediates/` = CSV/JSON,
 ## Data pipeline (run from repo root)
 
 ```bash
-python code/scripts/build_phase1_canonical_base.py        # code/inputs/*.xlsx -> code/intermediates/phase1/*.csv
-python code/scripts/generate_readiness_training_rows.py   # -> code/intermediates/training/readiness_training_rows.csv
-python code/scripts/build_readiness_training_base.py      # -> code/intermediates/phase1/readiness_training_base.csv
+python code/scripts/build_phase1_canonical_base.py        # code/inputs/*.xlsx -> code/intermediates/ (regenerable phase artifacts)*.csv
+python code/scripts/generate_readiness_training_rows.py   # -> regenerated training rows CSV
+python code/scripts/build_readiness_training_base.py      # -> code/intermediates/ (regenerable phase artifacts)readiness_training_base.csv
 python code/inference_engine/scripts/sync_inputs_from_phase1.py
 python code/inference_engine/scripts/train_readiness_model_from_inputs.py   # -> code/outputs/models/
 ```
 
-Stage notebooks read from `code/intermediates/inference_inputs/` and write their
-figures/CSVs directly into `code/outputs/plots/stageN/` and
-`code/outputs/reports/stageN/`. Re-run the five commands above after any change to
-team files under `code/inputs/` or the KPI config.
+Notebook and stage-level report artifacts were removed during repository cleanup.
+Regenerate those artifacts only when needed, then prune again before shipping.
 
 ## Setup
 

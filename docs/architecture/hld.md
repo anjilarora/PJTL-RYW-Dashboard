@@ -41,11 +41,9 @@ call.
    - `RideYourWay_Prospective_Market_Intake_Template.xlsx` - blank intake.
    - `RideYourWay_Prospective_Market_Intake_Example.xlsx` - worked example.
 2. `code/scripts/build_phase1_canonical_base.py` extracts audited sheets
-   into CSVs plus JSON field dictionaries under
-   `code/intermediates/phase1/`.
+   into CSVs plus JSON field dictionaries under `code/intermediates/`.
 3. `code/scripts/generate_readiness_training_rows.py` emits a mix of
-   bulk, boundary-dense, and decision-flip rows under
-   `code/intermediates/training/readiness_training_rows.csv`.
+   bulk, boundary-dense, and decision-flip rows under `code/intermediates/`.
 4. `code/scripts/build_readiness_training_base.py` joins those rows with
    phase-1 stats, labels each row via the gate rules in the KPI config, and
    writes
@@ -58,9 +56,8 @@ call.
 6. `code/inference_engine/scripts/train_readiness_model_from_inputs.py`
    fits an `XGBClassifier`, calibrates it, and exports model + metadata to
    `code/outputs/models/xgboost_readiness_*`.
-7. `inference_engine/notebooks/stages/stage{1,2,3}*.ipynb` produce EDA,
-   modeling diagnostics, and the final exported model card to
-   `code/outputs/reports/` and `code/outputs/plots/`.
+7. Inference scripts regenerate EDA/modeling artifacts on demand and export
+   runtime model outputs to `code/outputs/models/`.
 
 ## Runtime stack
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * Default SPA shell: every route renders inside the same topbar +
- * main-shell container so the dashboard, home, market, margin, and settings
+ * main-shell container so the dashboard, home, market, and settings
  * pages all share one nav and one layout rhythm.
  */
 </script>

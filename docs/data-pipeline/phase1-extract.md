@@ -5,7 +5,7 @@
 
 **Purpose**: Flatten the three xlsx workbooks under `code/inputs/` into
 machine-readable CSVs plus JSON field dictionaries under
-`code/intermediates/phase1/`. Everything downstream reads from the CSVs,
+`code/intermediates (regenerable phase artifacts pruned)/`. Everything downstream reads from the CSVs,
 never from xlsx.
 
 ## Inputs
@@ -18,7 +18,7 @@ never from xlsx.
 
 ## Outputs
 
-All under `code/intermediates/phase1/`:
+All under `code/intermediates (regenerable phase artifacts pruned)/`:
 
 - `daily_metrics.csv` - tidy long-form daily metrics extracted from the Q1
   workbook.
@@ -33,7 +33,7 @@ All under `code/intermediates/phase1/`:
 - `join_key_inventory.csv` - every join key found across the three
   workbooks with its cardinality, used by the training base builder.
 - `phase1_summary.json` - top-level summary with row counts, `output_dir`
-  (written as `code/intermediates/phase1`), and the input SHA-256 hashes.
+  (written as `code/intermediates (regenerable phase artifacts pruned)`), and the input SHA-256 hashes.
 
 ## Determinism
 
@@ -62,7 +62,7 @@ field.
 | `UnicodeDecodeError` on Kent-Leg | A cell carries a non-UTF-8 character from a pasted source; clean the cell or add a unicode-normalize step. |
 | Large row-count diff in `daily_metrics.csv` | The Q1 workbook was reshaped; verify the month range (Dec 29 2025 - Jan 31 2026) and sheet filter. |
 
-## Why the output lives under `code/intermediates/phase1/`
+## Why the output lives under `code/intermediates (regenerable phase artifacts pruned)/`
 
 Phase-1 output is **not** user-facing. It exists so that:
 

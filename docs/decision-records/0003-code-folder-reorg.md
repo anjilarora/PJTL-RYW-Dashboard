@@ -47,7 +47,7 @@ Guard rails the move depends on:
 ## Consequences
 
 - Pipeline artifacts are visible in git. PRs now show diffs on
-  `code/intermediates/phase1/*.csv` and `code/outputs/models/*.json`.
+  `code/intermediates (regenerable phase artifacts pruned)/*.csv` and `code/outputs/models/*.json`.
 - Scripts converge on one root resolution helper.
 - Backend Dockerfile is simpler: a single subtree `COPY`.
 - Re-runs need a one-time cleanup (the repo-root folders have been

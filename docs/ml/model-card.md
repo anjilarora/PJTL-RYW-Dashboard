@@ -50,15 +50,15 @@ Metrics recorded in
 - `auc` - ROC area under curve.
 - `brier` - Brier score post-calibration.
 - T1..T6 harness results recorded in the stage-3 report at
-  `code/outputs/reports/stage3/`.
+  `code/outputs/reports (regenerable artifacts pruned)/`.
 
 ## Lineage artifacts
 
-- `code/outputs/reports/stage3/model_card.json` - structured model card.
-- `code/outputs/reports/stage3/error_tradeoff_interpretation.md` -
+- `code/outputs/reports (regenerable artifacts pruned)/model_card.json` - structured model card.
+- `code/outputs/reports (regenerable artifacts pruned)/error_tradeoff_interpretation.md` -
   human-readable error analysis (referenced by `interpretation_artifact`
   in the model card).
-- `code/outputs/plots/stage3/` - calibration curves, confusion matrices,
+- `code/outputs/plots (regenerable artifacts pruned)/` - calibration curves, confusion matrices,
   feature-importance chart.
 
 ## Limitations
@@ -90,7 +90,7 @@ python scripts/build_phase1_canonical_base.py
 python scripts/generate_readiness_training_rows.py
 python scripts/build_readiness_training_base.py
 python inference_engine/scripts/sync_inputs_from_phase1.py
-jupyter nbconvert --to notebook --execute inference_engine/notebooks/stages/stage3_export_backend_model.ipynb
+jupyter nbconvert --to notebook --execute inference_engine scripts
 ```
 
 The stage-3 notebook is authoritative. The earlier script

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy code/intermediates/phase1 artifacts into code/intermediates/inference_inputs and write MANIFEST.json + MANIFEST.upstream.json."""
+"""Copy code/intermediates (regenerable phase artifacts pruned) artifacts into code/intermediates/inference_inputs and write MANIFEST.json + MANIFEST.upstream.json."""
 
 from __future__ import annotations
 

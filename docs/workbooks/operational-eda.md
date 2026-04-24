@@ -1,6 +1,6 @@
 # Operational EDA — narrative report
 
-Execution artifact: [`code/inference_engine/notebooks/operational_eda.ipynb`](../../inference_engine/notebooks/operational_eda.ipynb)
+Execution artifact: [`code/inference_engine/scripts/operational_eda.py`](../../inference_engine/scripts/operational_eda.py)
 Reusable logic: [`code/inference_engine/scripts/operational_eda.py`](../../inference_engine/scripts/operational_eda.py)
 
 > **Related reading**
@@ -267,7 +267,7 @@ negotiation round or a routing limit.
 Sources:
 [cost_margin_trend.csv](../../outputs/reports/operational_eda/cost_margin_trend.csv),
 [regional_cost_estimate.csv](../../outputs/reports/operational_eda/regional_cost_estimate.csv).
-Plot: [margin_trend.png](../../outputs/plots/operational_eda/margin_trend.png).
+Plot: [margin_trend.png](../../outputs/reports/operational_eda/).
 
 Fleet vs SecureCare, weekly:
 

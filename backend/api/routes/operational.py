@@ -2,9 +2,8 @@
 
 Each endpoint wraps a pure loader from
 ``code/backend/engine/operational_service.py``. Loaders read CSVs written by
-``code/inference_engine/scripts/operational_eda.py``; the notebook
-``code/inference_engine/notebooks/operational_eda.ipynb`` is the human-
-readable driver.
+``code/inference_engine/scripts/operational_eda.py``.
+
 """
 
 from __future__ import annotations

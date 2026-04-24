@@ -10,8 +10,8 @@ flowchart TD
   A[code/inputs/<br/>*.xlsx]:::inputs
   B1[build_phase1_canonical_base.py]
   B2[generate_readiness_training_rows.py]
-  C1[code/intermediates/phase1/<br/>*.csv + *.json]:::inter
-  C2[code/intermediates/training/<br/>readiness_training_rows.csv]:::inter
+  C1[code/intermediates (regenerable phase artifacts pruned)/<br/>*.csv + *.json]:::inter
+  C2[code/intermediates (regenerable training artifacts pruned)/<br/>readiness_training_rows.csv]:::inter
   D[build_readiness_training_base.py]
   E[code/intermediates/inference_inputs/<br/>readiness_training_base.csv]:::inter
   F[sync_inputs_from_phase1.py]
@@ -21,10 +21,10 @@ flowchart TD
   J[stage1_eda_inference.ipynb]
   K[stage2_modeling_diagnostics.ipynb]
   L[stage3_export_backend_model.ipynb]
-  M1[code/outputs/reports/stage1]:::out
-  M2[code/outputs/reports/stage2]:::out
-  M3[code/outputs/reports/stage3]:::out
-  M4[code/outputs/plots/stage1..3]:::out
+  M1[code/outputs/reports (regenerable artifacts pruned)]:::out
+  M2[code/outputs/reports (regenerable artifacts pruned)]:::out
+  M3[code/outputs/reports (regenerable artifacts pruned)]:::out
+  M4[code/outputs/plots (regenerable artifacts pruned)..3]:::out
   N[code/outputs/models/xgboost_readiness_stage3_v2]:::out
   O[backend /app/inference_models<br/>via Dockerfile COPY]
 
@@ -63,9 +63,9 @@ python scripts/generate_readiness_training_rows.py
 python scripts/build_readiness_training_base.py
 python inference_engine/scripts/sync_inputs_from_phase1.py
 python inference_engine/scripts/train_readiness_model_from_inputs.py
-jupyter nbconvert --to notebook --execute inference_engine/notebooks/stages/stage1_eda_inference.ipynb
-jupyter nbconvert --to notebook --execute inference_engine/notebooks/stages/stage2_modeling_diagnostics.ipynb
-jupyter nbconvert --to notebook --execute inference_engine/notebooks/stages/stage3_export_backend_model.ipynb
+jupyter nbconvert --to notebook --execute inference_engine scripts
+jupyter nbconvert --to notebook --execute inference_engine scripts
+jupyter nbconvert --to notebook --execute inference_engine scripts
 ```
 
 After stage-3 runs, the **model served by the backend** is
@@ -80,9 +80,9 @@ the notebook's output is what ships.
   `code/intermediates/`. Grep for `/Users/` or `/home/` and expect zero
   hits.
 - `code/intermediates/inference_inputs/MANIFEST.json` should reference
-  files under `code/intermediates/phase1/` (repo-relative).
-- `code/outputs/reports/stage3/model_card.json` should carry
-  `interpretation_artifact: "code/outputs/reports/stage3/error_tradeoff_interpretation.md"`
+  files under `code/intermediates (regenerable phase artifacts pruned)/` (repo-relative).
+- `code/outputs/reports (regenerable artifacts pruned)/model_card.json` should carry
+  `interpretation_artifact: "code/outputs/reports (regenerable artifacts pruned)/error_tradeoff_interpretation.md"`
   (never an absolute path).
 - `code/outputs/models/xgboost_readiness_stage3_v2/xgboost_readiness_metadata.json`
   should carry `training_data.path: "code/intermediates/inference_inputs/readiness_training_base.csv"`.
@@ -92,7 +92,7 @@ the notebook's output is what ships.
 | Symptom | Usual cause | Fix |
 |---|---|---|
 | `FileNotFoundError: code/inputs/Q1 Daily Metrics 2026.xlsx` | Analyst removed the workbook | Restore from the deliverables bundle or the last known good commit. |
-| Stage-3 notebook regenerates with `/Users/...` inside `model_card.json` | The notebook cell that writes `interpretation_artifact` was re-introduced in absolute form | Re-apply the stage-3 notebook guard (string literal `code/outputs/reports/stage3/...`) and re-run. |
+| Stage-3 notebook regenerates with `/Users/...` inside `model_card.json` | The notebook cell that writes `interpretation_artifact` was re-introduced in absolute form | Re-apply the stage-3 notebook guard (string literal `code/outputs/reports (regenerable artifacts pruned)/...`) and re-run. |
 | Backend `/ready` returns `ready=false` after `docker compose up` | Model directory is empty or the model metadata feature order does not match `InferenceRequest` | Re-run steps 5 and 8, then `docker compose build backend`. |
 | Training script crashes on join | Phase-1 snapshot is stale - the `MANIFEST.upstream.json` hash differs from the live `phase1/` | Re-run `sync_inputs_from_phase1.py` to refresh. |
 

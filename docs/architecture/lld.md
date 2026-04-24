@@ -103,7 +103,7 @@ Coordinates the upload job:
 ### `api/viability_service.py`
 Wraps `engine.pipeline.Pipeline` with the readiness classifier and
 confidence tier. Also emits `lineage_refs` pointing at
-`code/intermediates/phase1/*.csv` so the UI can link back to the
+`code/intermediates (regenerable phase artifacts pruned)/*.csv` so the UI can link back to the
 traceability files.
 
 ### `api/jobs_store.py`
@@ -178,7 +178,7 @@ the full catalog.
 
 ### `scripts/build_phase1_canonical_base.py`
 Inputs: the three xlsx workbooks under `code/inputs/`. Outputs: canonical
-CSVs under `code/intermediates/phase1/` plus `phase1_summary.json` and a
+CSVs under `code/intermediates (regenerable phase artifacts pruned)/` plus `phase1_summary.json` and a
 field dictionary.
 
 ### `scripts/generate_readiness_training_rows.py`
@@ -189,7 +189,7 @@ Generates three stratified populations:
 - **Flip** - pairs of rows that differ by a single feature crossed above
   and below its threshold.
 
-Outputs: `code/intermediates/training/readiness_training_rows.csv`.
+Outputs: `code/intermediates (regenerable training artifacts pruned)/readiness_training_rows.csv`.
 
 ### `scripts/build_readiness_training_base.py`
 Joins the training rows with phase-1-derived summary stats, applies gate

@@ -1,8 +1,0 @@
-source_sheet_or_field,status,reason,fallback
-Revenue by Payer raw table,quarantined_from_primary_base,Duplicates Contract Volume at raw grain and risks conflicting ownership of the primary fact table.,Use derived payer_summary_base from contract_volume_base.
-Mode Breakdown pivot blocks outside Table252,diagnostic_only,Sheet mixes raw rows with pivot-style summaries and grand-total side panels.,Use Table252 raw rows plus derived mode_summary_base.
-Vehicle Breakdown side panels and weekly metric blocks,diagnostic_only,Sheet contains multiple side-by-side summaries with incompatible grains.,Use Table12 and Table13 only as canonical extracted structures.
-OTP sheet,quarantined,Still unresolved in the validation backlog and not needed to pass Phase 1.,Exclude from the Phase 1 canonical base.
-Heat Map sheet,diagnostic_only,Useful for later EDA visuals but not required for the minimum viable analytical subset.,Defer to Phase 3 descriptive analysis.
-Total Performance / Regional Performance / Corewell Metrics,diagnostic_only,"High-value reporting sheets, but not needed to establish a clean row-grain canonical base.","Use later for reconciliation and diagnostics, not as the primary extract source."
-Quarter labels in Q1 workbook,ambiguity_flag,Workbook contains Quarter four and Quarter one labels despite file name implying Q1 2026.,Preserve raw labels and surface the ambiguity in the Phase 1 note.

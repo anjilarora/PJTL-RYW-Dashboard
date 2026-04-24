@@ -38,7 +38,7 @@ broker dependency.
 
 **Used by.** [code/scripts/build_phase1_canonical_base.py](../../scripts/build_phase1_canonical_base.py)
 extracts this workbook into the canonical CSV set under
-`code/intermediates/phase1/`. The nine-gate scorecard and every dashboard
+`code/intermediates (regenerable phase artifacts pruned)/`. The nine-gate scorecard and every dashboard
 panel trace back to these extracts.
 
 ### Sheet 1 — `Total Performance` (visible, 135 × 44)
@@ -381,7 +381,7 @@ Student Deliverables. Here is the cross-reference.
 |---|---|---|---|
 | Market Readiness Score / Dashboard | Q1 `Total Performance`, `Regional Performance`, `Weekly Margin`, `Mode Breakdown` | Q1 `Vehicle Breakdown`, `SecureCare Profit`, `Contract Volume`, `Revenue by Payer`, `OTP` | [code/frontend/pages/dashboard.vue](../../frontend/pages/dashboard.vue), [GateScorecard](../../frontend/components/GateScorecard.vue), [GateDetailPanel](../../frontend/components/GateDetailPanel.vue), [KpiSnapshotPanel](../../frontend/components/KpiSnapshotPanel.vue) |
 | Prospective-market intake spreadsheet | Intake `Organization Intake`, `Trip Demand Input`, `Lists` | Intake `Start Here`, `Summary Preview` | [code/inputs/RideYourWay_Prospective_Market_Intake_Template.xlsx](../../inputs/RideYourWay_Prospective_Market_Intake_Template.xlsx) + the upload UI in [pages/market.vue](../../frontend/pages/market.vue) |
-| Projected Margin Calculation | Q1 `Weekly Margin`, `SecureCare Profit` | Q1 `Vehicle Breakdown`, Intake `Trip Demand Input` | [MarginWaterfallPanel.vue](../../frontend/components/MarginWaterfallPanel.vue) + `engine/viability_service.py` |
+| Projected Margin Calculation | Q1 `Weekly Margin`, `SecureCare Profit` | Q1 `Vehicle Breakdown`, Intake `Trip Demand Input` | [dashboard panels](../../frontend/components/dashboard panels) + `engine/viability_service.py` |
 | Identification of risk & constraint violations | Q1 `Total Performance`, `Regional Performance`, `Mode Breakdown`, `Contract Volume` | Q1 `Revenue by Payer`, `Weekly Margin` | [RiskMitigationPanel.vue](../../frontend/components/RiskMitigationPanel.vue), gate-evaluator logic |
 | Recommended mitigation levers | All nine Q1 operational sheets | All Intake sheets | [SensitivityScenarioPanel.vue](../../frontend/components/SensitivityScenarioPanel.vue) + the XGBoost sliders |
 | Scenario modeling (stretch) | Q1 `Contract Volume`, `Revenue by Payer`, `Weekly Margin` | All of the above | Inference sliders on [pages/index.vue](../../frontend/pages/index.vue) + `test_readiness_edge_cases.py` |
@@ -441,12 +441,12 @@ in sync if you re-shape a sheet.
 ```bash
 # 1. Extract Q1 + intake into canonical CSVs
 python code/scripts/build_phase1_canonical_base.py
-# outputs → code/intermediates/phase1/*.csv
+# outputs → code/intermediates (regenerable phase artifacts pruned)/*.csv
 
 # 2. Generate / rebuild the training rows used by XGBoost
 python code/scripts/generate_readiness_training_rows.py
 python code/scripts/build_readiness_training_base.py
-# outputs → code/intermediates/training/readiness_training_rows.csv
+# outputs → code/intermediates (regenerable training artifacts pruned)/readiness_training_rows.csv
 #           code/intermediates/inference_inputs/readiness_training_base.csv
 
 # 3. Upload-path live: POST /api/v1/jobs/upload with the customer's
@@ -455,7 +455,7 @@ python code/scripts/build_readiness_training_base.py
 #    the bundled Q1 workbook inside the container's /workspace/code/).
 ```
 
-| Sheet | Extracted to (under `code/intermediates/phase1/`) |
+| Sheet | Extracted to (under `code/intermediates (regenerable phase artifacts pruned)/`) |
 |---|---|
 | `Total Performance` | `total_performance.csv`, folded into `minimum_viable_subset.csv` |
 | `Regional Performance` | `regional_performance.csv` |

@@ -13,11 +13,10 @@ code/frontend/
   pages/
     index.vue              <- "/" landing
     market.vue             <- "/market" intake + evaluation form
-    dashboard.vue          <- "/dashboard" main readiness dashboard (tabs)
-    audit.vue              <- "/audit" audit trail + traceability
+    dashboard.vue          <- "/dashboard" main readiness dashboard
     settings.vue           <- "/settings" role + preferences
   components/
-    DashboardTopbar.vue    <- global topbar (logo + tabs + role + theme)
+    DashboardTopbar.vue    <- global topbar (logo + tabs)
     PageHero.vue           <- per-page hero title/subtitle
     MarketHero.vue         <- market-context hero (status pill + KPI strip)
     RywLogo.vue            <- SVG logo used in topbar and landing
@@ -34,22 +33,15 @@ Responsibilities:
 - Apply the global compact spacing and typography.
 
 Because the layout is shared, **`DashboardTopbar` only mounts once** across
-the whole session. Switching between `/dashboard` and `/audit` does not
-remount the logo, role switcher, or theme toggle, which keeps the UI feeling
-like an app rather than a set of pages.
+the whole session. Switching between pages does not remount the top chrome,
+which keeps the UI feeling like an app rather than a set of pages.
 
 ## Shared state
 
 The SPA reads and writes a small amount of cross-page state via composables:
 
 - [composables/useBackendApi.ts](../../frontend/composables/useBackendApi.ts)
-  exposes a reactive `role` ref plus the `apiGet()`, `apiPost()`, `apiUpload()`
-  helpers. Every page uses the same `role` so changing it in
-  `DashboardTopbar` immediately changes the header on every outgoing request.
-- [composables/useViabilitySession.ts](../../frontend/composables/useViabilitySession.ts)
-  stores the current market profile and the most recent evaluation in
-  `sessionStorage` under the keys `RYW_STORAGE_MARKET` and
-  `RYW_STORAGE_HISTORICAL`. Switching pages never drops the evaluation.
+  exposes request helpers for backend-proxied APIs.
 - [composables/useAppTheme.ts](../../frontend/composables/useAppTheme.ts)
   toggles `html[data-theme="light" | "dark"]` and persists the choice.
 
@@ -58,8 +50,7 @@ The SPA reads and writes a small amount of cross-page state via composables:
 Earlier iterations had per-page headers and each page imported its own copy
 of the topbar. That created three problems:
 
-1. The role switcher lived on multiple pages and got out of sync unless the
-   user reloaded.
+1. Shared top chrome previously lived on multiple pages and got out of sync.
 2. Small copy changes (e.g., the brand tagline) required edits in four
    places.
 3. Page transitions flickered because Nuxt remounted the chrome on every
@@ -83,11 +74,9 @@ graph TD
   kpip[KpiSnapshotPanel.vue]
   gs[GateScorecard.vue]
   gd[GateDetailPanel.vue]
-  mw[MarginWaterfallPanel.vue]
   ism[IntakeSummaryPanel.vue]
   rm[RiskMitigationPanel.vue]
   ss[SensitivityScenarioPanel.vue]
-  at[AuditTraceabilityPanel.vue]
 
   root --> layout
   layout --> topbar --> logo
@@ -96,11 +85,9 @@ graph TD
   page --> mhero
   page --> kpip
   page --> gs --> gd
-  page --> mw
   page --> ism
   page --> rm
   page --> ss
-  page --> at
 ```
 
 See [frontend/component-catalog.md](../frontend/component-catalog.md) for the

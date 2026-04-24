@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build code/intermediates/phase1/readiness_training_base.csv from code/intermediates/training/ rows + shared KPI config."""
+"""Build readiness training base CSV from generated training rows + shared KPI config."""
 
 from __future__ import annotations
 

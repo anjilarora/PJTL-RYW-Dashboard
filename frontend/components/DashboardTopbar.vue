@@ -34,16 +34,6 @@
         <span>Dashboard</span>
       </NuxtLink>
 
-      <NuxtLink to="/margin" class="nav-link" active-class="nav-link--active">
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="3" />
-          <path d="M8 16l8-8" />
-          <circle cx="9" cy="9" r="1.3" />
-          <circle cx="15" cy="15" r="1.3" />
-        </svg>
-        <span>Margin calculator</span>
-      </NuxtLink>
-
       <div class="nav-link-wrap">
         <NuxtLink to="/market" class="nav-link" active-class="nav-link--active">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">

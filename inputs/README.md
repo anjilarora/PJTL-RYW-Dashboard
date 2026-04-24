@@ -21,9 +21,9 @@ contract.
 From the repository root:
 
 ```bash
-python code/scripts/build_phase1_canonical_base.py       # xlsx  -> code/intermediates/phase1/*.csv
-python code/scripts/generate_readiness_training_rows.py  # -> code/intermediates/training/readiness_training_rows.csv
-python code/scripts/build_readiness_training_base.py     # -> code/intermediates/phase1/readiness_training_base.csv
+python code/scripts/build_phase1_canonical_base.py       # xlsx  -> code/intermediates/*.csv (regenerated)
+python code/scripts/generate_readiness_training_rows.py  # -> regenerated training rows CSV
+python code/scripts/build_readiness_training_base.py     # -> regenerated readiness training base CSV
 python code/inference_engine/scripts/sync_inputs_from_phase1.py
 python code/inference_engine/scripts/train_readiness_model_from_inputs.py  # -> code/outputs/models/
 ```

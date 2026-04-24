@@ -6,7 +6,7 @@ layer that sits on top of the existing feature-engineering EDA. It writes:
 - CSV aggregates under ``code/outputs/reports/operational_eda/``
 - Plots under ``code/outputs/plots/operational_eda/``
 
-The companion notebook ``code/inference_engine/notebooks/operational_eda.ipynb``
+The companion script entrypoint ``code/inference_engine/scripts/operational_eda.py``
 imports :func:`run` from here so the notebook stays narrative and the logic
 stays testable.
 

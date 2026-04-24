@@ -62,9 +62,9 @@ def evaluate_market(
             ],
         },
         "lineage_refs": {
-            "field_dictionary": "code/intermediates/phase1/field_dictionary.csv",
-            "join_key_inventory": "code/intermediates/phase1/join_key_inventory.csv",
-            "missingness_audit": "code/intermediates/phase1/missingness_audit.csv",
+            "field_dictionary": "code/intermediates (regenerable phase artifacts pruned)/field_dictionary.csv",
+            "join_key_inventory": "code/intermediates (regenerable phase artifacts pruned)/join_key_inventory.csv",
+            "missingness_audit": "code/intermediates (regenerable phase artifacts pruned)/missingness_audit.csv",
         },
         "gate_details": [
             _gate_detail(condition.metric_number, condition.name, condition.passed)

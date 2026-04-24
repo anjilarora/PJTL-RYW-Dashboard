@@ -3,7 +3,7 @@
 **Script**:
 [code/scripts/generate_readiness_training_rows.py](../../scripts/generate_readiness_training_rows.py)
 
-**Output**: `code/intermediates/training/readiness_training_rows.csv`
+**Output**: `code/intermediates (regenerable training artifacts pruned)/readiness_training_rows.csv`
 
 ## What this script produces
 

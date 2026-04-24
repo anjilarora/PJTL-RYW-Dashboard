@@ -33,9 +33,9 @@ definition of "Ready" the model has to learn.
 
 ## Inputs
 
-- `code/intermediates/training/readiness_training_rows.csv` (from the
+- `code/intermediates (regenerable training artifacts pruned)/readiness_training_rows.csv` (from the
   prior script).
-- `code/intermediates/phase1/*.csv` for any summary stats that the rows
+- `code/intermediates (regenerable phase artifacts pruned)/*.csv` for any summary stats that the rows
   need (e.g., peer-market revenue-per-Kent-Leg to scale boundary draws).
 - `code/config/pjtl_kpis_and_formulas.json` for thresholds and pass rules.
 
@@ -46,7 +46,7 @@ Writes a `training_base_provenance.json` alongside the CSV that records:
 - SHAs of `readiness_training_rows.csv` and the KPI config document.
 - Row counts split by `label_ready` (sanity check that both classes are
   non-empty - this was the bug that motivated the rebuild).
-- Input rows file path as `code/intermediates/training/readiness_training_rows.csv`.
+- Input rows file path as `code/intermediates (regenerable training artifacts pruned)/readiness_training_rows.csv`.
 - KPI config path as `code/config/pjtl_kpis_and_formulas.json`.
 
 ## Why the split from row generation
