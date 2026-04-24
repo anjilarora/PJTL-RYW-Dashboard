@@ -10,8 +10,8 @@ flowchart TD
   A[code/inputs/<br/>*.xlsx]:::inputs
   B1[build_phase1_canonical_base.py]
   B2[generate_readiness_training_rows.py]
-  C1[code/intermediates (regenerable phase artifacts pruned)/<br/>*.csv + *.json]:::inter
-  C2[code/intermediates (regenerable training artifacts pruned)/<br/>readiness_training_rows.csv]:::inter
+  C1[code/intermediates/<br/>phase-1 metadata + snapshot manifests]:::inter
+  C2[code/intermediates/inference_inputs/<br/>readiness_training_rows.csv (regenerable)]:::inter
   D[build_readiness_training_base.py]
   E[code/intermediates/inference_inputs/<br/>readiness_training_base.csv]:::inter
   F[sync_inputs_from_phase1.py]
@@ -21,10 +21,10 @@ flowchart TD
   J[stage1_eda_inference.ipynb]
   K[stage2_modeling_diagnostics.ipynb]
   L[stage3_export_backend_model.ipynb]
-  M1[code/outputs/reports (regenerable artifacts pruned)]:::out
-  M2[code/outputs/reports (regenerable artifacts pruned)]:::out
-  M3[code/outputs/reports (regenerable artifacts pruned)]:::out
-  M4[code/outputs/plots (regenerable artifacts pruned)..3]:::out
+  M1[code/outputs/reports/operational_eda]:::out
+  M2[code/outputs/reports/operational_eda]:::out
+  M3[code/outputs/reports/operational_eda]:::out
+  M4[regenerable notebooks/plots (not tracked)]:::out
   N[code/outputs/models/xgboost_readiness_stage3_v2]:::out
   O[backend /app/inference_models<br/>via Dockerfile COPY]
 
@@ -79,11 +79,10 @@ the notebook's output is what ships.
 - No absolute paths anywhere under `code/outputs/` or
   `code/intermediates/`. Grep for `/Users/` or `/home/` and expect zero
   hits.
-- `code/intermediates/inference_inputs/MANIFEST.json` should reference
-  files under `code/intermediates (regenerable phase artifacts pruned)/` (repo-relative).
-- `code/outputs/reports (regenerable artifacts pruned)/model_card.json` should carry
-  `interpretation_artifact: "code/outputs/reports (regenerable artifacts pruned)/error_tradeoff_interpretation.md"`
-  (never an absolute path).
+- `code/intermediates/inference_inputs/MANIFEST.json` should only reference
+  files that currently exist in `code/intermediates/inference_inputs/` (repo-relative).
+- `code/outputs/reports/operational_eda/manifest.json` should remain
+  repo-relative and never include absolute host paths.
 - `code/outputs/models/xgboost_readiness_stage3_v2/xgboost_readiness_metadata.json`
   should carry `training_data.path: "code/intermediates/inference_inputs/readiness_training_base.csv"`.
 
@@ -92,7 +91,7 @@ the notebook's output is what ships.
 | Symptom | Usual cause | Fix |
 |---|---|---|
 | `FileNotFoundError: code/inputs/Q1 Daily Metrics 2026.xlsx` | Analyst removed the workbook | Restore from the deliverables bundle or the last known good commit. |
-| Stage-3 notebook regenerates with `/Users/...` inside `model_card.json` | The notebook cell that writes `interpretation_artifact` was re-introduced in absolute form | Re-apply the stage-3 notebook guard (string literal `code/outputs/reports (regenerable artifacts pruned)/...`) and re-run. |
+| Stage report references `/Users/...` paths | A notebook/script wrote host-absolute paths into a report artifact | Re-run with repo-relative outputs and normalize paths before committing artifacts. |
 | Backend `/ready` returns `ready=false` after `docker compose up` | Model directory is empty or the model metadata feature order does not match `InferenceRequest` | Re-run steps 5 and 8, then `docker compose build backend`. |
 | Training script crashes on join | Phase-1 snapshot is stale - the `MANIFEST.upstream.json` hash differs from the live `phase1/` | Re-run `sync_inputs_from_phase1.py` to refresh. |
 

@@ -49,17 +49,15 @@ Metrics recorded in
 - `accuracy` - on a 20% held-out split.
 - `auc` - ROC area under curve.
 - `brier` - Brier score post-calibration.
-- T1..T6 harness results recorded in the stage-3 report at
-  `code/outputs/reports (regenerable artifacts pruned)/`.
+- T1..T6 harness results are recorded in regenerated model reports during
+  training runs (bulk notebook artifacts are not tracked in this repo).
 
 ## Lineage artifacts
 
-- `code/outputs/reports (regenerable artifacts pruned)/model_card.json` - structured model card.
-- `code/outputs/reports (regenerable artifacts pruned)/error_tradeoff_interpretation.md` -
-  human-readable error analysis (referenced by `interpretation_artifact`
-  in the model card).
-- `code/outputs/plots (regenerable artifacts pruned)/` - calibration curves, confusion matrices,
-  feature-importance chart.
+- `code/outputs/models/xgboost_readiness_stage3_v2/xgboost_readiness_metadata.json` -
+  model-level metrics and schema metadata tracked for runtime.
+- Notebook-level reports and plots are regenerable and intentionally not
+  tracked in this trimmed repository footprint.
 
 ## Limitations
 

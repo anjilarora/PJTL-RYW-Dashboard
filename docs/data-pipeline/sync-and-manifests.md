@@ -13,13 +13,13 @@ harness all look at the same snapshot.
 
 ## Files produced
 
-- Copies of every CSV from `code/intermediates (regenerable phase artifacts pruned)/`.
+- Copies of every CSV from `code/intermediates/phase1/` at snapshot time.
 - `readiness_training_base.csv` (copied or symlinked from the training
   base builder's output).
 - `MANIFEST.json` - one entry per file in the snapshot with filename,
   size, and SHA-256.
 - `MANIFEST.upstream.json` - same format but for the *source* files under
-  `code/inputs/` and `code/intermediates (regenerable phase artifacts pruned)/`. This is the
+  `code/inputs/` and `code/intermediates/phase1/`. This is the
   fingerprint of "what was phase-1 when we snapped".
 
 ## Why two manifests
@@ -35,7 +35,7 @@ harness all look at the same snapshot.
 
 Any time:
 
-- `code/intermediates (regenerable phase artifacts pruned)/` changes (after a phase-1 rebuild).
+- `code/intermediates/phase1/` changes (after a phase-1 rebuild).
 - `readiness_training_base.csv` is rebuilt.
 - The xlsx under `code/inputs/` changes.
 

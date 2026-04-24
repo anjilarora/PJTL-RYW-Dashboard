@@ -12,7 +12,7 @@ Nuxt's `<NuxtLink>`.
 | `/market` | `pages/market.vue` | Intake entry and evaluation trigger. Pushes the result into `useViabilitySession()`. |
 | `/dashboard` | `pages/dashboard.vue` | Main readiness dashboard with tabbed panels. |
 | `/audit` | `pages/audit.vue` | Audit trail + traceability view. |
-| `/settings` | `pages/settings.vue` | Role and UI preferences. |
+| `/settings` | `pages/settings.vue` | UI preferences (theme only). |
 
 All five mount inside `layouts/default.vue`.
 
@@ -22,10 +22,9 @@ Two composables do the heavy lifting:
 
 ### `useBackendApi()`
 
-- `role: Ref<Role>` - reactive, persisted to `localStorage`.
 - `apiGet(path)`, `apiPost(path, body)`, `apiUpload(path, formData)` -
-  attach `X-Role` (and `X-Internal-Secret` when the runtime config has
-  it) and return parsed JSON.
+  attach request headers expected by the backend runtime and return parsed
+  JSON.
 - 502s from the Nitro proxy get normalized to `Error` with
   `statusCode === 502` so the UI can render "API unreachable".
 
@@ -44,8 +43,8 @@ keys from this composable.
 
 Nuxt default transitions are enabled. Because `layouts/default.vue`
 hosts `DashboardTopbar`, navigating between pages does not remount the
-topbar - only the page body fades. This is why the role switcher and
-the theme toggle stay sticky as the user moves around.
+topbar - only the page body fades. Theme preference continues to apply
+across routes via shared state.
 
 ## Tab within a page
 
@@ -59,9 +58,9 @@ switches `activeTab` to `"gate-detail"` and passes the key to
 
 Three reasons:
 
-1. **Consistent chrome.** The role switcher must be authoritative
-   across every page. Moving it into the shared layout guarantees no
-   "stale role" bugs.
+1. **Consistent chrome.** Global nav and shared context stay visually
+   stable across routes, which avoids duplicate headers and keeps
+   orientation clear.
 2. **Fast transitions.** The readiness dashboard is numeric and
    scanner-heavy; users flip between `/dashboard` and `/audit` a lot.
 3. **Shared evaluation state.** The viability session object is large

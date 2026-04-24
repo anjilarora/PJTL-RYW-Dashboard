@@ -76,7 +76,8 @@ Request body (see `EvaluateRequest`):
 
 Response `data` contains the nine-gate report, the readiness
 classification, the confidence tier, and `lineage_refs` pointing at
-`code/intermediates (regenerable phase artifacts pruned)/` artifacts for the UI trace links.
+repo-relative artifacts (primarily snapshot manifests under
+`code/intermediates/inference_inputs/`) for UI trace links.
 
 ## Inference
 

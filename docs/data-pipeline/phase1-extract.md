@@ -5,8 +5,9 @@
 
 **Purpose**: Flatten the three xlsx workbooks under `code/inputs/` into
 machine-readable CSVs plus JSON field dictionaries under
-`code/intermediates (regenerable phase artifacts pruned)/`. Everything downstream reads from the CSVs,
-never from xlsx.
+`code/intermediates/phase1/` during generation. In this trimmed repo those
+bulk artifacts are intentionally not tracked; only snapshot metadata under
+`code/intermediates/inference_inputs/` is kept.
 
 ## Inputs
 
@@ -18,7 +19,8 @@ never from xlsx.
 
 ## Outputs
 
-All under `code/intermediates (regenerable phase artifacts pruned)/`:
+Generated under `code/intermediates/phase1/` (regenerable, not tracked in
+this trimmed repository):
 
 - `daily_metrics.csv` - tidy long-form daily metrics extracted from the Q1
   workbook.
@@ -33,7 +35,7 @@ All under `code/intermediates (regenerable phase artifacts pruned)/`:
 - `join_key_inventory.csv` - every join key found across the three
   workbooks with its cardinality, used by the training base builder.
 - `phase1_summary.json` - top-level summary with row counts, `output_dir`
-  (written as `code/intermediates (regenerable phase artifacts pruned)`), and the input SHA-256 hashes.
+  (written as `code/intermediates/phase1`), and the input SHA-256 hashes.
 
 ## Determinism
 
@@ -62,7 +64,7 @@ field.
 | `UnicodeDecodeError` on Kent-Leg | A cell carries a non-UTF-8 character from a pasted source; clean the cell or add a unicode-normalize step. |
 | Large row-count diff in `daily_metrics.csv` | The Q1 workbook was reshaped; verify the month range (Dec 29 2025 - Jan 31 2026) and sheet filter. |
 
-## Why the output lives under `code/intermediates (regenerable phase artifacts pruned)/`
+## Why the output lives under `code/intermediates/phase1/`
 
 Phase-1 output is **not** user-facing. It exists so that:
 

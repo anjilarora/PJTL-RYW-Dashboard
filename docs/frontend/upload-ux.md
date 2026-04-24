@@ -1,20 +1,19 @@
 # Upload UX
 
-The intake upload surface lives on `pages/dashboard.vue` and gates on
+The intake upload surface lives on `pages/market.vue` and gates on
 strict rules to keep the backend pipeline happy.
 
 ## User flow
 
-1. Analyst clicks "Upload daily-metrics workbook".
+1. Analyst opens Market Readiness and uploads an intake workbook.
 2. File picker accepts only `.xlsx` (enforced by both the native
    filter and the backend OOXML zip-magic check).
 3. Selecting a file immediately POSTs it to `/api/backend/api/v1/jobs/upload`.
 4. The UI shows a step list with spinner/check/cross per step
    (`received`, `validate`, `phase1`, `normalize`, `pipeline`,
    `done`).
-5. On `done`, the dashboard auto-selects the freshly-evaluated market
-   and pushes it into `useViabilitySession()` so every panel
-   re-renders.
+5. On `done`, the evaluation is stored in `useViabilitySession()` and the
+   user can move to `/dashboard` to review the full deep-dive panels.
 6. On `error`, the failing step is highlighted with the server error
    text.
 
@@ -39,8 +38,8 @@ Drop your daily-metrics workbook (.xlsx) here.
 
 What we do with it:
   - code/inputs/ - source workbook (not written to; never modified).
-  - code/intermediates (regenerable phase artifacts pruned)/ - canonical CSVs extracted on the fly
-    for this upload only.
+  - code/intermediates/inference_inputs/ - snapshot metadata/manifests
+    used for traceability.
   - code/outputs/models/ - the XGBoost model that scores your
     readiness (not regenerated per upload).
 

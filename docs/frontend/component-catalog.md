@@ -60,7 +60,19 @@ from the viability report's `fleet` block.
 
 ### `CostRevenueSummaryPanel.vue`
 Tiled summary of projected weekly revenue, cost, operating margin, and
-revenue per Kent-Leg. Accompanies the margin waterfall.
+revenue per Kent-Leg.
+
+### `FleetScorecardPanel.vue`
+Operational deep-dive D1 panel. Regional pass/fail scorecard with
+loading skeleton states.
+
+### `WeeklyTrendPanel.vue`
+Operational deep-dive D2 panel. Highcharts-powered trend view for
+week-over-week operating movement.
+
+### `ModeMixPanel.vue`
+Operational deep-dive D3 panel. Highcharts combo chart for mode-level
+revenue and margin comparison.
 
 ### `DemandContractSummaryPanel.vue`
 Summary of prospective contracts in the intake (count, weighted volume

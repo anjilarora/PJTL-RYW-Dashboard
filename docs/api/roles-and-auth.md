@@ -28,8 +28,8 @@ returns the caller's role based on `RYW_AUTH_MODE`. Routes then call
 
 If a role is added, do it in the `ROLE_ORDER` dict in
 [auth.py](../../backend/api/auth.py), the `Role` literal in
-[schemas.py](../../backend/api/schemas.py), and the role switcher in
-[DashboardTopbar.vue](../../frontend/components/DashboardTopbar.vue).
+[schemas.py](../../backend/api/schemas.py), and any frontend role controls
+that may be enabled for the deployment.
 
 ## Auth modes
 
@@ -60,8 +60,7 @@ Selected by `RYW_AUTH_MODE` in
 3. Export `RYW_AUTH_MODE=jwt`, `RYW_JWT_SECRET=...`, and optionally
    `RYW_JWT_ALGORITHM`, `RYW_JWT_ROLE_CLAIM`.
 4. Update the frontend to attach `Authorization: Bearer ...` instead of
-   `X-Role`. The `DashboardTopbar` role switcher should be hidden or
-   removed in production because the IdP controls the role.
+   demo headers. The IdP should remain the source of truth for role claims.
 5. Rotate the secret periodically; the backend reads it at process start
    (it is `lru_cache`d), so restart the backend to pick up a new secret.
 

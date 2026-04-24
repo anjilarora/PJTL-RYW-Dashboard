@@ -56,9 +56,8 @@ layers:
    fails on any type error.
 2. **Manual smoke tests** with `docker compose up -d`:
    - Landing page renders logo and tabs.
-   - Role switcher changes backend response headers.
-   - Dashboard loads with status pill, gate carousel, and margin
-     waterfall.
+   - Market page upload flow accepts `.xlsx`, starts a job, and shows job progress.
+   - Dashboard loads with status pill, gate carousel, and operational deep-dive tabs.
    - Upload pipeline succeeds on the bundled example workbook.
    - Light/dark theme toggles without illegible text.
 3. **Accessibility snapshots** via the IDE's MCP browser tools when a
@@ -71,8 +70,8 @@ layers:
   after the export to catch drift.
 - Every generated JSON under `code/outputs/` is checked into git, so a
   PR that changes the model without meaning to shows a diff.
-- `code/outputs/reports (regenerable artifacts pruned)/provenance*` JSONs carry input SHAs so a
-  surprise input change surfaces as a provenance diff in the PR.
+- `code/intermediates/inference_inputs/MANIFEST*.json` carry input SHAs so
+  surprise input changes surface as provenance diffs in PRs.
 
 ## What is not tested (yet)
 
