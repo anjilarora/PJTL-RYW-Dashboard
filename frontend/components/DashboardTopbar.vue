@@ -129,15 +129,18 @@
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 600;
-  transition: color 150ms ease, background 150ms ease;
+  transition: color 150ms ease, background 150ms ease, transform 150ms ease, border-color 150ms ease;
+  border: 1px solid transparent;
 }
 .nav-link:hover {
   background: var(--surface-2);
   color: var(--ink);
+  transform: translateY(-1px);
 }
 .nav-link--active {
   background: var(--blue-soft);
   color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 35%, var(--line));
 }
 .nav-link--active::after {
   content: "";

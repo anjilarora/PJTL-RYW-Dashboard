@@ -100,7 +100,11 @@ function regionSummary(r: Region): { pass: number; fail: number; missing: number
       </p>
     </header>
 
-    <div v-if="loading" class="ops-panel__status">Loading regional scorecard…</div>
+    <div v-if="loading" class="ops-panel__status ops-panel__status--skeleton" aria-live="polite">
+      <div class="skeleton skeleton-line" />
+      <div class="skeleton skeleton-line skeleton-line--short" />
+      <div class="skeleton skeleton-card" />
+    </div>
     <div v-else-if="error" class="ops-panel__status ops-panel__status--error">{{ error }}</div>
     <div v-else-if="!regions.length" class="ops-panel__status">
       No regional data found. Run <code>python code/inference_engine/scripts/operational_eda.py</code> to regenerate.
@@ -185,6 +189,20 @@ function regionSummary(r: Region): { pass: number; fail: number; missing: number
 }
 .ops-panel__status--error {
   color: var(--red);
+}
+.ops-panel__status--skeleton {
+  display: grid;
+  gap: 8px;
+}
+.skeleton-line {
+  height: 12px;
+}
+.skeleton-line--short {
+  width: 62%;
+}
+.skeleton-card {
+  height: 78px;
+  margin-top: 4px;
 }
 
 .region-list {

@@ -131,6 +131,8 @@ order most relevant to their role.
 - [changelog.md](changelog.md) - chronological ledger of every dated commit in
   `main`.
 - [production-checklist.md](production-checklist.md) - pre-deploy gate list.
+- [sanity-pass.md](sanity-pass.md) - concise app/data-flow sanity guide (what
+  is extracted, what each tab means, and current action items).
 
 ## Conventions
 

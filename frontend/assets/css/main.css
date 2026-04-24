@@ -24,6 +24,17 @@
   --red-soft: rgba(255, 111, 120, 0.18);
   --white: #ffffff;
   --shadow: 0 26px 50px rgba(0, 0, 0, 0.28);
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --ease-standard: 180ms ease;
 }
 
 *,
@@ -220,7 +231,7 @@ textarea {
 
 .main-shell {
   min-width: 0;
-  padding: 26px 30px 44px;
+  padding: var(--space-5) 30px 44px;
 }
 
 .topbar {
@@ -428,9 +439,14 @@ textarea {
 .panel {
   background: rgba(18, 23, 32, 0.92);
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow);
-  padding: 24px;
+  padding: var(--space-5);
+  transition: border-color var(--ease-standard), transform var(--ease-standard), box-shadow var(--ease-standard);
+}
+
+.panel:hover {
+  border-color: color-mix(in srgb, var(--blue) 25%, var(--line));
 }
 
 .panel--summary,
@@ -454,7 +470,7 @@ textarea {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-2);
 }
 
 .panel-header h2,
@@ -467,7 +483,7 @@ textarea {
 
 .panel-header p,
 .section-heading p {
-  margin: 10px 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--muted);
   line-height: 1.6;
   max-width: 58ch;
@@ -628,7 +644,7 @@ textarea {
 }
 
 .section-block {
-  margin-top: 30px;
+  margin-top: var(--space-6);
 }
 
 .section-heading {
@@ -655,11 +671,18 @@ textarea {
 
 .driver-card,
 .action-card {
-  padding: 22px;
-  border-radius: 24px;
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
   background: rgba(18, 23, 32, 0.92);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
+  transition: border-color var(--ease-standard), transform var(--ease-standard);
+}
+
+.driver-card:hover,
+.action-card:hover {
+  border-color: color-mix(in srgb, var(--blue) 24%, var(--line));
+  transform: translateY(-1px);
 }
 
 .driver-card__top,
@@ -1398,9 +1421,9 @@ html[data-theme="light"] .table-badge.is-broker {
 
 .landing-panel {
   margin-bottom: 1.5rem;
-  padding: 1.25rem;
+  padding: var(--space-5);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -1484,12 +1507,39 @@ html[data-theme="light"] .table-badge.is-broker {
 }
 
 .market-panel {
-  padding: 1.25rem;
+  padding: var(--space-5);
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow);
   margin-bottom: 1.25rem;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--surface-2) 88%, var(--line));
+  border-radius: var(--radius-sm);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--surface) 75%, white 25%) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.25s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .market-panel h2 {

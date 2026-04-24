@@ -2,7 +2,7 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 COPY package*.json /app/
-RUN npm ci
+RUN npm ci --no-audit --no-fund
 COPY . /app
 RUN npm run build
 

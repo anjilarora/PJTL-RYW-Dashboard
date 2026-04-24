@@ -432,13 +432,17 @@ function onGateSelected(idx: number) {
   border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 140ms ease, color 140ms ease;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
 }
-.detail-tabs__tab:hover { color: var(--ink); }
+.detail-tabs__tab:hover {
+  color: var(--ink);
+  transform: translateY(-1px);
+}
 .detail-tabs__tab--active {
   background: var(--surface);
   color: var(--blue);
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--blue) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--blue) 36%, var(--line));
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--blue) 20%, transparent);
 }
 .detail-tabs__tab--active::after {
   content: "";
@@ -498,9 +502,13 @@ function onGateSelected(idx: number) {
   align-items: center;
   gap: 8px;
   white-space: nowrap;
-  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
-.ops-subtab:hover { color: var(--ink); background: var(--surface); }
+.ops-subtab:hover {
+  color: var(--ink);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
 .ops-subtab--active {
   background: var(--surface);
   color: var(--blue);

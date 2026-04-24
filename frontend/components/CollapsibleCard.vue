@@ -27,10 +27,10 @@ withDefaults(
 <style scoped>
 .accordion {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--surface-2);
   overflow: hidden;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
 
 .accordion + .accordion {
@@ -41,13 +41,16 @@ withDefaults(
   border-color: var(--line-strong);
   box-shadow: var(--shadow);
 }
+.accordion:hover {
+  border-color: color-mix(in srgb, var(--blue) 22%, var(--line));
+}
 
 .accordion__summary {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 18px;
+  padding: 15px 18px;
   cursor: pointer;
   user-select: none;
   font-weight: 600;
@@ -85,7 +88,7 @@ withDefaults(
 }
 
 .accordion__body {
-  padding: 4px 18px 16px;
+  padding: 6px 18px 16px;
   color: var(--ink);
   font-size: 0.92rem;
   line-height: 1.55;

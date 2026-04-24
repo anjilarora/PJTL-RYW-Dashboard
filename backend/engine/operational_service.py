@@ -1,9 +1,9 @@
 """Load operational-EDA CSV aggregates for the dashboard API.
 
 The script ``code/inference_engine/scripts/operational_eda.py`` is the
-single source of truth; both write their outputs under
+single source of truth and writes outputs under
 ``code/outputs/reports/operational_eda/``. This service only **reads** those
-CSVs and massages them into response payloads. Rerun the notebook to refresh.
+CSVs and massages them into response payloads. Rerun the script to refresh.
 """
 
 from __future__ import annotations

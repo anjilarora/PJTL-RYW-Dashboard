@@ -34,6 +34,9 @@ const props = defineProps<{
   loading?: boolean
   error?: string | null
 }>()
+const chartEl = ref<HTMLElement | null>(null)
+let hcLib: any = null
+let hcChart: any = null
 
 const baseModes = computed(() => props.modes.filter((m) => m.note === null || m.note === undefined || m.note === ""))
 const annotatedModes = computed(() => props.modes.filter((m) => (m.note ?? "") !== ""))
@@ -70,6 +73,115 @@ function nsTone(mode: Mode): string {
   if (mode.nonbillable_ns_rate === null || mode.nonbillable_ns_rate === undefined) return "neutral"
   return mode.nonbillable_ns_rate <= 0.1 ? "pass" : "fail"
 }
+
+async function ensureHighcharts() {
+  if (!import.meta.client) return
+  if (!hcLib) hcLib = (await import("highcharts")).default
+}
+
+function renderChart() {
+  if (!import.meta.client || !hcLib || !chartEl.value) return
+  if (!baseModes.value.length) return
+  const categories = baseModes.value.map((m) => m.mode)
+  const revShare = baseModes.value.map((m) => (m.revenue_share == null ? null : Number((m.revenue_share * 100).toFixed(2))))
+  const noShow = baseModes.value.map((m) => (m.nonbillable_ns_rate == null ? null : Number((m.nonbillable_ns_rate * 100).toFixed(2))))
+  const revPerKl = baseModes.value.map((m) => (m.avg_revenue_per_kentleg == null ? null : Number(m.avg_revenue_per_kentleg.toFixed(2))))
+  if (hcChart) hcChart.destroy()
+  hcChart = hcLib.chart(chartEl.value, {
+    chart: {
+      type: "column",
+      backgroundColor: "transparent",
+      spacingTop: 12,
+      spacingRight: 12,
+      spacingLeft: 8,
+      spacingBottom: 8,
+      animation: { duration: 260 }
+    },
+    title: { text: undefined },
+    credits: { enabled: false },
+    xAxis: {
+      categories,
+      lineColor: "rgba(152,164,183,0.25)",
+      tickColor: "rgba(152,164,183,0.25)",
+      labels: { style: { color: "#98a4b7", fontSize: "11px" } }
+    },
+    yAxis: [{
+      title: { text: "Share / No-show (%)", style: { color: "#98a4b7" } },
+      labels: { style: { color: "#98a4b7", fontSize: "11px" } },
+      gridLineColor: "rgba(152,164,183,0.16)",
+      max: 100
+    }, {
+      title: { text: "Rev / KL ($)", style: { color: "#98a4b7" } },
+      labels: { style: { color: "#98a4b7", fontSize: "11px" } },
+      opposite: true,
+      gridLineWidth: 0,
+      plotLines: [{
+        value: 70,
+        color: "rgba(255,203,5,0.9)",
+        width: 1.2,
+        dashStyle: "Dash",
+        label: {
+          text: "Target $70",
+          align: "right",
+          style: { color: "#ffc873", fontWeight: "700", fontSize: "10px" }
+        }
+      }]
+    }],
+    tooltip: {
+      shared: true,
+      borderColor: "rgba(152,164,183,0.28)",
+      backgroundColor: "rgba(15,20,28,0.95)",
+      style: { color: "#f4f7fb" },
+      formatter: function (this: any) {
+        const idx = this.points?.[0]?.point?.index ?? 0
+        const mode = categories[idx] ?? ""
+        const trips = short(baseModes.value[idx]?.trip_count ?? null)
+        const rev = currency(baseModes.value[idx]?.revenue ?? null)
+        const revKl = currency(baseModes.value[idx]?.avg_revenue_per_kentleg ?? null)
+        const share = pct(baseModes.value[idx]?.revenue_share ?? null)
+        const ns = pct(baseModes.value[idx]?.nonbillable_ns_rate ?? null)
+        return `<b>${mode}</b><br/>Trips: <b>${trips}</b><br/>Revenue: <b>${rev}</b><br/>Revenue share: <b>${share}</b><br/>Non-billable NS: <b>${ns}</b><br/>Rev/KL: <b>${revKl}</b>`
+      }
+    },
+    legend: {
+      itemStyle: { color: "#98a4b7", fontSize: "11px" }
+    },
+    plotOptions: {
+      column: {
+        borderRadius: 6,
+        borderWidth: 0,
+        pointPadding: 0.08,
+        groupPadding: 0.16
+      },
+      spline: {
+        lineWidth: 2.2,
+        marker: { enabled: true, radius: 4 }
+      }
+    },
+    series: [
+      { type: "column", name: "Revenue share (%)", data: revShare, color: "#5b9bff" },
+      { type: "column", name: "Non-billable no-show (%)", data: noShow, color: "#ff6f78" },
+      { type: "spline", name: "Revenue / KL ($)", yAxis: 1, data: revPerKl, color: "#35d39c" }
+    ]
+  })
+}
+
+onMounted(async () => {
+  await ensureHighcharts()
+  renderChart()
+})
+
+watch(
+  [() => props.modes],
+  () => {
+    renderChart()
+  },
+  { deep: true }
+)
+
+onBeforeUnmount(() => {
+  if (hcChart) hcChart.destroy()
+})
 </script>
 
 <template>
@@ -88,11 +200,18 @@ function nsTone(mode: Mode): string {
       </p>
     </header>
 
-    <div v-if="loading" class="ops-panel__status">Loading mode mix…</div>
+    <div v-if="loading" class="ops-panel__status ops-panel__status--skeleton" aria-live="polite">
+      <div class="skeleton skeleton-line" />
+      <div class="skeleton skeleton-block" />
+    </div>
     <div v-else-if="error" class="ops-panel__status ops-panel__status--error">{{ error }}</div>
     <div v-else-if="!modes.length" class="ops-panel__status">No mode data. Run the operational EDA notebook.</div>
 
-    <ul v-else class="mode-list">
+    <template v-else>
+      <div class="chart-wrap">
+        <div ref="chartEl" class="mode-chart" />
+      </div>
+      <ul class="mode-list">
       <li v-for="m in baseModes" :key="m.mode" class="mode-card">
         <div class="mode-card__head">
           <div class="mode-card__name">{{ m.mode }}</div>
@@ -138,9 +257,9 @@ function nsTone(mode: Mode): string {
           </div>
         </dl>
       </li>
-    </ul>
+      </ul>
 
-    <div v-if="annotatedModes.length" class="securecare-block">
+      <div v-if="annotatedModes.length" class="securecare-block">
       <div class="panel-eyebrow">SecureCare stream</div>
       <ul class="mode-list mode-list--compact">
         <li v-for="m in annotatedModes" :key="m.mode" class="mode-card mode-card--securecare">
@@ -165,7 +284,8 @@ function nsTone(mode: Mode): string {
           <p v-if="m.note" class="mode-note">{{ m.note }}</p>
         </li>
       </ul>
-    </div>
+      </div>
+    </template>
   </section>
 </template>
 
@@ -188,6 +308,28 @@ function nsTone(mode: Mode): string {
   font-size: 0.9rem;
 }
 .ops-panel__status--error { color: var(--red); }
+.ops-panel__status--skeleton {
+  display: grid;
+  gap: 8px;
+}
+.chart-wrap {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.mode-chart {
+  width: 100%;
+  min-height: 290px;
+}
+.skeleton-line {
+  height: 12px;
+  width: 60%;
+}
+.skeleton-block {
+  height: 170px;
+}
 
 .mode-list {
   list-style: none;
@@ -207,6 +349,11 @@ function nsTone(mode: Mode): string {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.mode-card:hover {
+  border-color: color-mix(in srgb, var(--blue) 28%, var(--line));
+  transform: translateY(-1px);
 }
 .mode-card--securecare {
   border-color: color-mix(in srgb, var(--teal) 40%, var(--line));

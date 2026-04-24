@@ -118,6 +118,9 @@ const metrics: MetricSpec[] = [
 
 const activeKey = ref<MetricKey>("vehicle_usage")
 const activeSpec = computed<MetricSpec>(() => metrics.find((m) => m.key === activeKey.value) ?? metrics[0])
+const chartEl = ref<HTMLElement | null>(null)
+let hcLib: any = null
+let hcChart: any = null
 
 function fmtValue(spec: MetricSpec, v: number | null): string {
   if (v === null || v === undefined) return "—"
@@ -141,36 +144,122 @@ function deltaTone(spec: MetricSpec, delta: number | null): string {
   return improving ? "pass" : "fail"
 }
 
-const activeSeries = computed(() => props.weeks.map((w) => ({ week: w.week, value: w[activeSpec.value.key] as number | null })))
-const wowSeries = computed(() =>
-  props.weeks.map((w) => ({ week: w.week, value: w[`${activeSpec.value.key}_wow` as keyof Week] as number | null }))
+async function ensureHighcharts() {
+  if (!import.meta.client) return
+  if (!hcLib) hcLib = (await import("highcharts")).default
+}
+
+function renderChart() {
+  if (!import.meta.client || !hcLib || !chartEl.value) return
+  if (!props.weeks.length) return
+  const spec = activeSpec.value
+  const categories = props.weeks.map((w) => w.week)
+  const values = props.weeks.map((w) => w[spec.key] as number | null)
+  const wow = props.weeks.map((w) => w[`${spec.key}_wow` as keyof Week] as number | null)
+  const pct = spec.format === "pct"
+  const money = spec.format === "currency"
+  const ratio = spec.format === "ratio"
+  if (hcChart) hcChart.destroy()
+  hcChart = hcLib.chart(chartEl.value, {
+    chart: {
+      type: "line",
+      backgroundColor: "transparent",
+      spacingTop: 18,
+      spacingRight: 18,
+      spacingLeft: 8,
+      spacingBottom: 8,
+      animation: { duration: 260 }
+    },
+    title: { text: undefined },
+    credits: { enabled: false },
+    legend: { enabled: true, itemStyle: { color: "#98a4b7", fontSize: "11px" } },
+    xAxis: {
+      categories,
+      lineColor: "rgba(152,164,183,0.25)",
+      tickColor: "rgba(152,164,183,0.25)",
+      labels: { style: { color: "#98a4b7", fontSize: "11px" } }
+    },
+    yAxis: [{
+      title: { text: undefined },
+      gridLineColor: "rgba(152,164,183,0.16)",
+      labels: {
+        style: { color: "#98a4b7", fontSize: "11px" },
+        formatter: function (this: any) {
+          const v = Number(this.value)
+          if (pct) return `${(v * 100).toFixed(0)}%`
+          if (money) return `$${v.toFixed(0)}`
+          if (ratio) return v.toFixed(2)
+          return String(v)
+        }
+      },
+      plotLines: [{
+        value: spec.target,
+        color: "rgba(255,203,5,0.9)",
+        width: 1.4,
+        dashStyle: "Dash",
+        zIndex: 5,
+        label: {
+          text: `Target ${spec.comparator === "ge" ? "≥" : "≤"} ${fmtValue(spec, spec.target)}`,
+          align: "right",
+          style: { color: "#ffc873", fontWeight: "700", fontSize: "10px" }
+        }
+      }]
+    }],
+    tooltip: {
+      shared: true,
+      borderColor: "rgba(152,164,183,0.28)",
+      backgroundColor: "rgba(15,20,28,0.95)",
+      style: { color: "#f4f7fb" },
+      formatter: function (this: any) {
+        const idx = this.points?.[0]?.point?.index ?? 0
+        const week = categories[idx] ?? ""
+        const val = values[idx]
+        const d = wow[idx]
+        const vText = fmtValue(spec, val)
+        const dText = d == null ? "—" : fmtDelta(spec, d)
+        return `<b>${week}</b><br/>${spec.label}: <b>${vText}</b><br/>WoW: <b>${dText}</b>`
+      }
+    },
+    plotOptions: {
+      series: {
+        animation: { duration: 250 },
+        marker: { enabled: true, radius: 4, lineWidth: 1.5, lineColor: "#121720" }
+      }
+    },
+    series: [
+      {
+        type: "line",
+        name: spec.label,
+        color: "#5b9bff",
+        data: values.map((v) => (v == null ? null : Number(v)))
+      },
+      {
+        type: "column",
+        name: "WoW delta",
+        yAxis: 0,
+        color: "rgba(53,211,156,0.42)",
+        data: wow.map((v) => (v == null ? null : Number(v))),
+        visible: false
+      }
+    ]
+  })
+}
+
+onMounted(async () => {
+  await ensureHighcharts()
+  renderChart()
+})
+
+watch(
+  [() => props.weeks, activeKey],
+  () => {
+    renderChart()
+  },
+  { deep: true }
 )
 
-// Chart geometry
-const svgWidth = 640
-const svgHeight = 200
-const padX = 32
-const padY = 22
-
-const chart = computed(() => {
-  const series = activeSeries.value
-  const values = series.map((s) => s.value).filter((v): v is number => v !== null && Number.isFinite(v))
-  if (!values.length) return { path: "", points: [] as Array<{ x: number; y: number; w: string; v: number | null }>, yMin: 0, yMax: 1, targetY: padY }
-  const yMin = Math.min(activeSpec.value.target, ...values) * 0.92
-  const yMax = Math.max(activeSpec.value.target, ...values) * 1.08
-  const range = Math.max(1e-9, yMax - yMin)
-  const step = series.length > 1 ? (svgWidth - padX * 2) / (series.length - 1) : 0
-  const points = series.map((s, i) => {
-    const x = padX + step * i
-    const y = s.value === null ? padY : svgHeight - padY - ((s.value - yMin) / range) * (svgHeight - padY * 2)
-    return { x, y, w: s.week, v: s.value }
-  })
-  const valid = points.filter((p) => p.v !== null)
-  const path = valid
-    .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
-    .join(" ")
-  const targetY = svgHeight - padY - ((activeSpec.value.target - yMin) / range) * (svgHeight - padY * 2)
-  return { path, points, yMin, yMax, targetY }
+onBeforeUnmount(() => {
+  if (hcChart) hcChart.destroy()
 })
 </script>
 
@@ -187,7 +276,10 @@ const chart = computed(() => {
       <h2>Week-over-week performance</h2>
     </header>
 
-    <div v-if="loading" class="ops-panel__status">Loading weekly trend…</div>
+    <div v-if="loading" class="ops-panel__status ops-panel__status--skeleton" aria-live="polite">
+      <div class="skeleton skeleton-line" />
+      <div class="skeleton skeleton-chart" />
+    </div>
     <div v-else-if="error" class="ops-panel__status ops-panel__status--error">{{ error }}</div>
     <div v-else-if="!weeks.length" class="ops-panel__status">No weekly data. Run the operational EDA notebook.</div>
 
@@ -210,23 +302,7 @@ const chart = computed(() => {
       <p class="metric-desc">{{ activeSpec.description }}</p>
 
       <div class="chart-wrap">
-        <svg :viewBox="`0 0 ${svgWidth} ${svgHeight}`" preserveAspectRatio="xMidYMid meet" class="trend-svg" aria-hidden="true">
-          <line
-            :x1="padX"
-            :x2="svgWidth - padX"
-            :y1="chart.targetY"
-            :y2="chart.targetY"
-            class="trend-target"
-          />
-          <text :x="svgWidth - padX" :y="chart.targetY - 6" text-anchor="end" class="trend-target-label">
-            Target {{ activeSpec.comparator === 'ge' ? '≥' : '≤' }} {{ fmtValue(activeSpec, activeSpec.target) }}
-          </text>
-          <path :d="chart.path" class="trend-line" />
-          <g>
-            <circle v-for="(p, i) in chart.points" :key="i" :cx="p.x" :cy="p.y" r="4" class="trend-dot" :data-missing="p.v === null ? 'true' : 'false'" />
-            <text v-for="(p, i) in chart.points" :key="`lbl-${i}`" :x="p.x" :y="svgHeight - 4" text-anchor="middle" class="trend-xlabel">{{ p.w }}</text>
-          </g>
-        </svg>
+        <div ref="chartEl" class="trend-chart" />
       </div>
 
       <ul class="wow-grid">
@@ -264,6 +340,17 @@ const chart = computed(() => {
   font-size: 0.9rem;
 }
 .ops-panel__status--error { color: var(--red); }
+.ops-panel__status--skeleton {
+  display: grid;
+  gap: 8px;
+}
+.skeleton-line {
+  height: 12px;
+  width: 56%;
+}
+.skeleton-chart {
+  height: 210px;
+}
 
 .metric-picker {
   display: flex;
@@ -305,43 +392,15 @@ const chart = computed(() => {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 10px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
-.trend-svg {
+.chart-wrap:hover {
+  border-color: color-mix(in srgb, var(--blue) 28%, var(--line));
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--blue) 16%, transparent);
+}
+.trend-chart {
   width: 100%;
-  height: auto;
-  display: block;
-}
-.trend-line {
-  fill: none;
-  stroke: var(--blue);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.trend-dot {
-  fill: var(--blue);
-  stroke: var(--surface);
-  stroke-width: 2;
-}
-.trend-dot[data-missing="true"] {
-  fill: var(--line-strong);
-}
-.trend-target {
-  stroke: var(--maize);
-  stroke-width: 1.4;
-  stroke-dasharray: 4 4;
-  opacity: 0.7;
-}
-.trend-target-label {
-  font-size: 10px;
-  fill: var(--maize-ink, var(--muted));
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.trend-xlabel {
-  font-size: 10px;
-  fill: var(--muted);
+  min-height: 260px;
 }
 
 .wow-grid {
